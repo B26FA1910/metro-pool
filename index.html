@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metropool Billiard Club — Сансар</title>
+<meta name="description" content="Metropool Billiard Club Сансар — 24 цаг, 7 хоног нээлттэй пул биллиардын клуб. 8-ball, 9-ball, 10-ball тоглоомын дүрэм, эхлэгчдэд зориулсан зөвлөгөө. Утас: 8006 1460.">
+<meta name="theme-color" content="#0E1C33">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23141414'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23F3EFE4'/%3E%3Ctext x='16' y='20.4' font-size='11' font-family='Arial' font-weight='700' text-anchor='middle' fill='%23141414'%3E8%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --hall:#0E1C33; --hall-2:#112440; --hall-3:#1A3359;
+  --felt:#1D58A6; --felt-deep:#123E7A; --felt-light:#2F73C8;
+  --walnut:#4A2C1D;
+  --ivory:#F2EEE3; --muted:#A7B4CA; --faint:#7686A3;
+  --chalk:#8CBCF0; --yellow:#F5B700; --green:#2FA36B;
+  --line:rgba(242,238,227,.13);
+  --display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --text:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--hall);color:var(--ivory);font-family:var(--text);font-size:1.0625rem;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,svg,canvas{display:block}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--chalk);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- header ---------- */
+.top{position:fixed;inset:0 0 auto;z-index:30;border-bottom:1px solid transparent;transition:background .35s,border-color .35s,backdrop-filter .35s}
+.top.scrolled{background:rgba(14,28,51,.8);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-color:var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
+.brand em{font-style:normal;font-family:var(--text);font-weight:500;font-size:.85rem;color:var(--muted);letter-spacing:0}
+.top nav{display:flex;gap:22px;margin-left:auto}
+.top nav a{text-decoration:none;color:var(--muted);font-size:.95rem;transition:color .2s}
+.top nav a:hover{color:var(--ivory)}
+.status{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--muted);padding:6px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+.status b{font-weight:500;color:var(--ivory)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:ping 2.2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(47,163,107,.55)}70%{box-shadow:0 0 0 8px rgba(47,163,107,0)}100%{box-shadow:0 0 0 0 rgba(47,163,107,0)}}
+.call{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;background:var(--yellow);color:#1b1604;font-weight:600;font-size:.92rem;text-decoration:none;white-space:nowrap;transition:transform .2s var(--ease),background .2s}
+.call:hover{background:#FFC620;transform:translateY(-1px)}
+.call svg{width:16px;height:16px}
+@media (min-width:901px) and (max-width:1180px){.status{display:none}}
+@media (max-width:900px){.top nav{display:none}.status{margin-left:auto}}
+@media (max-width:520px){.brand em{display:none}.call span{display:none}.call{width:38px;padding:0;justify-content:center}.status{padding:6px 10px}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;isolation:isolate;min-height:100svh;display:grid;align-items:center;padding:112px 0 72px}
+.lamp{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(48% 52% at 69% 50%,rgba(255,224,160,.17),rgba(255,224,160,.05) 55%,transparent 75%)}
+.js .lamp,.js .lampbar::after{animation:lampOn 1.15s .15s backwards}
+.js .canvas-box{animation:tableOn 1.15s .15s backwards}
+@keyframes lampOn{0%{opacity:0}10%{opacity:.85}16%{opacity:.12}28%{opacity:1}34%{opacity:.5}46%,100%{opacity:1}}
+@keyframes tableOn{0%{filter:brightness(.16)}10%{filter:brightness(.85)}16%{filter:brightness(.28)}28%{filter:brightness(1)}34%{filter:brightness(.6)}46%,100%{filter:brightness(1)}}
+.hero-grid{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,13fr);gap:clamp(36px,5vw,72px);align-items:center}
+.hl{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,1rem + 2.9vw,3.6rem);line-height:1.08;letter-spacing:-.025em}
+.hl .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hl .ln>span{display:block}
+.js .hl .ln>span{animation:rise 1s var(--ease) backwards}
+.js .hl .ln:nth-child(1)>span{animation-delay:.5s}
+.js .hl .ln:nth-child(2)>span{animation-delay:.64s}
+@keyframes rise{from{transform:translateY(108%)}}
+.lede{margin-top:26px;max-width:42ch;color:var(--muted);font-size:1.125rem}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.js .lede{animation:fadeUp .9s .9s var(--ease) backwards}
+.js .ctas{animation:fadeUp .9s 1.02s var(--ease) backwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform .25s var(--ease),background .25s,border-color .25s}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--yellow);color:#1b1604}
+.btn-primary:hover{background:#FFC620;transform:translateY(-2px)}
+.btn-ghost{border:1px solid rgba(242,238,227,.28)}
+.btn-ghost:hover{border-color:var(--chalk);transform:translateY(-2px)}
+
+.table{position:relative}
+.lampbar{position:relative;width:58%;height:12px;margin:0 auto 22px;border-radius:7px;background:#25324B;box-shadow:inset 0 -1px 0 rgba(255,255,255,.08)}
+.lampbar::before{content:"";position:absolute;left:18%;right:18%;bottom:100%;height:64px;border-inline:1px solid rgba(242,238,227,.18)}
+.lampbar::after{content:"";position:absolute;left:4%;right:4%;top:6px;height:6px;border-radius:0 0 6px 6px;background:#FFF1CF;box-shadow:0 8px 34px 8px rgba(255,224,160,.32)}
+.canvas-box{border-radius:14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6),0 12px 24px -12px rgba(0,0,0,.5)}
+#pool{width:100%;border-radius:14px;touch-action:none;cursor:crosshair}
+#pool:focus-visible{outline-offset:4px}
+.table-ui{display:grid;gap:12px;margin-top:18px}
+.hint{min-height:1.6em;color:var(--muted);font-size:.95rem}
+.power{height:4px;border-radius:4px;background:var(--line);overflow:hidden;opacity:0;transition:opacity .2s}
+.power.on{opacity:1}
+.power i{display:block;height:100%;width:calc(var(--p,0) * 100%);background:linear-gradient(90deg,var(--chalk),var(--yellow))}
+.tray-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tray{display:flex;flex-wrap:wrap;gap:4px;min-height:22px;flex:1 1 180px}
+.tray .ball{--s:22px;animation:pop .45s var(--ease)}
+@keyframes pop{from{transform:scale(0) rotate(-90deg)}}
+.count{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.btn-small{height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(242,238,227,.28);background:none;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s}
+.btn-small:hover{border-color:var(--chalk)}
+.btn-small.pulse{background:var(--yellow);color:#1b1604;border-color:var(--yellow)}
+@media (max-width:900px){
+  .hero{min-height:auto;padding-top:104px}
+  .hero-grid{grid-template-columns:1fr}
+  .lamp{background:radial-gradient(70% 40% at 50% 72%,rgba(255,224,160,.16),transparent 75%)}
+}
+
+/* ---------- pool ball (CSS) ---------- */
+.ball{--c:#F5B700;--s:56px;position:relative;display:inline-grid;place-items:center;flex:none;width:var(--s);height:var(--s);border-radius:50%;font-size:calc(var(--s) * .27);background:var(--c);box-shadow:inset calc(var(--s) * -.1) calc(var(--s) * -.14) calc(var(--s) * .24) rgba(0,0,0,.38)}
+.ball.st{background:linear-gradient(#F3EFE4 0 23%,var(--c) 23% 77%,#F3EFE4 77%)}
+.ball::after{content:attr(data-n);display:grid;place-items:center;width:46%;height:46%;border-radius:50%;background:#F3EFE4;color:#16181C;font-weight:700;line-height:1}
+.ball::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:1;background:radial-gradient(circle at 33% 27%,rgba(255,255,255,.62),rgba(255,255,255,0) 30%)}
+
+/* ---------- ticker ---------- */
+.ticker{overflow:hidden;border-block:1px solid var(--line);background:var(--hall-2);padding:16px 0}
+.ticker-track{display:flex;width:max-content}
+.js .ticker-track{animation:marq 42s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-group{display:flex;align-items:center}
+.ticker-group span{font-family:var(--display);font-weight:500;font-size:clamp(.95rem,.8rem + .5vw,1.15rem);white-space:nowrap;padding-inline:22px}
+.ticker-group .ball{--s:14px}
+.ticker-group .ball::after{display:none}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+.sec{padding-block:clamp(4.5rem,3rem + 6vw,8.5rem);scroll-margin-top:60px}
+.h2{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,1.05rem + 2.4vw,2.9rem);line-height:1.13;letter-spacing:-.02em;max-width:20ch}
+.h2>span{display:block}
+.intro{margin-top:18px;max-width:52ch;color:var(--muted);font-size:1.125rem}
+h3{font-size:1.15rem;font-weight:600;line-height:1.35}
+.js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js [data-reveal].in{opacity:1;transform:none}
+.js .h2[data-reveal]{opacity:1;transform:none}
+.js .h2[data-reveal]>span{clip-path:inset(100% 0 -12% 0);transform:translateY(.45em);transition:clip-path 1s var(--ease),transform 1s var(--ease)}
+.js .h2[data-reveal].in>span{clip-path:inset(-12% 0 -12% 0);transform:none}
+
+/* ---------- tables ---------- */
+.tables-grid{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.2vw,30px);margin-top:clamp(36px,5vw,56px)}
+.tcard{display:block;width:100%;padding:0;border:0;background:none;text-align:left;cursor:pointer;border-radius:18px}
+.tcap{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;font-weight:600;font-size:1.05rem}
+.tcap svg{width:18px;height:18px;color:var(--faint);transition:color .25s,transform .4s var(--ease)}
+.tcard:hover .tcap svg,.tcard:focus-visible .tcap svg{color:var(--chalk);transform:scale(1.15)}
+.tphoto{container-type:inline-size;position:relative;display:block;aspect-ratio:4/3;overflow:hidden;isolation:isolate;border-radius:18px;border:1px solid var(--line);background:radial-gradient(85% 75% at 50% 58%,#192C4E,#0A1425 78%);transition:border-color .3s}
+.tcard:hover .tphoto,.tcard:focus-visible .tphoto{border-color:rgba(140,188,240,.4)}
+.tphoto>span{position:absolute}
+.tglow{inset:0;background:radial-gradient(48% 42% at 50% 54%,rgba(255,226,170,.2),rgba(255,226,170,.05) 62%,transparent 82%)}
+.tlamp{left:24%;right:24%;top:9%;height:6.4cqw;z-index:3;display:grid;place-items:center;border-radius:1.4cqw 1.4cqw .7cqw .7cqw;background:linear-gradient(#36455F,#212C44);box-shadow:0 1cqw 2.4cqw rgba(0,0,0,.4)}
+.tlamp::before{content:"";position:absolute;left:22%;right:22%;bottom:100%;height:14cqw;border-inline:1px solid rgba(242,238,227,.16)}
+.tlamp::after{content:"";position:absolute;left:5%;right:5%;top:100%;height:.9cqw;border-radius:0 0 1cqw 1cqw;background:#FFF1CF;box-shadow:0 1.4cqw 7cqw 2.2cqw rgba(255,224,160,.36)}
+.tlamp b{font-family:var(--display);font-weight:700;font-size:3.2cqw;line-height:1;color:rgba(242,238,227,.82)}
+.tshadow{left:7%;right:7%;top:69%;height:22%;z-index:1;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.62),transparent)}
+.tstage{left:7%;right:7%;top:26%;z-index:2;perspective:170cqw}
+.t3{position:relative;display:block;transform-style:preserve-3d;transform:rotateX(var(--rx,50deg)) rotateZ(var(--rz,0deg));transition:transform .8s var(--ease)}
+.t3 canvas{display:block;width:100%;height:auto}
+.apron{position:absolute;display:block}
+.apron.f{left:1.4%;right:1.4%;top:99.4%;height:10%;transform-origin:50% 0;transform:rotateX(-90deg);background:linear-gradient(#55331F,#26150C);border-radius:0 0 .5cqw .5cqw}
+.apron.l,.apron.r{top:3%;bottom:3%;width:5.5%;background:linear-gradient(90deg,#2E1A10,#3A2215)}
+.apron.l{right:99.4%;transform-origin:100% 50%;transform:rotateY(-90deg)}
+.apron.r{left:99.4%;transform-origin:0 50%;transform:rotateY(90deg)}
+.tdark{inset:0;z-index:4;background:#050B16;opacity:.84;pointer-events:none}
+.tables-grid.lit .tdark{animation:lampDark 1.15s var(--d,0s) forwards}
+@keyframes lampDark{0%{opacity:.84}10%{opacity:.12}16%{opacity:.72}28%{opacity:0}34%{opacity:.42}46%,100%{opacity:0}}
+.treal{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tphoto.big{border:0;border-radius:0}
+.tphoto.big .t3{animation:settle 1s var(--ease)}
+@keyframes settle{from{transform:rotateX(70deg) rotateZ(-9deg) scale(.88)}}
+@media (max-width:900px){.tables-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){
+  .tables-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px;padding:0 16px 6px;scroll-padding-inline:16px}
+  .tables-grid::-webkit-scrollbar{display:none}
+  .tables-grid>li{scroll-snap-align:start}
+}
+
+/* ---------- table dialog ---------- */
+html:has(dialog[open]){overflow:hidden}
+.tdialog{margin:auto;width:min(1080px,calc(100% - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--line);border-radius:24px;background:var(--hall-2);color:var(--ivory);overflow:auto}
+.tdialog::backdrop{background:rgba(4,9,18,.76);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.tdialog[open]{animation:dlgIn .45s var(--ease)}
+.tdialog[open]::backdrop{animation:fadeIn .45s ease}
+.tdialog.closing{animation:dlgOut .2s ease forwards}
+.tdialog.closing::backdrop{animation:fadeOut .2s ease forwards}
+@keyframes dlgIn{from{opacity:0;transform:translateY(18px) scale(.96)}}
+@keyframes dlgOut{to{opacity:0;transform:translateY(10px) scale(.97)}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes fadeOut{to{opacity:0}}
+.td-wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 340px}
+.td-side{display:flex;flex-direction:column;gap:18px;padding:clamp(28px,3vw,40px) clamp(22px,3vw,36px)}
+.td-title{font-family:var(--display);font-weight:700;font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem);line-height:1.1;letter-spacing:-.02em;padding-right:44px}
+.td-text{color:var(--muted)}
+.td-side .btn{align-self:flex-start;white-space:nowrap}
+.td-nav{display:flex;align-items:center;gap:14px;margin-top:auto;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums}
+.td-arrow,.td-close{display:grid;place-items:center;border-radius:50%;cursor:pointer;transition:border-color .2s,background .2s}
+.td-arrow{width:44px;height:44px;border:1px solid rgba(242,238,227,.28);background:none}
+.td-arrow:hover{border-color:var(--chalk)}
+.td-arrow svg,.td-close svg{width:20px;height:20px}
+.td-close{position:absolute;top:14px;right:14px;z-index:5;width:42px;height:42px;border:1px solid var(--line);background:rgba(14,28,51,.75)}
+.td-close:hover{border-color:var(--chalk)}
+@media (max-width:760px){.td-wrap{grid-template-columns:1fr}.td-nav{margin-top:4px}}
+
+/* ---------- games ---------- */
+.games{background:linear-gradient(var(--hall),var(--hall-2))}
+.games-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(36px,6vw,90px);align-items:center}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:32px 0 26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 20px 12px;border-radius:18px;border:1px solid transparent;background:none;color:var(--muted);font-weight:600;font-size:.95rem;cursor:pointer;transition:background .3s,border-color .3s,color .3s}
+.tab:hover{color:var(--ivory)}
+.tab .ball{transition:transform .6s var(--ease)}
+.tab:hover .ball{transform:rotate(-10deg)}
+.tab[aria-selected="true"]{background:var(--hall-3);border-color:var(--line);color:var(--ivory)}
+.tab[aria-selected="true"] .ball{transform:rotate(-18deg) scale(1.08)}
+.rules-lead{font-size:1.2rem;font-weight:500;max-width:46ch}
+.rules dl{display:grid;margin-top:22px}
+.rules dl>div{display:grid;grid-template-columns:9rem minmax(0,1fr);gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+.rules dt{color:var(--chalk);font-weight:600}
+.rules dd{margin:0;max-width:56ch}
+.rules.swap{animation:swapIn .5s var(--ease)}
+@keyframes swapIn{from{opacity:0;transform:translateY(10px)}}
+.rack-fig{justify-self:center;width:100%;max-width:460px}
+#rack{width:100%;height:auto;overflow:visible}
+#rack .rb{transition:transform .75s var(--ease),opacity .45s ease}
+.rack-fig figcaption{margin-top:14px;text-align:center;color:var(--muted);font-size:.95rem}
+@media (max-width:900px){
+  .games-grid{grid-template-columns:1fr}
+  .rack-fig{order:2;max-width:380px}
+}
+@media (max-width:560px){
+  .rules dl>div{grid-template-columns:1fr;gap:4px}
+  .tab{padding:12px 14px 10px}
+  .tab .ball{--s:46px}
+}
+
+/* ---------- learn ---------- */
+.learn-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(36px,6vw,96px);align-items:start}
+.learn-side{position:sticky;top:110px}
+.chalk{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;margin-top:36px;padding:22px;border-radius:16px;background:rgba(140,188,240,.08);border:1px solid rgba(140,188,240,.22)}
+.chalk svg{width:44px;height:44px}
+.chalk p{margin-top:6px;color:var(--muted);font-size:.98rem}
+.steps{list-style:none;padding:0;position:relative;display:grid;gap:clamp(30px,4vw,46px)}
+.steps::before,.steps::after{content:"";position:absolute;left:21px;top:10px;width:2px;border-radius:2px}
+.steps::before{bottom:10px;background:var(--line)}
+.steps::after{height:calc(var(--prog,0) * (100% - 20px));background:linear-gradient(var(--yellow),var(--green))}
+.steps li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:22px}
+.mk{--c:#F5B700;position:relative;z-index:1;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:2px solid rgba(242,238,227,.2);background:var(--hall);transition:background .5s,border-color .5s,box-shadow .5s,transform .6s var(--ease)}
+.mk span{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;font-weight:700;font-size:.85rem;color:var(--muted);transition:background .5s,color .5s}
+.steps li.on .mk{background:var(--c);border-color:var(--c);transform:rotate(-12deg);box-shadow:inset -5px -7px 12px rgba(0,0,0,.35)}
+.steps li.on .mk span{background:#F3EFE4;color:#16181C}
+.steps p{margin-top:6px;color:var(--muted);max-width:52ch}
+@media (max-width:900px){.learn-grid{grid-template-columns:1fr}.learn-side{position:static}}
+
+/* ---------- etiquette ---------- */
+.etiquette{background:var(--hall-2)}
+.etiq-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:56px;margin-top:44px}
+.etiq-list li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:18px;padding:22px 0;border-top:1px solid var(--line)}
+.etiq-list li::before{content:"";width:9px;height:9px;margin-top:.62em;background:var(--ivory);opacity:.7;transform:rotate(45deg)}
+.etiq-list b{display:block;font-weight:600}
+.etiq-list span{color:var(--muted)}
+@media (max-width:760px){.etiq-list{grid-template-columns:1fr}}
+
+/* ---------- prices ---------- */
+.prices-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(36px,6vw,90px);align-items:center}
+.note{margin-top:22px;max-width:44ch;color:var(--muted);font-size:.98rem}
+.note a{color:var(--chalk);text-underline-offset:3px}
+.felt-card{position:relative;border:12px solid var(--walnut);border-radius:22px;padding:clamp(20px,3vw,34px);background:radial-gradient(120% 90% at 50% 40%,var(--felt-light),var(--felt) 55%,var(--felt-deep));box-shadow:inset 0 0 0 2px rgba(0,0,0,.18),0 30px 60px -24px rgba(0,0,0,.6)}
+.price-list{list-style:none;padding:0}
+.price-list li{display:flex;align-items:baseline;gap:12px;padding:18px 0;border-bottom:1px solid rgba(242,238,227,.16)}
+.price-list li:last-child{border-bottom:0}
+.price-list .nm{font-weight:600}
+.price-list .nm small{display:block;font-weight:400;color:rgba(242,238,227,.72);font-size:.88rem}
+.price-list i{flex:1;min-width:20px;border-bottom:2px dotted rgba(242,238,227,.35);transform:translateY(-5px)}
+.price-list b{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,.9rem + .8vw,1.45rem);white-space:nowrap}
+.price-list b small{font-family:var(--text);font-weight:500;font-size:.8rem;color:rgba(242,238,227,.75)}
+@media (max-width:900px){.prices-grid{grid-template-columns:1fr}}
+
+/* ---------- visit ---------- */
+.visit{position:relative;overflow:hidden}
+.now{margin-top:16px;color:var(--muted);font-size:1.125rem}
+.now time{color:var(--ivory);font-variant-numeric:tabular-nums}
+.bigphone{display:inline-flex;margin:clamp(28px,4vw,44px) 0 clamp(40px,6vw,64px);font-family:var(--display);font-weight:700;font-size:clamp(3rem,.8rem + 10vw,9.5rem);line-height:1.1;letter-spacing:-.035em;text-decoration:none;transition:color .3s}
+.bigphone:hover{color:var(--yellow)}
+.dg{display:inline-block;height:1.1em;overflow:hidden}
+.dg .col{display:block;transition:transform 1.7s var(--ease)}
+.dg .col span{display:block;height:1.1em}
+.bigphone.in .dg .col{transform:translateY(calc(var(--i) * -1.1em))}
+.gap{display:inline-block;width:.32em}
+.visit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;padding-top:32px;border-top:1px solid var(--line)}
+.visit-grid p{margin-top:8px;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:14px}
+.links a{color:var(--chalk);font-weight:500;text-underline-offset:4px;text-decoration-thickness:1px}
+.links a:hover{color:var(--ivory)}
+@media (max-width:760px){.visit-grid{grid-template-columns:1fr;gap:26px}}
+
+footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--faint);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  .js .ticker-track{animation:none}
+  .ticker{overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#hero" aria-label="Metropool Billiard Club, нүүр хуудас">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><defs><clipPath id="bm"><circle cx="15" cy="15" r="14"/></clipPath></defs><circle cx="15" cy="15" r="14" fill="#F3EFE4"/><rect x="0" y="8" width="30" height="14" fill="#F5B700" clip-path="url(#bm)"/><circle cx="15" cy="15" r="5.6" fill="#F3EFE4"/><text x="15" y="18.3" font-size="8.6" font-weight="700" text-anchor="middle" fill="#16181C" font-family="Golos Text, Arial, sans-serif">9</text></svg>
+      Metropool <em>Сансар</em>
+    </a>
+    <nav aria-label="Үндсэн цэс">
+      <a href="#tables">Ширээ</a>
+      <a href="#games">Тоглоом</a>
+      <a href="#learn">Эхлэгчдэд</a>
+      <a href="#etiquette">Ширээний соёл</a>
+      <a href="#prices">Үнэ</a>
+      <a href="#visit">Холбогдох</a>
+    </nav>
+    <span class="status" title="24 цаг нээлттэй"><i class="dot" aria-hidden="true"></i><b>Нээлттэй</b><time data-clock>--:--</time></span>
+    <a class="call" href="tel:+97680061460" aria-label="8006 1460 руу залгах">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+      <span>8006 1460</span>
+    </a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="hero">
+  <div class="lamp" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1 class="hl"><span class="ln"><span>Сансарт, шөнө дунд ч</span></span><span class="ln"><span>ширээ тань бэлэн.</span></span></h1>
+      <p class="lede">Metropool Billiard Club бол Сансарт байрлах пул биллиардын клуб. Бид 24 цаг, долоо хоногийн 7 өдөр нээлттэй — өглөө ч, шөнө ч ирээд тоглоорой.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Залгах: 8006 1460</a>
+        <a class="btn btn-ghost" href="#games">Тоглоомын дүрэм</a>
+      </div>
+    </div>
+
+    <figure class="table">
+      <div class="lampbar" aria-hidden="true"></div>
+      <div class="canvas-box">
+        <canvas id="pool" tabindex="0" role="img" aria-label="Интерактив пул ширээ. Ширээн дээр дараад чирж онилж, тавихад цагаан бөмбөг цохигдоно. Гараас: сумаар чиглэл ба хүчийг тохируулж, Enter дарж цохино."></canvas>
+      </div>
+      <figcaption class="table-ui">
+        <p class="hint" id="hint" aria-live="polite">&nbsp;</p>
+        <div class="power" id="power" aria-hidden="true"><i></i></div>
+        <div class="tray-row">
+          <div class="tray" id="tray" aria-label="Халаасанд орсон бөмбөгнүүд"></div>
+          <span class="count" id="count">Халаасанд: 0 / 15</span>
+          <button class="btn-small" id="rerack" type="button">Дахин өрөх</button>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-group">
+      <span>24 цаг нээлттэй</span><i class="ball" style="--c:#F5B700"></i>
+      <span>8-ball</span><i class="ball" style="--c:#2453C9"></i>
+      <span>9-ball</span><i class="ball" style="--c:#D8313F"></i>
+      <span>10-ball</span><i class="ball" style="--c:#6A2C91"></i>
+      <span>Сансар, Улаанбаатар</span><i class="ball" style="--c:#F07B1C"></i>
+      <span>8006 1460</span><i class="ball" style="--c:#1E8C4E"></i>
+      <span>Найзуудаа дагуулаад ир</span><i class="ball" style="--c:#141414"></i>
+      <span>6 ширээ</span><i class="ball" style="--c:#8A2430"></i>
+    </div>
+    <div class="ticker-group">
+      <span>24 цаг нээлттэй</span><i class="ball" style="--c:#F5B700"></i>
+      <span>8-ball</span><i class="ball" style="--c:#2453C9"></i>
+      <span>9-ball</span><i class="ball" style="--c:#D8313F"></i>
+      <span>10-ball</span><i class="ball" style="--c:#6A2C91"></i>
+      <span>Сансар, Улаанбаатар</span><i class="ball" style="--c:#F07B1C"></i>
+      <span>8006 1460</span><i class="ball" style="--c:#1E8C4E"></i>
+      <span>Найзуудаа дагуулаад ир</span><i class="ball" style="--c:#141414"></i>
+      <span>6 ширээ</span><i class="ball" style="--c:#8A2430"></i>
+    </div>
+  </div>
+</div>
+
+<section class="sec tables" id="tables">
+  <div class="wrap">
+    <h2 class="h2" data-reveal><span>Манай зургаан ширээ</span></h2>
+    <p class="intro" data-reveal>Ширээн дээр дарж томруулж үзээрэй. Тодорхой ширээнд тоглох бол урьдчилан залгаж захиалаарай.</p>
+    <ul class="tables-grid" id="tablesGrid" aria-label="Ширээнүүд"></ul>
+  </div>
+</section>
+
+<section class="sec games" id="games">
+  <div class="wrap games-grid">
+    <div class="games-copy">
+      <h2 class="h2" data-reveal><span>Аль тоглоомыг тоглох вэ?</span></h2>
+      <p class="intro" data-reveal>Пул биллиардын хамгийн түгээмэл гурван тоглоом. Бөмбөг дээр дарж дүрэм, өрөлтийг нь үзээрэй.</p>
+      <div class="tabs" role="tablist" aria-label="Тоглоомын төрөл">
+        <button class="tab" role="tab" id="tab-8" data-game="8" aria-selected="true" aria-controls="gamePanel"><span class="ball" style="--c:#141414" data-n="8"></span>8-ball</button>
+        <button class="tab" role="tab" id="tab-9" data-game="9" aria-selected="false" aria-controls="gamePanel" tabindex="-1"><span class="ball st" style="--c:#F5B700" data-n="9"></span>9-ball</button>
+        <button class="tab" role="tab" id="tab-10" data-game="10" aria-selected="false" aria-controls="gamePanel" tabindex="-1"><span class="ball st" style="--c:#2453C9" data-n="10"></span>10-ball</button>
+      </div>
+      <div class="rules" id="gamePanel" role="tabpanel" aria-labelledby="tab-8">
+        <p class="rules-lead" id="gLead">Хамгийн түгээмэл тоглоом бөгөөд анх суралцагчдад хамгийн тохиромжтой.</p>
+        <dl>
+          <div><dt>Зорилго</dt><dd id="gGoal">1–7 дугаартай бүтэн өнгөтэй эсвэл 9–15 дугаартай судалтай бөмбөгийн аль нэг бүлгийг бүгдийг нь халаасалж, хамгийн сүүлд хар 8-ыг оруулна.</dd></div>
+          <div><dt>Өрөлт</dt><dd id="gRack">15 бөмбөгийг гурвалжинд өрнө. 8 дугаарыг гол дунд нь, арын хоёр буланд бүтэн өнгийн болон судалтай бөмбөгийг тус бүр нэгийг тавина.</dd></div>
+          <div><dt>Гол дүрэм</dt><dd id="gRule">Анхны цохилтын дараа ширээ нээлттэй байх бөгөөд эхэлж зөв оруулсан бөмбөгөөр тоглогчийн бүлэг тодорхойлогдоно. Өөрийн бүлгийн бөмбөгийг оруулсан бол дахин цохино.</dd></div>
+          <div><dt>Анхаарах зүйл</dt><dd id="gWatch">8-ыг хугацаанаас нь өмнө оруулах, эсвэл 8-тай хамт цагаан бөмбөгийг унагаавал тоглолтод шууд ялагдана.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <figure class="rack-fig" data-reveal>
+      <svg id="rack" viewBox="0 0 320 300" role="img" aria-labelledby="rackCap">
+        <defs>
+          <radialGradient id="feltG" cx="50%" cy="42%" r="70%"><stop offset="0" stop-color="#2F73C8"/><stop offset=".6" stop-color="#1D58A6"/><stop offset="1" stop-color="#123E7A"/></radialGradient>
+          <radialGradient id="shade" cx="32%" cy="28%" r="78%"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".22" stop-color="#fff" stop-opacity=".06"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".38"/></radialGradient>
+          <clipPath id="bclip"><circle r="14"/></clipPath>
+        </defs>
+        <rect x="6" y="6" width="308" height="288" rx="24" fill="#4A2C1D"/>
+        <rect x="18" y="18" width="284" height="264" rx="14" fill="url(#feltG)"/>
+        <circle cx="160" cy="58" r="2" fill="#F2EEE3" opacity=".5"/>
+        <line x1="40" x2="280" y1="228" y2="228" stroke="#F2EEE3" stroke-opacity=".16" stroke-dasharray="4 6"/>
+        <g id="rackBalls"></g>
+      </svg>
+      <figcaption id="rackCap">8-ball: 15 бөмбөгийг гурвалжинд өрнө</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec learn" id="learn">
+  <div class="wrap learn-grid">
+    <div class="learn-side">
+      <h2 class="h2" data-reveal><span>Анх удаа иш барьж байна уу?</span></h2>
+      <p class="intro" data-reveal>Сайн цохилт зургаан алхмаас бүрддэг. Ширээнд очихоосоо өмнө нэг уншаад гараарай.</p>
+      <aside class="chalk" data-reveal>
+        <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M8 16 22 9l14 7v14l-14 7-14-7z" fill="#5E95D6"/><path d="M8 16l14 7 14-7-14-7z" fill="#8CBCF0"/><path d="M22 23v14l-14-7V16z" fill="#4A7FC0"/><ellipse cx="22" cy="16" rx="6" ry="3" fill="#2E5E9C"/></svg>
+        <div>
+          <h3>Шохойгоо мартуузай</h3>
+          <p>Хоёр гурван цохилт тутамд ишнийхээ үзүүрт шохой түрхээрэй. Шохойгүй үзүүр бөмбөгөөс мултарч, цагаан бөмбөг хүссэн зүг рүүгээ явахгүй.</p>
+        </div>
+      </aside>
+    </div>
+
+    <ol class="steps" id="steps">
+      <li><span class="mk" style="--c:#F5B700"><span>1</span></span><div><h3>Байрлал</h3><p>Цохих шугамынхаа ард зогсоод урд хөлөө бага зэрэг нугална. Толгой тань иштэй нэг шугамд, нүд байн дээр байна.</p></div></li>
+      <li><span class="mk" style="--c:#2453C9"><span>2</span></span><div><h3>Гүүр</h3><p>Урд гараа ширээнд тулгаад эрхий, долоовор хуруугаараа ишийг тогтвортой чиглүүлнэ. Гүүр хөдлөхгүй байх нь нарийвчлалын үндэс.</p></div></li>
+      <li><span class="mk" style="--c:#D8313F"><span>3</span></span><div><h3>Барьц</h3><p>Арын гараараа ишийг сул барина. Хүчтэй атгавал цохилт хөшиж, бөмбөг хазайна.</p></div></li>
+      <li><span class="mk" style="--c:#6A2C91"><span>4</span></span><div><h3>Онилгоо</h3><p>Бай бөмбөгийг халаас руу оруулахын тулд цагаан бөмбөг яг хаана мөргөх ёстойг төсөөлж, тэр цэг рүү чиглүүлнэ.</p></div></li>
+      <li><span class="mk" style="--c:#F07B1C"><span>5</span></span><div><h3>Цохилт</h3><p>Зөвхөн тохойноос доош гараа савлуулна. Мөр, бие хөдлөхгүй — жигд, гулгуулсан цохилт хамгийн найдвартай.</p></div></li>
+      <li><span class="mk" style="--c:#1E8C4E"><span>6</span></span><div><h3>Дагалт</h3><p>Цохисны дараа ишийг шууд бүү татаарай. Урагш үргэлжлүүлж, бөмбөг зогстол байрлалаа хадгална.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec etiquette" id="etiquette">
+  <div class="wrap">
+    <h2 class="h2" data-reveal><span>Ширээний соёл</span></h2>
+    <p class="intro" data-reveal>Биллиард бол бие биенээ хүндэлдэг тоглоом. Хэдхэн энгийн дүрэм бүх хүний тоглолтыг тааламжтай болгоно.</p>
+    <ul class="etiq-list">
+      <li data-reveal><div><b>Өрсөлдөгчөө цохиж байхад чимээгүй</b><span>Ширээний ойролцоо зогсохгүй, онилгоонд нь саад болохгүй.</span></div></li>
+      <li data-reveal><div><b>Ширээн дээр суухгүй, юм тавихгүй</b><span>Ундаа, утсаа хажуугийн тавиур дээр тавина. Даавуу амархан гэмтдэг.</span></div></li>
+      <li data-reveal><div><b>Шохойг нүхтэй талаар нь дээш харуулна</b><span>Ингэвэл хүрээ, даавуу шохойгоор будагдахгүй.</span></div></li>
+      <li data-reveal><div><b>Алдаагаа өөрөө хэлнэ</b><span>Пул бол шударга тоглоом. Мэдсээр байж нуусан алдаа тоглолтыг сонирхолгүй болгодог.</span></div></li>
+      <li data-reveal><div><b>Тоглолтын өмнө, дараа гар барина</b><span>Ялсан ч, ялагдсан ч өрсөлдөгчдөө баярлалаа гэж хэлээрэй.</span></div></li>
+      <li data-reveal><div><b>Ширээгээ цэвэр үлдээнэ</b><span>Бөмбөг, гурвалжин, ишийг байранд нь буцааж дараагийн хүнд бэлэн болгоно.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec prices" id="prices">
+  <div class="wrap prices-grid">
+    <div>
+      <h2 class="h2" data-reveal><span>Ширээний үнэ</span></h2>
+      <p class="intro" data-reveal>Цагаар тооцно. Шөнө дунд ирсэн ч ширээ бэлэн байна.</p>
+      <p class="note" data-reveal>Төрсөн өдөр, байгууллагын арга хэмжээ, тэмцээнд ширээ урьдчилан захиалах бол <a href="tel:+97680061460">8006 1460</a> дугаараар холбогдоорой. Үнэ өөрчлөгдөж болно.</p>
+    </div>
+    <div class="felt-card" data-reveal>
+      <!-- ЖИШЭЭ ҮНЭ: доорх үнийг клубын бодит үнээр солино уу -->
+      <ul class="price-list">
+        <li><span class="nm">Өдөр<small>10:00–18:00</small></span><i></i><b>12,000₮ <small>/ цаг</small></b></li>
+        <li><span class="nm">Орой<small>18:00–02:00</small></span><i></i><b>15,000₮ <small>/ цаг</small></b></li>
+        <li><span class="nm">Шөнө<small>02:00–10:00</small></span><i></i><b>10,000₮ <small>/ цаг</small></b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec visit" id="visit">
+  <div class="wrap">
+    <h2 class="h2" data-reveal><span>Ирээд тоглоорой</span></h2>
+    <p class="now" data-reveal>Улаанбаатарын цагаар яг одоо <time data-clock>--:--</time>. Бид нээлттэй.</p>
+    <a class="bigphone" href="tel:+97680061460" aria-label="8006 1460 руу залгах" data-num="8006 1460">8006 1460</a>
+    <div class="visit-grid">
+      <div data-reveal>
+        <h3>Байршил</h3>
+        <p>Сансар, Улаанбаатар</p>
+        <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Metropool+Billiard+Club+Sansar+Ulaanbaatar" target="_blank" rel="noopener">Газрын зураг дээр харах</a></div>
+      </div>
+      <div data-reveal>
+        <h3>Цагийн хуваарь</h3>
+        <p>24 цаг, долоо хоногийн 7 өдөр нээлттэй. Өглөө, орой, шөнө аль ч цагт ирж болно.</p>
+      </div>
+      <div data-reveal>
+        <h3>Сошиал хуудас</h3>
+        <p>Facebook дээр 7,000 гаруй хүн биднийг дагадаг. Шинэ мэдээ, видеог тэндээс үзээрэй.</p>
+        <div class="links">
+          <a href="https://www.facebook.com/khuchumaral" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/metro_pool_billiard" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Metropool Billiard Club Sansar</span>
+    <span>Пул биллиардын клуб, Улаанбаатар</span>
+  </div>
+</footer>
+
+<dialog class="tdialog" id="tdialog" aria-labelledby="tdTitle">
+  <div class="td-wrap">
+    <div class="td-photo" id="tdPhoto"></div>
+    <div class="td-side">
+      <h3 class="td-title" id="tdTitle">Ширээ 1</h3>
+      <p class="td-text">Энэ ширээнд тоглох бол утсаар залгаж, ширээний дугаараа хэлээд захиалаарай.</p>
+      <a class="btn btn-primary" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Залгах: 8006 1460</a>
+      <div class="td-nav">
+        <button class="td-arrow" id="tdPrev" type="button" aria-label="Өмнөх ширээ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+        <span id="tdCount" aria-live="polite">1 / 6</span>
+        <button class="td-arrow" id="tdNext" type="button" aria-label="Дараагийн ширээ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <button class="td-close" id="tdClose" type="button" aria-label="Хаах"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ---------- header + clock ---------- */
+  const top = document.getElementById('top');
+  const onHeader = () => top.classList.toggle('scrolled', scrollY > 20);
+  onHeader(); addEventListener('scroll', onHeader, {passive:true});
+
+  let fmt;
+  try { fmt = new Intl.DateTimeFormat('en-GB', {timeZone:'Asia/Ulaanbaatar', hour:'2-digit', minute:'2-digit', hour12:false}); }
+  catch (e) { fmt = new Intl.DateTimeFormat('en-GB', {hour:'2-digit', minute:'2-digit', hour12:false}); }
+  const tick = () => { const t = fmt.format(new Date()); document.querySelectorAll('[data-clock]').forEach(el => el.textContent = t); };
+  tick(); setInterval(tick, 15000);
+
+  /* ---------- scroll reveals ---------- */
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {threshold:.18, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach((el, i) => {
+    const sibs = el.parentElement.querySelectorAll(':scope > [data-reveal]');
+    const idx = Array.prototype.indexOf.call(sibs, el);
+    if (idx > 0) el.style.transitionDelay = Math.min(idx, 6) * 70 + 'ms';
+    io.observe(el);
+  });
+
+  /* ---------- odometer phone number ---------- */
+  const big = document.querySelector('.bigphone');
+  if (big) {
+    const num = big.dataset.num; big.textContent = '';
+    const holder = document.createElement('span'); holder.setAttribute('aria-hidden', 'true'); holder.style.display = 'inline-flex';
+    let di = 0;
+    for (const ch of num) {
+      if (ch === ' ') { const g = document.createElement('span'); g.className = 'gap'; holder.append(g); continue; }
+      const d = +ch, seq = '0123456789' + '0123456789'.slice(0, d + 1);
+      const dg = document.createElement('span'); dg.className = 'dg';
+      const colEl = document.createElement('span'); colEl.className = 'col';
+      for (const x of seq) { const s = document.createElement('span'); s.textContent = x; colEl.append(s); }
+      colEl.style.setProperty('--i', seq.length - 1);
+      colEl.style.transitionDelay = (di++ * 80) + 'ms';
+      dg.append(colEl); holder.append(dg);
+    }
+    big.append(holder);
+    io.observe(big);
+  }
+
+  /* ---------- game tabs + rack diagram ---------- */
+  const GAMES = {
+    8: {
+      lead:'Хамгийн түгээмэл тоглоом бөгөөд анх суралцагчдад хамгийн тохиромжтой.',
+      goal:'1–7 дугаартай бүтэн өнгөтэй эсвэл 9–15 дугаартай судалтай бөмбөгийн аль нэг бүлгийг бүгдийг нь халаасалж, хамгийн сүүлд хар 8-ыг оруулна.',
+      rack:'15 бөмбөгийг гурвалжинд өрнө. 8 дугаарыг гол дунд нь, арын хоёр буланд бүтэн өнгийн болон судалтай бөмбөгийг тус бүр нэгийг тавина.',
+      rule:'Анхны цохилтын дараа ширээ нээлттэй байх бөгөөд эхэлж зөв оруулсан бөмбөгөөр тоглогчийн бүлэг тодорхойлогдоно. Өөрийн бүлгийн бөмбөгийг оруулсан бол дахин цохино.',
+      watch:'8-ыг хугацаанаас нь өмнө оруулах, эсвэл 8-тай хамт цагаан бөмбөгийг унагаавал тоглолтод шууд ялагдана.',
+      cap:'8-ball: 15 бөмбөгийг гурвалжинд өрнө',
+      rows:[[1],[11,5],[2,8,10],[9,7,14,4],[6,15,13,3,12]]
+    },
+    9: {
+      lead:'Хурдан, хурц тоглоом. Нэг цохилтоор ч хожиж болно.',
+      goal:'9 дугаартай бөмбөгийг дүрмийн дагуу халаасалсан тоглогч хожно. Энэ нь анхны цохилтоор ч тохиолдож болно.',
+      rack:'1–9 бөмбөгийг ромбо хэлбэрээр өрнө. 1-ийг хамгийн урд, 9-ийг голд нь тавина.',
+      rule:'Цагаан бөмбөг ширээн дээрх хамгийн бага дугаартай бөмбөгийг эхэлж мөргөх ёстой. Тэгвэл ямар ч бөмбөг орсон тооцогдоно.',
+      watch:'Алдаа гаргавал өрсөлдөгч тань цагаан бөмбөгийг ширээний хүссэн газраа тавьж цохино.',
+      cap:'9-ball: 9 бөмбөгийг ромбо хэлбэрээр өрнө',
+      rows:[[1],[2,3],[4,9,5],[6,7],[8]]
+    },
+    10: {
+      lead:'9-ball-аас илүү нарийн, тэмцээнд түгээмэл хэрэглэгддэг тоглоом.',
+      goal:'10 дугаартай бөмбөгийг зарласан халаасандаа оруулсан тоглогч хожно.',
+      rack:'1–10 бөмбөгийг гурвалжинд өрнө. 1-ийг оройд, 10-ыг гурав дахь эгнээний голд тавина.',
+      rule:'Хамгийн бага дугаартай бөмбөгийг эхэлж мөргөхөөс гадна аль бөмбөгийг аль халаас руу оруулахаа цохилт бүрийн өмнө зарлана.',
+      watch:'Зарлаагүй бөмбөг орвол тооцогдохгүй бөгөөд ээлж өрсөлдөгчид шилжинэ.',
+      cap:'10-ball: 10 бөмбөгийг гурвалжинд өрнө',
+      rows:[[1],[4,5],[6,10,7],[2,8,9,3]]
+    }
+  };
+  const BASE = {1:'#F5B700',2:'#2453C9',3:'#D8313F',4:'#6A2C91',5:'#F07B1C',6:'#1E8C4E',7:'#8A2430',8:'#141414'};
+  const ballColor = n => n === 0 ? '#F4F1E8' : BASE[n > 8 ? n - 8 : n];
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const rackG = document.getElementById('rackBalls');
+  const RB = {};
+  const CUE_POS = {x:160, y:252};
+  const mk = (tag, attrs) => { const el = document.createElementNS(NS, tag); for (const k in attrs) el.setAttribute(k, attrs[k]); return el; };
+  for (let n = 0; n <= 15; n++) {
+    const g = mk('g', {class:'rb'});
+    g.append(mk('ellipse', {cx:2.5, cy:4, rx:14, ry:13, fill:'#000', opacity:.28}));
+    if (n > 8) {
+      g.append(mk('circle', {r:14, fill:'#F3EFE4'}));
+      g.append(mk('rect', {x:-14, y:-7.4, width:28, height:14.8, fill:ballColor(n), 'clip-path':'url(#bclip)'}));
+    } else g.append(mk('circle', {r:14, fill:ballColor(n)}));
+    if (n > 0) {
+      g.append(mk('circle', {r:6.3, fill:'#F3EFE4'}));
+      const t = mk('text', {'text-anchor':'middle', y:3, 'font-size':8.4, 'font-weight':700, fill:'#16181C', 'font-family':'Golos Text, Arial, sans-serif'});
+      t.textContent = n; g.append(t);
+    }
+    g.append(mk('circle', {r:14, fill:'url(#shade)'}));
+    g.style.transform = `translate(${CUE_POS.x}px,${CUE_POS.y}px) scale(${n === 0 ? 1 : .2})`;
+    g.style.opacity = n === 0 ? 1 : 0;
+    rackG.append(g); RB[n] = g;
+  }
+  rackG.append(RB[0]);
+
+  function layoutRack(rows) {
+    const d = 29, cx = 160, top = 58, pos = {}; let order = 0;
+    rows.forEach((row, i) => row.forEach((n, k) => { pos[n] = {x:cx + (k - (row.length - 1) / 2) * d, y:top + i * d * .8660254, o:order++}; }));
+    return pos;
+  }
+  const panel = document.getElementById('gamePanel');
+  const fields = {lead:'gLead', goal:'gGoal', rack:'gRack', rule:'gRule', watch:'gWatch'};
+  const cap = document.getElementById('rackCap');
+  const tabs = [...document.querySelectorAll('.tab')];
+  let current = null;
+
+  function setGame(id, animateText) {
+    const g = GAMES[id], pos = layoutRack(g.rows);
+    for (let n = 1; n <= 15; n++) {
+      const el = RB[n], p = pos[n];
+      if (p) { el.style.transitionDelay = (p.o * 28) + 'ms'; el.style.transform = `translate(${p.x}px,${p.y}px) scale(1)`; el.style.opacity = 1; }
+      else { el.style.transitionDelay = '0ms'; el.style.transform = `translate(${CUE_POS.x}px,${CUE_POS.y}px) scale(.2)`; el.style.opacity = 0; }
+    }
+    for (const k in fields) document.getElementById(fields[k]).textContent = g[k];
+    cap.textContent = g.cap;
+    tabs.forEach(t => { const on = t.dataset.game === String(id); t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; if (on) panel.setAttribute('aria-labelledby', t.id); });
+    if (animateText) { panel.classList.remove('swap'); void panel.offsetWidth; panel.classList.add('swap'); }
+    current = id;
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => { if (String(current) !== t.dataset.game) setGame(+t.dataset.game, true); });
+    t.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      next.focus(); next.click(); e.preventDefault();
+    });
+  });
+  const rackFig = document.querySelector('.rack-fig');
+  const rackIO = new IntersectionObserver(es => { if (es[0].isIntersecting) { if (current === null) setGame(8, false); rackIO.disconnect(); } }, {threshold:.3});
+  rackIO.observe(rackFig);
+
+  /* ---------- learning steps progress ---------- */
+  const steps = document.getElementById('steps');
+  const stepItems = [...steps.querySelectorAll('li')];
+  let stepQueued = false;
+  function stepProgress() {
+    stepQueued = false;
+    const r = steps.getBoundingClientRect(), line = innerHeight * .62;
+    const p = Math.min(1, Math.max(0, (line - r.top - 10) / (r.height - 20)));
+    steps.style.setProperty('--prog', p.toFixed(4));
+    stepItems.forEach(li => { const m = li.firstElementChild.getBoundingClientRect(); li.classList.toggle('on', m.top + 22 < line); });
+  }
+  addEventListener('scroll', () => { if (!stepQueued) { stepQueued = true; requestAnimationFrame(stepProgress); } }, {passive:true});
+  addEventListener('resize', stepProgress);
+  stepProgress();
+
+  /* ---------- interactive pool table ---------- */
+  const canvas = document.getElementById('pool');
+  const ctx = canvas.getContext('2d');
+  const hintEl = document.getElementById('hint'), trayEl = document.getElementById('tray');
+  const countEl = document.getElementById('count'), powerEl = document.getElementById('power');
+  const rerackBtn = document.getElementById('rerack');
+
+  const L = 100, W = 50, R = 1.5, RAIL = 5.5, TAU = Math.PI * 2;
+  const DECEL = 30, DRAG = .45, E_BALL = .96, E_RAIL = .76, MOUTH_C = 3.8, MOUTH_S = 2.9;
+  const POCKETS = [
+    {x:0, y:0, r:3.1, dr:2.85}, {x:L/2, y:-1.2, r:2.85, dr:2.55}, {x:L, y:0, r:3.1, dr:2.85},
+    {x:0, y:W, r:3.1, dr:2.85}, {x:L/2, y:W+1.2, r:2.85, dr:2.55}, {x:L, y:W, r:3.1, dr:2.85}
+  ];
+  const RACK = [[1],[11,5],[2,8,10],[9,7,14,4],[6,15,13,3,12]];
+  const HINT_IDLE = 'Ширээн дээр дараад цагаан бөмбөгнөөс холдуулан чирж онил. Холдох тусам хүчтэй цохино, тавихад цохилт хийгдэнэ.';
+
+  let balls = [], sinks = [], pocketed = [], cue, state = 'idle', scratch = false, userShots = 0;
+  let scale = 1, dpr = 1, visible = true, last = performance.now();
+  const aim = {active:false, hover:false, kb:false, angle:0, power:.6};
+
+  const setHint = t => { hintEl.textContent = t || ' '; };
+  const updateCount = () => { countEl.textContent = `Халаасанд: ${pocketed.length} / 15`; };
+  const mkBall = (n, x, y) => ({n, x, y, vx:0, vy:0, alive:true, roll:0, ux:1, uy:0});
+
+  function setup() {
+    balls = []; sinks = []; pocketed = []; scratch = false; state = 'idle';
+    cue = mkBall(0, 25, W / 2); balls.push(cue);
+    const d = 2 * R + .02;
+    RACK.forEach((row, i) => row.forEach((n, k) => balls.push(mkBall(n, 75 + i * d * .8660254, W / 2 + (k - i / 2) * d))));
+    aim.angle = 0; aim.power = .6;
+    trayEl.textContent = ''; updateCount();
+    rerackBtn.classList.remove('pulse');
+  }
+
+  function shoot(angle, power, speed) {
+    if (state !== 'idle' || !cue.alive) return;
+    const sp = speed || 40 + power * 235;
+    cue.vx = Math.cos(angle) * sp; cue.vy = Math.sin(angle) * sp;
+    state = 'moving'; aim.active = aim.hover = false;
+    powerEl.classList.remove('on'); setHint('');
+  }
+
+  function sink(b, p) {
+    b.alive = false; sinks.push({b, p, t:0, x:b.x, y:b.y}); b.vx = b.vy = 0;
+    if (b.n === 0) { scratch = true; setHint('Цагаан бөмбөг халаасанд орлоо. Дараагийн цохилтод буцааж тавина.'); }
+    else {
+      pocketed.push(b.n); updateCount();
+      const el = document.createElement('span');
+      el.className = 'ball' + (b.n > 8 ? ' st' : ''); el.style.setProperty('--c', ballColor(b.n)); el.dataset.n = b.n;
+      trayEl.append(el);
+    }
+  }
+
+  function physics(dt) {
+    const SUB = 10, h = dt / SUB;
+    for (let s = 0; s < SUB; s++) {
+      for (const b of balls) {
+        if (!b.alive) continue;
+        const sp = Math.hypot(b.vx, b.vy); if (sp === 0) continue;
+        const ns = Math.max(0, sp - (DECEL + DRAG * sp) * h), f = ns / sp;
+        b.vx *= f; b.vy *= f; b.x += b.vx * h; b.y += b.vy * h;
+        if (ns > 0) { b.roll += ns * h / R; b.ux = b.vx / ns; b.uy = b.vy / ns; }
+      }
+      for (let i = 0; i < balls.length; i++) {
+        const a = balls[i]; if (!a.alive) continue;
+        for (let j = i + 1; j < balls.length; j++) {
+          const b = balls[j]; if (!b.alive) continue;
+          const dx = b.x - a.x, dy = b.y - a.y, d2 = dx * dx + dy * dy, min = 2 * R;
+          if (d2 >= min * min || d2 < 1e-9) continue;
+          const d = Math.sqrt(d2), nx = dx / d, ny = dy / d, ov = (min - d) / 2;
+          a.x -= nx * ov; a.y -= ny * ov; b.x += nx * ov; b.y += ny * ov;
+          const rel = (a.vx - b.vx) * nx + (a.vy - b.vy) * ny;
+          if (rel > 0) { const jn = rel * (1 + E_BALL) / 2; a.vx -= jn * nx; a.vy -= jn * ny; b.vx += jn * nx; b.vy += jn * ny; }
+        }
+      }
+      for (const b of balls) {
+        if (!b.alive) continue;
+        const cornerY = b.y < MOUTH_C || b.y > W - MOUTH_C;
+        const cornerX = b.x < MOUTH_C || b.x > L - MOUTH_C;
+        const side = Math.abs(b.x - L / 2) < MOUTH_S;
+        if (!cornerY) {
+          if (b.x < R) { b.x = R; b.vx = Math.abs(b.vx) * E_RAIL; b.vy *= .97; }
+          else if (b.x > L - R) { b.x = L - R; b.vx = -Math.abs(b.vx) * E_RAIL; b.vy *= .97; }
+        }
+        if (!cornerX && !side) {
+          if (b.y < R) { b.y = R; b.vy = Math.abs(b.vy) * E_RAIL; b.vx *= .97; }
+          else if (b.y > W - R) { b.y = W - R; b.vy = -Math.abs(b.vy) * E_RAIL; b.vx *= .97; }
+        }
+        let caught = null;
+        for (const p of POCKETS) if (Math.hypot(b.x - p.x, b.y - p.y) < p.r) { caught = p; break; }
+        if (!caught && (b.x < -R * .8 || b.x > L + R * .8 || b.y < -R * .8 || b.y > W + R * .8)) {
+          let best = Infinity; for (const p of POCKETS) { const dd = Math.hypot(b.x - p.x, b.y - p.y); if (dd < best) { best = dd; caught = p; } }
+        }
+        if (caught) sink(b, caught);
+      }
+    }
+  }
+
+  function placeCue() {
+    const free = (x, y) => balls.every(b => !b.alive || b === cue || Math.hypot(b.x - x, b.y - y) > 2 * R + .1);
+    const c = [[25, W / 2]];
+    for (let i = 1; i < 14; i++) c.push([25, W / 2 + i * 3], [25, W / 2 - i * 3], [25 - i * 1.6, W / 2], [25 + i * 1.6, W / 2]);
+    for (const [x, y] of c) if (x > 2 && x < L - 2 && y > 2 && y < W - 2 && free(x, y)) { cue.x = x; cue.y = y; break; }
+    cue.alive = true; cue.vx = cue.vy = 0; cue.roll = 0;
+  }
+
+  function checkStop() {
+    for (const b of balls) if (b.alive) { if (b.vx * b.vx + b.vy * b.vy < .3) { b.vx = b.vy = 0; } else return; }
+    if (sinks.length) return;
+    state = 'idle';
+    if (scratch) { scratch = false; placeCue(); }
+    if (pocketed.length === 15) { setHint('Ширээ цэвэрлэлээ! Одоо жинхэнэ ширээн дээр туршаад үзээрэй.'); rerackBtn.classList.add('pulse'); return; }
+    setHint(HINT_IDLE);
+  }
+
+  /* drawing helpers */
+  function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+
+  function drawTable(ctx) {
+    let g = ctx.createLinearGradient(0, -RAIL, 0, W + RAIL);
+    g.addColorStop(0, '#5D3824'); g.addColorStop(.5, '#3E2417'); g.addColorStop(1, '#5D3824');
+    rr(ctx, -RAIL, -RAIL, L + 2 * RAIL, W + 2 * RAIL, 2.6); ctx.fillStyle = g; ctx.fill();
+    ctx.strokeStyle = 'rgba(255,214,170,.14)'; ctx.lineWidth = .22; rr(ctx, -RAIL + .45, -RAIL + .45, L + 2 * RAIL - .9, W + 2 * RAIL - .9, 2.2); ctx.stroke();
+    rr(ctx, -1.4, -1.4, L + 2.8, W + 2.8, .7); ctx.fillStyle = '#103872'; ctx.fill();
+    g = ctx.createRadialGradient(L / 2, W / 2, 1, L / 2, W / 2, L * .62);
+    g.addColorStop(0, '#3379CF'); g.addColorStop(.5, '#1F5BA8'); g.addColorStop(1, '#113D79');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, L, W);
+    // sights
+    ctx.fillStyle = 'rgba(242,238,227,.78)';
+    const dia = (x, y) => { ctx.beginPath(); ctx.moveTo(x, y - .5); ctx.lineTo(x + .5, y); ctx.lineTo(x, y + .5); ctx.lineTo(x - .5, y); ctx.closePath(); ctx.fill(); };
+    for (const k of [1, 2, 3, 5, 6, 7]) { dia(L * k / 8, -RAIL * .55); dia(L * k / 8, W + RAIL * .55); }
+    for (const k of [1, 2, 3]) { dia(-RAIL * .55, W * k / 4); dia(L + RAIL * .55, W * k / 4); }
+    // pockets
+    for (const p of POCKETS) {
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.dr + .35, 0, TAU); ctx.fillStyle = '#2A170E'; ctx.fill();
+      const pg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.dr);
+      pg.addColorStop(0, '#000'); pg.addColorStop(1, '#0A0F1A');
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.dr, 0, TAU); ctx.fillStyle = pg; ctx.fill();
+    }
+    ctx.beginPath(); ctx.arc(75, W / 2, .32, 0, TAU); ctx.fillStyle = 'rgba(242,238,227,.4)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(25, W / 2, .32, 0, TAU); ctx.fill();
+  }
+
+  function drawBall(ctx, b, x, y, r, alpha, scale, dpr) {
+    ctx.save(); ctx.globalAlpha = alpha;
+    const c = ballColor(b.n);
+    ctx.beginPath(); ctx.arc(x, y, r, 0, TAU);
+    if (b.n > 8) {
+      ctx.fillStyle = '#F3EFE4'; ctx.fill(); ctx.save(); ctx.clip();
+      ctx.fillStyle = c; ctx.fillRect(x - r, y - r * .53, 2 * r, r * 1.06); ctx.restore();
+    } else { ctx.fillStyle = c; ctx.fill(); }
+    if (b.n > 0) {
+      const sn = Math.sin(b.roll), cs = Math.cos(b.roll);
+      if (cs > 0) {
+        const ox = x + b.ux * sn * r * .55, oy = y + b.uy * sn * r * .55, nr = r * .46 * (.55 + .45 * cs);
+        ctx.beginPath(); ctx.arc(ox, oy, nr, 0, TAU); ctx.fillStyle = '#F3EFE4'; ctx.fill();
+        const px = r * scale;
+        if (px >= 5.5 && cs > .55) {
+          ctx.save(); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          ctx.fillStyle = '#16181C'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.font = `700 ${Math.max(6, px * .58)}px "Golos Text", Arial, sans-serif`;
+          ctx.fillText(b.n, (ox + RAIL) * scale, (oy + RAIL) * scale + px * .04);
+          ctx.restore();
+        }
+      }
+    }
+    const g = ctx.createRadialGradient(x - r * .38, y - r * .42, r * .05, x, y, r);
+    g.addColorStop(0, 'rgba(255,255,255,.62)'); g.addColorStop(.22, 'rgba(255,255,255,.08)');
+    g.addColorStop(.68, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.36)');
+    ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fillStyle = g; ctx.fill();
+    ctx.restore();
+  }
+
+  function castRay(ox, oy, dx, dy) {
+    let best = Infinity, hit = null;
+    for (const b of balls) {
+      if (!b.alive || b === cue) continue;
+      const fx = ox - b.x, fy = oy - b.y, bq = fx * dx + fy * dy, c = fx * fx + fy * fy - 4 * R * R, disc = bq * bq - c;
+      if (disc < 0) continue;
+      const t = -bq - Math.sqrt(disc);
+      if (t > 0 && t < best) { best = t; hit = b; }
+    }
+    let tr = Infinity;
+    if (dx > 0) tr = Math.min(tr, (L - R - ox) / dx); if (dx < 0) tr = Math.min(tr, (R - ox) / dx);
+    if (dy > 0) tr = Math.min(tr, (W - R - oy) / dy); if (dy < 0) tr = Math.min(tr, (R - oy) / dy);
+    if (tr < best) { best = tr; hit = null; }
+    return {t:best, hit};
+  }
+
+  function drawAim() {
+    const dx = Math.cos(aim.angle), dy = Math.sin(aim.angle);
+    const {t, hit} = castRay(cue.x, cue.y, dx, dy);
+    const gx = cue.x + dx * t, gy = cue.y + dy * t;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(242,238,227,.55)'; ctx.lineWidth = .22; ctx.setLineDash([.9, .9]);
+    ctx.beginPath(); ctx.moveTo(cue.x + dx * R, cue.y + dy * R); ctx.lineTo(gx, gy); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.arc(gx, gy, R, 0, TAU); ctx.strokeStyle = 'rgba(242,238,227,.6)'; ctx.stroke();
+    if (hit) {
+      let nx = hit.x - gx, ny = hit.y - gy; const nl = Math.hypot(nx, ny) || 1; nx /= nl; ny /= nl;
+      ctx.strokeStyle = 'rgba(245,183,0,.75)'; ctx.lineWidth = .28;
+      ctx.beginPath(); ctx.moveTo(hit.x, hit.y); ctx.lineTo(hit.x + nx * 9, hit.y + ny * 9); ctx.stroke();
+    }
+    paintStick(ctx, cue.x, cue.y, aim.angle, R + .6 + aim.power * 7.5, 62);
+    ctx.restore();
+  }
+
+  function paintStick(ctx, cx, cy, angle, gap, len) {
+    const dx = Math.cos(angle), dy = Math.sin(angle);
+    const tx = cx - dx * gap, ty = cy - dy * gap;
+    const bx = tx - dx * len, by = ty - dy * len, px = -dy, py = dx;
+    const stick = (ox, oy) => { ctx.beginPath(); ctx.moveTo(tx + px * .36 + ox, ty + py * .36 + oy); ctx.lineTo(bx + px * .9 + ox, by + py * .9 + oy); ctx.lineTo(bx - px * .9 + ox, by - py * .9 + oy); ctx.lineTo(tx - px * .36 + ox, ty - py * .36 + oy); ctx.closePath(); };
+    stick(.9, 1.3); ctx.fillStyle = 'rgba(0,0,0,.32)'; ctx.fill();
+    const sg = ctx.createLinearGradient(tx, ty, bx, by);
+    sg.addColorStop(0, '#6FA8E8'); sg.addColorStop(.012, '#6FA8E8'); sg.addColorStop(.013, '#F3EEE2'); sg.addColorStop(.04, '#F3EEE2');
+    sg.addColorStop(.041, '#E4C892'); sg.addColorStop(.6, '#CFA86C'); sg.addColorStop(.601, '#2B1712'); sg.addColorStop(.8, '#2B1712');
+    sg.addColorStop(.801, '#6B2E1C'); sg.addColorStop(1, '#3C1A10');
+    stick(0, 0); ctx.fillStyle = sg; ctx.fill();
+  }
+
+  function draw(now) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const k = dpr * scale; ctx.setTransform(k, 0, 0, k, RAIL * k, RAIL * k);
+    drawTable(ctx);
+    ctx.fillStyle = 'rgba(0,0,0,.3)';
+    for (const b of balls) if (b.alive) { ctx.beginPath(); ctx.ellipse(b.x + (b.x - L / 2) * .02 + .2, b.y + (b.y - W / 2) * .03 + .45, R * 1.02, R * .92, 0, 0, TAU); ctx.fill(); }
+    for (const s of sinks) {
+      const e = 1 - Math.pow(1 - Math.min(1, s.t), 2);
+      drawBall(ctx, s.b, s.x + (s.p.x - s.x) * e, s.y + (s.p.y - s.y) * e, R * (1 - .45 * e), 1 - e, scale, dpr);
+    }
+    for (const b of balls) if (b.alive) drawBall(ctx, b, b.x, b.y, R, 1, scale, dpr);
+    if (state === 'idle' && cue.alive) {
+      if (aim.active || aim.hover || aim.kb) drawAim();
+      else if (!reduce) {
+        const ph = (now / 1400) % 1;
+        ctx.beginPath(); ctx.arc(cue.x, cue.y, R + .4 + ph * 2.6, 0, TAU);
+        ctx.strokeStyle = `rgba(242,238,227,${.5 * (1 - ph)})`; ctx.lineWidth = .22; ctx.stroke();
+      }
+    }
+  }
+
+  function frame(now) {
+    requestAnimationFrame(frame);
+    const dt = Math.min(.034, (now - last) / 1000); last = now;
+    if (!visible || document.hidden) return;
+    if (state === 'moving') physics(dt);
+    for (let i = sinks.length - 1; i >= 0; i--) { sinks[i].t += dt / .26; if (sinks[i].t >= 1) sinks.splice(i, 1); }
+    if (state === 'moving') checkStop();
+    draw(now);
+  }
+
+  function resize() {
+    const cw = canvas.parentElement.clientWidth;
+    scale = cw / (L + 2 * RAIL);
+    const ch = (W + 2 * RAIL) * scale;
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.style.height = ch + 'px';
+    canvas.width = Math.round(cw * dpr); canvas.height = Math.round(ch * dpr);
+  }
+  new ResizeObserver(resize).observe(canvas.parentElement);
+  resize();
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(canvas);
+
+  /* input */
+  const toWorld = e => { const r = canvas.getBoundingClientRect(); return {x:(e.clientX - r.left) / scale - RAIL, y:(e.clientY - r.top) / scale - RAIL}; };
+  const showPower = () => powerEl.style.setProperty('--p', aim.power.toFixed(3));
+  function aimFrom(p) {
+    const dx = cue.x - p.x, dy = cue.y - p.y, d = Math.hypot(dx, dy);
+    if (d < .05) return;
+    aim.angle = Math.atan2(dy, dx);
+    aim.power = Math.max(0, Math.min(1, (d - 2.5) / 30));
+  }
+  canvas.addEventListener('pointerdown', e => {
+    if (state !== 'idle' || !cue.alive) return;
+    canvas.setPointerCapture(e.pointerId);
+    aim.active = true; aim.kb = false; aimFrom(toWorld(e));
+    powerEl.classList.add('on'); showPower(); e.preventDefault();
+  });
+  canvas.addEventListener('pointermove', e => {
+    if (aim.active) { aimFrom(toWorld(e)); showPower(); }
+    else if (e.pointerType === 'mouse' && state === 'idle' && cue.alive) { aim.hover = true; aimFrom(toWorld(e)); }
+  });
+  canvas.addEventListener('pointerup', () => {
+    if (!aim.active) return;
+    aim.active = false;
+    if (aim.power > .03) { userShots++; shoot(aim.angle, aim.power); }
+    else powerEl.classList.remove('on');
+  });
+  canvas.addEventListener('pointercancel', () => { aim.active = false; powerEl.classList.remove('on'); });
+  canvas.addEventListener('pointerleave', () => { aim.hover = false; });
+  canvas.addEventListener('keydown', e => {
+    if (state !== 'idle' || !cue.alive) return;
+    const st = e.shiftKey ? Math.PI / 360 : Math.PI / 90;
+    switch (e.key) {
+      case 'ArrowLeft': aim.angle -= st; break;
+      case 'ArrowRight': aim.angle += st; break;
+      case 'ArrowUp': aim.power = Math.min(1, aim.power + .05); break;
+      case 'ArrowDown': aim.power = Math.max(.05, aim.power - .05); break;
+      case ' ': case 'Enter': userShots++; shoot(aim.angle, aim.power); e.preventDefault(); return;
+      default: return;
+    }
+    aim.kb = true; powerEl.classList.add('on'); showPower(); e.preventDefault();
+  });
+  canvas.addEventListener('focus', () => { if (canvas.matches(':focus-visible')) { aim.kb = true; powerEl.classList.add('on'); showPower(); } });
+  canvas.addEventListener('blur', () => { aim.kb = false; if (!aim.active) powerEl.classList.remove('on'); });
+  rerackBtn.addEventListener('click', () => { setup(); setHint(HINT_IDLE); });
+
+  setup();
+  requestAnimationFrame(t => { last = t; frame(t); });
+  if (reduce) setHint(HINT_IDLE);
+  else {
+    setHint('Гэрэл асаж байна…');
+    setTimeout(() => {
+      if (userShots === 0 && state === 'idle') { shoot((Math.random() - .5) * .006, 1, 340); setHint('Эхний цохилт…'); }
+    }, 1500);
+  }
+
+  /* ---------- table gallery ---------- */
+  function rng(seed) { return () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+  const rackBalls = (rows, ax = 75, cy = W / 2) => {
+    const d = 2 * R + .02, out = [];
+    rows.forEach((row, i) => row.forEach((n, k) => out.push({n, x:ax + i * d * .8660254, y:cy + (k - (row.length - 1) / 2) * d})));
+    return out;
+  };
+  function scatter(nums, seed, taken) {
+    const r = rng(seed), out = taken.slice();
+    for (const n of nums) for (let t = 0; t < 300; t++) {
+      const x = 8 + r() * (L - 16), y = 5 + r() * (W - 10);
+      if (out.every(o => Math.hypot(o.x - x, o.y - y) > 2 * R + .7)) { out.push({n, x, y}); break; }
+    }
+    return out;
+  }
+
+  // ЗУРАГ СОЛИХ: ширээний бодит зураг байвал photo-д файлын зам эсвэл холбоосыг бичнэ үү.
+  // Жишээ: photo:'images/table-1.jpg'. Хоосон үлдээвэл кодоор зурсан ширээ харагдана.
+  const TABLES = [
+    {photo:'', balls:[{n:0, x:25, y:W / 2}, ...rackBalls(RACK)]},
+    {photo:'', balls:[{n:0, x:25, y:W / 2}, ...rackBalls([[1],[2,3],[4,9,5],[6,7],[8]])]},
+    {photo:'', stick:5, balls:[{n:0,x:36,y:24},{n:3,x:30,y:12},{n:11,x:42,y:36},{n:5,x:55,y:20},{n:14,x:63,y:38},{n:8,x:71,y:27},{n:2,x:83,y:11},{n:10,x:87,y:41},{n:6,x:47,y:7},{n:13,x:19,y:40}]},
+    {photo:'', frame:4, balls:[{n:0, x:24, y:30}, ...rackBalls([[1],[4,5],[6,10,7],[2,8,9,3]])]},
+    {photo:'', stick:8, balls:[{n:0,x:40,y:22},{n:8,x:78,y:14},{n:4,x:64,y:34},{n:12,x:88,y:40}]},
+    {photo:'', balls:scatter([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 11, [{n:0, x:30, y:31}])}
+  ];
+  const tr = rng(5);
+  TABLES.forEach(t => t.balls.forEach(b => { const a = tr() * TAU; b.roll = (tr() - .5) * 1.3; b.ux = Math.cos(a); b.uy = Math.sin(a); }));
+
+  function paintFrame(c, n, ax = 75, cy = W / 2) {
+    const d = 2 * R + .02, h = d * .8660254, side = (n - 1) * d;
+    const V = [[ax, cy], [ax + (n - 1) * h, cy - side / 2], [ax + (n - 1) * h, cy + side / 2]];
+    const gx = (V[0][0] + V[1][0] + V[2][0]) / 3, rin = side / (2 * Math.sqrt(3)), s = (rin + R + .55) / rin;
+    const P = V.map(([x, y]) => [gx + (x - gx) * s, cy + (y - cy) * s]);
+    const path = o => { c.beginPath(); P.forEach(([x, y], i) => i ? c.lineTo(x + o, y + o * 1.4) : c.moveTo(x + o, y + o * 1.4)); c.closePath(); };
+    c.save(); c.lineJoin = 'round';
+    path(.35); c.strokeStyle = 'rgba(0,0,0,.35)'; c.lineWidth = 1.1; c.stroke();
+    path(0); c.strokeStyle = '#7A4A2B'; c.lineWidth = .95; c.stroke();
+    c.strokeStyle = 'rgba(255,220,180,.28)'; c.lineWidth = .25; c.stroke();
+    c.restore();
+  }
+
+  function renderScene(cv, t, widthPx) {
+    const k = widthPx / (L + 2 * RAIL);
+    cv.width = Math.round(widthPx); cv.height = Math.round((W + 2 * RAIL) * k);
+    const c = cv.getContext('2d');
+    c.setTransform(k, 0, 0, k, RAIL * k, RAIL * k);
+    drawTable(c);
+    c.fillStyle = 'rgba(0,0,0,.3)';
+    for (const b of t.balls) { c.beginPath(); c.ellipse(b.x + (b.x - L / 2) * .02 + .2, b.y + (b.y - W / 2) * .03 + .45, R * 1.02, R * .92, 0, 0, TAU); c.fill(); }
+    if (t.frame) paintFrame(c, t.frame);
+    for (const b of t.balls) drawBall(c, b, b.x, b.y, R, 1, k, 1);
+    if (t.stick) {
+      const cb = t.balls[0], tg = t.balls.find(b => b.n === t.stick);
+      paintStick(c, cb.x, cb.y, Math.atan2(tg.y - cb.y, tg.x - cb.x), R + 1.8, 30);
+    }
+  }
+
+  function buildPhoto(i, px, big) {
+    const t = TABLES[i], ph = document.createElement('span');
+    ph.className = 'tphoto' + (big ? ' big' : '');
+    if (t.photo) {
+      const img = new Image(); img.className = 'treal'; img.alt = `Ширээ ${i + 1}`; img.src = t.photo; img.loading = 'lazy';
+      ph.append(img); return ph;
+    }
+    ph.innerHTML = '<span class="tglow"></span><span class="tlamp"><b>' + (i + 1) + '</b></span><span class="tshadow"></span>' +
+      '<span class="tstage"><span class="t3"><canvas></canvas><span class="apron f"></span><span class="apron l"></span><span class="apron r"></span></span></span>' +
+      (big ? '' : '<span class="tdark"></span>');
+    renderScene(ph.querySelector('canvas'), t, px);
+    return ph;
+  }
+
+  const grid = document.getElementById('tablesGrid');
+  const expandIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+  TABLES.forEach((t, i) => {
+    const li = document.createElement('li'), btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'tcard'; btn.dataset.i = i;
+    btn.setAttribute('aria-label', `Ширээ ${i + 1}, томруулж үзэх`);
+    btn.style.setProperty('--d', (i * .16) + 's');
+    btn.append(buildPhoto(i, 620, false));
+    const cap = document.createElement('span'); cap.className = 'tcap';
+    cap.innerHTML = `<span>Ширээ ${i + 1}</span>${expandIcon}`;
+    btn.append(cap); li.append(btn); grid.append(li);
+  });
+  const litIO = new IntersectionObserver(es => { if (es[0].isIntersecting) { grid.classList.add('lit'); litIO.disconnect(); } }, {threshold:.25});
+  litIO.observe(grid);
+
+  const tilt = (el, e) => {
+    const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    el.style.setProperty('--rz', (x * 8).toFixed(2) + 'deg');
+    el.style.setProperty('--rx', (50 - y * 10).toFixed(2) + 'deg');
+  };
+  const untilt = el => { el.style.removeProperty('--rz'); el.style.removeProperty('--rx'); };
+  if (!reduce) {
+    grid.addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; const card = e.target.closest('.tcard'); if (card) tilt(card, e); });
+    grid.querySelectorAll('.tcard').forEach(card => card.addEventListener('pointerleave', () => untilt(card)));
+  }
+
+  const dlg = document.getElementById('tdialog'), dPhoto = document.getElementById('tdPhoto');
+  const dTitle = document.getElementById('tdTitle'), dCount = document.getElementById('tdCount');
+  let cur = 0;
+  function showTable(i) {
+    cur = (i + TABLES.length) % TABLES.length;
+    dPhoto.replaceChildren(buildPhoto(cur, 1200, true));
+    dTitle.textContent = `Ширээ ${cur + 1}`;
+    dCount.textContent = `${cur + 1} / ${TABLES.length}`;
+  }
+  function closeDlg() {
+    if (!dlg.open || dlg.classList.contains('closing')) return;
+    dlg.classList.add('closing');
+    setTimeout(() => { dlg.classList.remove('closing'); dlg.close(); }, reduce ? 0 : 190);
+  }
+  grid.addEventListener('click', e => {
+    const card = e.target.closest('.tcard'); if (!card) return;
+    showTable(+card.dataset.i);
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+  });
+  document.getElementById('tdPrev').addEventListener('click', () => showTable(cur - 1));
+  document.getElementById('tdNext').addEventListener('click', () => showTable(cur + 1));
+  document.getElementById('tdClose').addEventListener('click', closeDlg);
+  dlg.addEventListener('cancel', e => { e.preventDefault(); closeDlg(); });
+  dlg.addEventListener('click', e => { if (e.target === dlg) closeDlg(); });
+  dlg.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') { showTable(cur - 1); e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { showTable(cur + 1); e.preventDefault(); }
+  });
+  if (!reduce) {
+    dPhoto.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') tilt(dPhoto, e); });
+    dPhoto.addEventListener('pointerleave', () => untilt(dPhoto));
+  }
+})();
+</script>
+</body>
+</html>
