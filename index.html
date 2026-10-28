@@ -144,10 +144,10 @@ h3{font-size:1.15rem;font-weight:600;line-height:1.35}
 .tphoto{container-type:inline-size;position:relative;display:block;aspect-ratio:4/3;overflow:hidden;isolation:isolate;border-radius:18px;border:1px solid var(--line);background:radial-gradient(85% 75% at 50% 58%,#192C4E,#0A1425 78%);transition:border-color .3s}
 .tcard:hover .tphoto,.tcard:focus-visible .tphoto{border-color:rgba(140,188,240,.4)}
 .tphoto>span{position:absolute}
-.tglow{inset:0;background:radial-gradient(48% 42% at 50% 54%,rgba(255,226,170,.2),rgba(255,226,170,.05) 62%,transparent 82%)}
+.tglow{inset:0;background:radial-gradient(48% 42% at 50% 54%,rgba(var(--lamp,255,226,170),var(--glow,.2)),rgba(var(--lamp,255,226,170),calc(var(--glow,.2) / 4)) 62%,transparent 82%)}
 .tlamp{left:24%;right:24%;top:9%;height:6.4cqw;z-index:3;display:grid;place-items:center;border-radius:1.4cqw 1.4cqw .7cqw .7cqw;background:linear-gradient(#36455F,#212C44);box-shadow:0 1cqw 2.4cqw rgba(0,0,0,.4)}
 .tlamp::before{content:"";position:absolute;left:22%;right:22%;bottom:100%;height:14cqw;border-inline:1px solid rgba(242,238,227,.16)}
-.tlamp::after{content:"";position:absolute;left:5%;right:5%;top:100%;height:.9cqw;border-radius:0 0 1cqw 1cqw;background:#FFF1CF;box-shadow:0 1.4cqw 7cqw 2.2cqw rgba(255,224,160,.36)}
+.tlamp::after{content:"";position:absolute;left:5%;right:5%;top:100%;height:.9cqw;border-radius:0 0 1cqw 1cqw;background:var(--lampcore,#FFF1CF);box-shadow:0 1.4cqw 7cqw 2.2cqw rgba(var(--lamp,255,224,160),var(--lampa,.36));transition:background .5s,box-shadow .5s}
 .tlamp b{font-family:var(--display);font-weight:700;font-size:3.2cqw;line-height:1;color:rgba(242,238,227,.82)}
 .tshadow{left:7%;right:7%;top:69%;height:22%;z-index:1;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.62),transparent)}
 .tstage{left:7%;right:7%;top:26%;z-index:2;perspective:170cqw}
@@ -171,6 +171,14 @@ h3{font-size:1.15rem;font-weight:600;line-height:1.35}
   .tables-grid::-webkit-scrollbar{display:none}
   .tables-grid>li{scroll-snap-align:start}
 }
+
+/* ---------- live table status (Google Sheet: free = ногоон, full = улаан) ---------- */
+.st-free{--lamp:47,200,120;--lampcore:#8EF5C0;--lamptx:#6EE7A8;--glow:.38;--lampa:.6}
+.st-full{--lamp:235,64,64;--lampcore:#FF9C9C;--lamptx:#FF8F8F;--glow:.38;--lampa:.6}
+.tstatus{display:none;align-items:center;gap:6px;margin-left:10px;padding:2px 10px;border-radius:999px;border:1px solid rgba(var(--lamp),.45);background:rgba(var(--lamp),.14);color:var(--lamptx);font-size:.78rem;font-weight:600;font-style:normal;line-height:1.5;vertical-align:middle}
+.tstatus::before{content:"";width:7px;height:7px;border-radius:50%;background:rgb(var(--lamp));box-shadow:0 0 8px rgb(var(--lamp))}
+.st-free .tstatus,.st-full .tstatus{display:inline-flex}
+.td-side .tstatus{align-self:flex-start;margin:-6px 0 0;padding:4px 12px;font-size:.85rem}
 
 /* ---------- table dialog ---------- */
 html:has(dialog[open]){overflow:hidden}
@@ -525,6 +533,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     <div class="td-photo" id="tdPhoto"></div>
     <div class="td-side">
       <h3 class="td-title" id="tdTitle">Ширээ 1</h3>
+      <em class="tstatus" id="tdStatus"></em>
       <p class="td-text">Энэ ширээнд тоглох бол утсаар залгаж, ширээний дугаараа хэлээд захиалаарай.</p>
       <a class="btn btn-primary" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Залгах: 8006 1460</a>
       <div class="td-nav">
@@ -1090,7 +1099,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     btn.style.setProperty('--d', (i * .16) + 's');
     btn.append(buildPhoto(i, 620, false));
     const cap = document.createElement('span'); cap.className = 'tcap';
-    cap.innerHTML = `<span>Ширээ ${i + 1}</span>${expandIcon}`;
+    cap.innerHTML = `<span>Ширээ ${i + 1}<em class="tstatus"></em></span>${expandIcon}`;
     btn.append(cap); li.append(btn); grid.append(li);
   });
   const litIO = new IntersectionObserver(es => { if (es[0].isIntersecting) { grid.classList.add('lit'); litIO.disconnect(); } }, {threshold:.25});
@@ -1115,6 +1124,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     dPhoto.replaceChildren(buildPhoto(cur, 1200, true));
     dTitle.textContent = `Ширээ ${cur + 1}`;
     dCount.textContent = `${cur + 1} / ${TABLES.length}`;
+    paintStatus(dlg, document.getElementById('tdStatus'), STATUS[cur]);
   }
   function closeDlg() {
     if (!dlg.open || dlg.classList.contains('closing')) return;
@@ -1139,6 +1149,41 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     dPhoto.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') tilt(dPhoto, e); });
     dPhoto.addEventListener('pointerleave', () => untilt(dPhoto));
   }
+
+  // ШИРЭЭНИЙ ТӨЛӨВ: Google Sheet "metro pool" (A: shiree 1..6, B: free / full).
+  // Sheet нь "Anyone with the link → Viewer" эрхтэй байх ёстой. 15 секунд тутам шинэчилнэ.
+  const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/1HqrmUE6iTuEtfw7PHr_g3QI95T0YtToXedJSDnG0yhs/gviz/tq?tqx=out:csv&headers=0&gid=0';
+  const LABEL = {free:'Сул', full:'Дүүрэн'};
+  const STATUS = [];
+  function paintStatus(el, pill, s) {
+    el.classList.toggle('st-free', s === 'free');
+    el.classList.toggle('st-full', s === 'full');
+    if (pill) pill.textContent = LABEL[s] || '';
+  }
+  async function loadStatus() {
+    try {
+      const res = await fetch(SHEET_CSV, {cache:'no-store'});
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const csv = await res.text();
+      csv.trim().split(/\r?\n/).forEach(line => {
+        const [name = '', val = ''] = line.split(',').map(c => c.replace(/"/g, '').trim().toLowerCase());
+        const n = parseInt((name.match(/\d+/) || [])[0], 10);
+        if (!(n >= 1 && n <= TABLES.length)) return;
+        STATUS[n - 1] = /^(free|сул)$/.test(val) ? 'free' : /^(full|дүүрэн)$/.test(val) ? 'full' : '';
+      });
+      grid.querySelectorAll('.tcard').forEach(card => {
+        const i = +card.dataset.i, s = STATUS[i];
+        paintStatus(card, card.querySelector('.tstatus'), s);
+        card.setAttribute('aria-label', `Ширээ ${i + 1}${LABEL[s] ? ', ' + LABEL[s].toLowerCase() : ''}, томруулж үзэх`);
+      });
+      if (dlg.open) paintStatus(dlg, document.getElementById('tdStatus'), STATUS[cur]);
+    } catch (err) {
+      console.warn('Ширээний төлөв уншиж чадсангүй:', err);
+    }
+  }
+  loadStatus();
+  setInterval(() => { if (!document.hidden) loadStatus(); }, 15000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) loadStatus(); });
 })();
 </script>
 </body>
