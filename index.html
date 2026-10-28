@@ -14,7 +14,7 @@
 <style>
 :root{
   --hall:#0E1C33; --hall-2:#112440; --hall-3:#1A3359;
-  --felt:#1D58A6; --felt-deep:#123E7A; --felt-light:#2F73C8;
+  --felt:#1C7A45; --felt-deep:#0F5230; --felt-light:#2B9A5B;
   --walnut:#4A2C1D;
   --ivory:#F2EEE3; --muted:#A7B4CA; --faint:#7686A3;
   --chalk:#8CBCF0; --yellow:#F5B700; --green:#2FA36B;
@@ -420,7 +420,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     <figure class="rack-fig" data-reveal>
       <svg id="rack" viewBox="0 0 320 300" role="img" aria-labelledby="rackCap">
         <defs>
-          <radialGradient id="feltG" cx="50%" cy="42%" r="70%"><stop offset="0" stop-color="#2F73C8"/><stop offset=".6" stop-color="#1D58A6"/><stop offset="1" stop-color="#123E7A"/></radialGradient>
+          <radialGradient id="feltG" cx="50%" cy="42%" r="70%"><stop offset="0" stop-color="#2B9A5B"/><stop offset=".6" stop-color="#1C7A45"/><stop offset="1" stop-color="#0F5230"/></radialGradient>
           <radialGradient id="shade" cx="32%" cy="28%" r="78%"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".22" stop-color="#fff" stop-opacity=".06"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".38"/></radialGradient>
           <clipPath id="bclip"><circle r="14"/></clipPath>
         </defs>
@@ -824,9 +824,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     g.addColorStop(0, '#5D3824'); g.addColorStop(.5, '#3E2417'); g.addColorStop(1, '#5D3824');
     rr(ctx, -RAIL, -RAIL, L + 2 * RAIL, W + 2 * RAIL, 2.6); ctx.fillStyle = g; ctx.fill();
     ctx.strokeStyle = 'rgba(255,214,170,.14)'; ctx.lineWidth = .22; rr(ctx, -RAIL + .45, -RAIL + .45, L + 2 * RAIL - .9, W + 2 * RAIL - .9, 2.2); ctx.stroke();
-    rr(ctx, -1.4, -1.4, L + 2.8, W + 2.8, .7); ctx.fillStyle = '#103872'; ctx.fill();
+    rr(ctx, -1.4, -1.4, L + 2.8, W + 2.8, .7); ctx.fillStyle = '#0D4A29'; ctx.fill();
     g = ctx.createRadialGradient(L / 2, W / 2, 1, L / 2, W / 2, L * .62);
-    g.addColorStop(0, '#3379CF'); g.addColorStop(.5, '#1F5BA8'); g.addColorStop(1, '#113D79');
+    g.addColorStop(0, '#2FA461'); g.addColorStop(.5, '#1D7D45'); g.addColorStop(1, '#105530');
     ctx.fillStyle = g; ctx.fillRect(0, 0, L, W);
     // sights
     ctx.fillStyle = 'rgba(242,238,227,.78)';
