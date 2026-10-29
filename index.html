@@ -1337,7 +1337,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     dPhoto.addEventListener('pointerleave', () => untilt(dPhoto));
   }
 
-  // ШИРЭЭНИЙ ТӨЛӨВ: Google Sheet "metro pool" (A: shiree 1..6, B: free / full).
+  // ШИРЭЭНИЙ ТӨЛӨВ: Google Sheet "metro pool" (A: Ширээ 1..6, B: s = сул, h = дүүрэн).
+  // Латин s/h, кирилл с/х, мөн free/full, сул/дүүрэн гэж бичсэн ч танина.
   // Sheet нь "Anyone with the link → Viewer" эрхтэй байх ёстой. 15 секунд тутам шинэчилнэ.
   const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/1HqrmUE6iTuEtfw7PHr_g3QI95T0YtToXedJSDnG0yhs/gviz/tq?tqx=out:csv&headers=0&gid=0';
   const LABEL = {free:'Сул', full:'Дүүрэн'};
@@ -1356,7 +1357,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         const [name = '', val = ''] = line.split(',').map(c => c.replace(/"/g, '').trim().toLowerCase());
         const n = parseInt((name.match(/\d+/) || [])[0], 10);
         if (!(n >= 1 && n <= TABLES.length)) return;
-        STATUS[n - 1] = /^(free|сул)$/.test(val) ? 'free' : /^(full|дүүрэн)$/.test(val) ? 'full' : '';
+        STATUS[n - 1] = /^(s|с|free|сул)$/.test(val) ? 'free' : /^(h|х|full|дүүрэн)$/.test(val) ? 'full' : '';
       });
       grid.querySelectorAll('.tcard').forEach(card => {
         const i = +card.dataset.i, s = STATUS[i];
