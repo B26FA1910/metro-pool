@@ -10,19 +10,36 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(){var d=document.documentElement,t,l;d.classList.add('js');try{t=localStorage.getItem('mp-theme');l=localStorage.getItem('mp-lang')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';d.setAttribute('data-theme',t);if(l==='en'){d.setAttribute('data-lang','en');d.lang='en';d.classList.add('i18n-pending');setTimeout(function(){d.classList.remove('i18n-pending')},1500)}})()</script>
 <style>
+/* dark theme (default) */
 :root{
   --hall:#0E1C33; --hall-2:#112440; --hall-3:#1A3359;
   --felt:#1C7A45; --felt-deep:#0F5230; --felt-light:#2B9A5B;
   --walnut:#4A2C1D;
   --ivory:#F2EEE3; --muted:#A7B4CA; --faint:#7686A3;
   --chalk:#8CBCF0; --yellow:#F5B700; --green:#2FA36B;
-  --line:rgba(242,238,227,.13);
+  --line:rgba(242,238,227,.13); --line-2:rgba(242,238,227,.28); --hover-bg:rgba(242,238,227,.07);
+  --accent-text:#F5B700;
+  --pill:rgba(19,38,68,.86); --pill-solid:#13284A; --ink:#F2EEE3; --ink-2:#C3CDDF; --ink-3:#9AA8C0; --pill-line:rgba(242,238,227,.14);
+  --pop:#13284A; --pop-ink:#D5DCE8; --pop-hover:rgba(242,238,227,.08); --pop-active:rgba(245,183,0,.2); --focus:#8CBCF0;
   --display:"Montserrat","Golos Text",system-ui,sans-serif;
   --text:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --ease:cubic-bezier(.2,.8,.2,1);
+  color-scheme:dark;
 }
+/* light theme */
+:root[data-theme="light"]{
+  --hall:#F4F6FA; --hall-2:#EAEFF6; --hall-3:#DCE4EF;
+  --ivory:#0E1C33; --muted:#4B5B77; --faint:#6E7D97;
+  --chalk:#2453C9;
+  --line:rgba(14,28,51,.12); --line-2:rgba(14,28,51,.24); --hover-bg:rgba(14,28,51,.05);
+  --accent-text:#A87800;
+  --pill:rgba(255,255,255,.96); --pill-solid:#FFFFFF; --ink:#0E1C33; --ink-2:#24467A; --ink-3:#5A6B88; --pill-line:rgba(14,28,51,.12);
+  --pop:#FFFFFF; --pop-ink:#33445F; --pop-hover:#F0F3F8; --pop-active:#FFF3C4; --focus:#2453C9;
+  color-scheme:light;
+}
+.i18n-pending body{visibility:hidden}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--hall);color:var(--ivory);font-family:var(--text);font-size:1.0625rem;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -33,12 +50,22 @@ button{font:inherit;color:inherit}
 .wrap{width:min(1180px,100% - 32px);margin-inline:auto}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* ---------- header: floating white pill with dropdown ---------- */
-:root{--stick:92px;--pill:rgba(255,255,255,.96);--ink:#0E1C33;--ink-2:#24467A;--ink-3:#5A6B88;--pill-line:rgba(14,28,51,.12)}
+/* ---------- header: floating pill with dropdown (colour follows the theme) ---------- */
+:root{--stick:92px}
 .top{position:fixed;inset:0 0 auto;z-index:30;pointer-events:none;view-transition-name:hdr}
-.top>.wrap{pointer-events:auto;display:flex;align-items:center;gap:20px;height:64px;margin-top:16px;padding:0 10px 0 22px;border-radius:999px;background:var(--pill);color:var(--ink);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 10px 28px -8px rgba(0,0,0,.35);transition:box-shadow .35s}
-.top.scrolled>.wrap{box-shadow:0 16px 40px -10px rgba(0,0,0,.6)}
-.top :focus-visible{outline-color:#2453C9}
+.top>.wrap{pointer-events:auto;display:flex;align-items:center;gap:18px;height:64px;margin-top:16px;padding:0 10px 0 22px;border-radius:999px;border:1px solid var(--pill-line);background:var(--pill);color:var(--ink);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);box-shadow:0 10px 28px -8px rgba(0,0,0,.35);transition:box-shadow .35s}
+.top.scrolled>.wrap{box-shadow:0 16px 40px -10px rgba(0,0,0,.55)}
+:root[data-theme="light"] .top.scrolled>.wrap{box-shadow:0 14px 34px -12px rgba(14,28,51,.35)}
+.top :focus-visible{outline-color:var(--focus)}
+.langsw{display:flex;flex:none;padding:3px;border-radius:999px;border:1px solid var(--pill-line)}
+.langsw button{padding:6px 10px;border:0;border-radius:999px;background:none;color:var(--ink-3);font-size:.8rem;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:background .3s,color .3s}
+.langsw button:hover{color:var(--ink)}
+.langsw button[aria-pressed="true"]{background:var(--ink);color:var(--pill-solid)}
+.themebtn{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:999px;border:1px solid var(--pill-line);background:none;color:var(--ink);cursor:pointer;transition:background .2s}
+.themebtn:hover{background:var(--hover-bg)}
+.themebtn svg,.mtheme svg{width:19px;height:19px}
+:root[data-theme="dark"] .i-moon,:root[data-theme="light"] .i-sun{display:none}
+.bname{white-space:nowrap}
 .brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
 .brand em{font-style:normal;font-family:var(--text);font-weight:500;font-size:.85rem;color:var(--ink-3);letter-spacing:0}
 .dnav{display:flex;align-items:center;gap:30px;margin-left:auto}
@@ -50,13 +77,13 @@ button{font:inherit;color:inherit}
 .dd{position:relative}
 .dd-chev{width:16px;height:16px;transition:transform .35s var(--ease)}
 .dd:hover .dd-chev,.dd:focus-within .dd-chev{transform:rotate(180deg)}
-.dd-menu{position:absolute;left:-18px;top:calc(100% + 18px);min-width:230px;padding:8px;border-radius:18px;background:#fff;box-shadow:0 22px 48px -12px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top left;transition:opacity .22s ease,transform .3s var(--ease),visibility 0s linear .3s}
+.dd-menu{position:absolute;left:-18px;top:calc(100% + 18px);min-width:230px;padding:8px;border-radius:18px;border:1px solid var(--pill-line);background:var(--pop);box-shadow:0 22px 48px -12px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top left;transition:opacity .22s ease,transform .3s var(--ease),visibility 0s linear .3s}
 .dd-menu::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:22px}
 .dd:hover .dd-menu,.dd:focus-within .dd-menu{opacity:1;visibility:visible;transform:none;transition:opacity .22s ease,transform .3s var(--ease)}
 .dd.shut .dd-menu{opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98)}
-.dd-menu a{display:block;padding:11px 14px;border-radius:12px;color:#33445F;font-size:.98rem;text-decoration:none;transition:background .2s,color .2s}
-.dd-menu a:hover{background:#F0F3F8;color:var(--ink)}
-.dd-menu a[aria-current="page"]{background:#FFF3C4;color:var(--ink);font-weight:600}
+.dd-menu a{display:block;padding:11px 14px;border-radius:12px;color:var(--pop-ink);font-size:.98rem;text-decoration:none;transition:background .2s,color .2s}
+.dd-menu a:hover{background:var(--pop-hover);color:var(--ink)}
+.dd-menu a[aria-current="page"]{background:var(--pop-active);color:var(--ink);font-weight:600}
 .status{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--ink-3);padding:6px 12px;border:1px solid var(--pill-line);border-radius:999px;white-space:nowrap}
 .status b{font-weight:600;color:var(--ink)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:ping 2.2s infinite}
@@ -65,7 +92,7 @@ button{font:inherit;color:inherit}
 .call:hover{background:#FFC620;transform:translateY(-1px)}
 .call svg{width:16px;height:16px}
 /* mobile menu (three lines) */
-.burger{display:none;position:relative;flex:none;width:44px;height:44px;border-radius:999px;border:1px solid var(--pill-line);background:#fff;cursor:pointer}
+.burger{display:none;position:relative;flex:none;width:44px;height:44px;border-radius:999px;border:1px solid var(--pill-line);background:none;cursor:pointer}
 .burger span{position:absolute;left:13px;right:13px;height:2px;border-radius:2px;background:var(--ink);transition:transform .45s var(--ease),opacity .25s}
 .burger span:nth-child(1){top:14px}
 .burger span:nth-child(2){top:20px}
@@ -73,27 +100,29 @@ button{font:inherit;color:inherit}
 .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .burger[aria-expanded="true"] span:nth-child(2){opacity:0;transform:scaleX(.2)}
 .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-.mmenu{position:fixed;top:calc(var(--stick) - 2px);left:10px;right:10px;z-index:29;max-height:calc(100dvh - var(--stick) - 10px);overflow-y:auto;overscroll-behavior:contain;border-radius:24px;background:#fff;color:var(--ink);box-shadow:0 0 0 100vmax rgba(4,9,18,.5),0 24px 50px -12px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(-10px) scale(.98);transform-origin:top center;transition:opacity .25s ease,transform .35s var(--ease),visibility 0s linear .35s}
+.mmenu{position:fixed;top:calc(var(--stick) - 2px);left:10px;right:10px;z-index:29;max-height:calc(100dvh - var(--stick) - 10px);overflow-y:auto;overscroll-behavior:contain;border-radius:24px;border:1px solid var(--pill-line);background:var(--pop);color:var(--ink);box-shadow:0 0 0 100vmax rgba(4,9,18,.5),0 24px 50px -12px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(-10px) scale(.98);transform-origin:top center;transition:opacity .25s ease,transform .35s var(--ease),visibility 0s linear .35s}
 .mmenu.open{opacity:1;visibility:visible;transform:none;transition:opacity .25s ease,transform .35s var(--ease)}
 .mmenu>.wrap{width:auto;padding:6px 20px 22px}
 .mnav{display:flex;flex-direction:column}
 .mnav>a{display:block;padding:14px 0;border-bottom:1px solid var(--pill-line);color:var(--ink);font-family:var(--display);font-weight:700;font-size:1.4rem;letter-spacing:-.02em;text-decoration:none;transition:padding .3s var(--ease),box-shadow .3s}
 .mnav>a[aria-current="page"]{padding-left:14px;box-shadow:inset 4px 0 0 var(--yellow)}
 .msub{display:flex;flex-wrap:wrap;gap:8px;padding:12px 0 16px;border-bottom:1px solid var(--pill-line)}
-.msub a{padding:8px 14px;border-radius:999px;border:1px solid rgba(36,70,122,.16);background:#F0F3F8;color:var(--ink-2);font-size:.95rem;font-weight:500;text-decoration:none}
+.msub a{padding:8px 14px;border-radius:999px;border:1px solid var(--pill-line);background:var(--pop-hover);color:var(--ink-2);font-size:.95rem;font-weight:500;text-decoration:none}
 .msub a[aria-current="page"]{background:var(--yellow);border-color:var(--yellow);color:#1b1604}
 .mfoot{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:22px}
 .mstatus{display:flex;align-items:center;gap:10px;color:var(--ink-3)}
 .mstatus time{color:var(--ink);font-variant-numeric:tabular-nums}
+.mtools{display:flex;align-items:center;gap:10px}
+.mtheme{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px 0 12px;border-radius:999px;border:1px solid var(--pill-line);background:none;color:var(--ink);font-size:.92rem;font-weight:500;cursor:pointer}
 .mnav>*,.mfoot{opacity:0;transform:translateY(-12px);transition:opacity .35s ease,transform .5s var(--ease)}
 .mmenu.open .mnav>*,.mmenu.open .mfoot{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 45ms + 60ms)}
 html.menu-locked{overflow:hidden}
 @media (min-width:901px){.mmenu{display:none}}
-@media (min-width:901px) and (max-width:1060px){.status{display:none}}
-@media (max-width:900px){:root{--stick:78px}.dnav{display:none}.brand{margin-right:auto}.burger{display:block}.top>.wrap{gap:10px;width:calc(100% - 20px);height:58px;margin-top:10px;padding:0 6px 0 16px}}
-@media (max-width:600px){.call span{display:none}.call{width:44px;height:44px;padding:0;justify-content:center}}
-@media (max-width:520px){.brand em{display:none}.status{padding:6px 10px}}
-@media (max-width:460px){.status{display:none}}
+@media (min-width:901px) and (max-width:1180px){.status{display:none}}
+@media (min-width:901px) and (max-width:1060px){.call span{display:none}.call{width:44px;padding:0;justify-content:center}.dnav{gap:22px}}
+@media (max-width:900px){:root{--stick:78px}.dnav,.status,.top .themebtn{display:none}.brand{margin-right:auto}.burger{display:block}.top>.wrap{gap:10px;width:calc(100% - 20px);height:58px;margin-top:10px;padding:0 6px 0 16px}.call span{display:none}.call{width:44px;height:44px;padding:0;justify-content:center}}
+@media (max-width:520px){.brand em{display:none}}
+@media (max-width:380px){.bname{display:none}}
 
 /* ---------- hero ---------- */
 .hero{position:relative;isolation:isolate;min-height:100svh;display:grid;align-items:center;padding:112px 0 72px}
@@ -119,7 +148,7 @@ html.menu-locked{overflow:hidden}
 .btn svg{width:18px;height:18px}
 .btn-primary{background:var(--yellow);color:#1b1604}
 .btn-primary:hover{background:#FFC620;transform:translateY(-2px)}
-.btn-ghost{border:1px solid rgba(242,238,227,.28)}
+.btn-ghost{border:1px solid var(--line-2)}
 .btn-ghost:hover{border-color:var(--chalk);transform:translateY(-2px)}
 
 .table{position:relative}
@@ -139,7 +168,7 @@ html.menu-locked{overflow:hidden}
 .tray .ball{--s:22px;animation:pop .45s var(--ease)}
 @keyframes pop{from{transform:scale(0) rotate(-90deg)}}
 .count{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.btn-small{height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(242,238,227,.28);background:none;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s}
+.btn-small{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:none;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s}
 .btn-small:hover{border-color:var(--chalk)}
 .btn-small.pulse{background:var(--yellow);color:#1b1604;border-color:var(--yellow)}
 @media (max-width:900px){
@@ -217,6 +246,8 @@ h3{font-size:1.15rem;font-weight:600;line-height:1.35}
 /* ---------- live table status (Google Sheet: free = ногоон, full = улаан) ---------- */
 .st-free{--lamp:47,200,120;--lampcore:#8EF5C0;--lamptx:#6EE7A8;--glow:.38;--lampa:.6}
 .st-full{--lamp:235,64,64;--lampcore:#FF9C9C;--lamptx:#FF8F8F;--glow:.38;--lampa:.6}
+:root[data-theme="light"] .st-free{--lamptx:#12784A}
+:root[data-theme="light"] .st-full{--lamptx:#C0303C}
 .tstatus{display:none;align-items:center;gap:6px;margin-left:10px;padding:2px 10px;border-radius:999px;border:1px solid rgba(var(--lamp),.45);background:rgba(var(--lamp),.14);color:var(--lamptx);font-size:.78rem;font-weight:600;font-style:normal;line-height:1.5;vertical-align:middle}
 .tstatus::before{content:"";width:7px;height:7px;border-radius:50%;background:rgb(var(--lamp));box-shadow:0 0 8px rgb(var(--lamp))}
 .st-free .tstatus,.st-full .tstatus{display:inline-flex}
@@ -241,10 +272,10 @@ html:has(dialog[open]){overflow:hidden}
 .td-side .btn{align-self:flex-start;white-space:nowrap}
 .td-nav{display:flex;align-items:center;gap:14px;margin-top:auto;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums}
 .td-arrow,.td-close{display:grid;place-items:center;border-radius:50%;cursor:pointer;transition:border-color .2s,background .2s}
-.td-arrow{width:44px;height:44px;border:1px solid rgba(242,238,227,.28);background:none}
+.td-arrow{width:44px;height:44px;border:1px solid var(--line-2);background:none}
 .td-arrow:hover{border-color:var(--chalk)}
 .td-arrow svg,.td-close svg{width:20px;height:20px}
-.td-close{position:absolute;top:14px;right:14px;z-index:5;width:42px;height:42px;border:1px solid var(--line);background:rgba(14,28,51,.75)}
+.td-close{position:absolute;top:14px;right:14px;z-index:5;width:42px;height:42px;border:1px solid var(--pill-line);background:var(--pill);color:var(--ink)}
 .td-close:hover{border-color:var(--chalk)}
 @media (max-width:760px){.td-wrap{grid-template-columns:1fr}.td-nav{margin-top:4px}}
 
@@ -290,7 +321,7 @@ html:has(dialog[open]){overflow:hidden}
 .steps::before{bottom:10px;background:var(--line)}
 .steps::after{height:calc(var(--prog,0) * (100% - 20px));background:linear-gradient(var(--yellow),var(--green))}
 .steps li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:22px}
-.mk{--c:#F5B700;position:relative;z-index:1;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:2px solid rgba(242,238,227,.2);background:var(--hall);transition:background .5s,border-color .5s,box-shadow .5s,transform .6s var(--ease)}
+.mk{--c:#F5B700;position:relative;z-index:1;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:2px solid var(--line-2);background:var(--hall);transition:background .5s,border-color .5s,box-shadow .5s,transform .6s var(--ease)}
 .mk span{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;font-weight:700;font-size:.85rem;color:var(--muted);transition:background .5s,color .5s}
 .steps li.on .mk{background:var(--c);border-color:var(--c);transform:rotate(-12deg);box-shadow:inset -5px -7px 12px rgba(0,0,0,.35)}
 .steps li.on .mk span{background:#F3EFE4;color:#16181C}
@@ -311,9 +342,9 @@ html:has(dialog[open]){overflow:hidden}
 .ex.open>div{opacity:1;transition-delay:.12s}
 .ex-fig{position:relative;z-index:1;margin:16px 0 4px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0B1830}
 .ex-fig svg{display:block;width:100%;height:auto}
-.ex-fig figcaption{padding:12px 16px;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+.ex-fig figcaption{padding:12px 16px;border-top:1px solid rgba(242,238,227,.13);color:#A7B4CA;font-size:.95rem}
 .ex-fig text{font-family:var(--text);font-size:17px;fill:#C9D2E2}
-.ex-fig text.hl{fill:var(--ivory);font-weight:600}
+.ex-fig text.hl{fill:#F2EEE3;font-weight:600}
 .ex-fig text.num{font-size:9px;font-weight:700;fill:#16181C}
 .ex-fig .pk{fill:none;stroke:#F2EEE3;stroke-width:14;stroke-linecap:round;stroke-linejoin:round}
 .ex-fig .an{fill:none;stroke:var(--yellow);stroke-width:2;stroke-linecap:round;stroke-dasharray:1}
@@ -340,7 +371,7 @@ html:has(dialog[open]){overflow:hidden}
 /* ---------- basic rules ---------- */
 .rule-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:56px;margin-top:44px}
 .rule-list li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:18px;padding:22px 0;border-top:1px solid var(--line)}
-.ri{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--felt);color:var(--ivory);box-shadow:inset -4px -6px 10px rgba(0,0,0,.28)}
+.ri{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--felt);color:#F2EEE3;box-shadow:inset -4px -6px 10px rgba(0,0,0,.28)}
 .ri svg{width:24px;height:24px}
 .rule-list b{display:block;font-weight:600}
 .rule-list p{margin-top:4px;color:var(--muted)}
@@ -362,7 +393,7 @@ html:has(dialog[open]){overflow:hidden}
 .prices-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(36px,6vw,90px);align-items:center}
 .note{margin-top:22px;max-width:44ch;color:var(--muted);font-size:.98rem}
 .note a{color:var(--chalk);text-underline-offset:3px}
-.felt-card{position:relative;border:12px solid var(--walnut);border-radius:22px;padding:clamp(20px,3vw,34px);background:radial-gradient(120% 90% at 50% 40%,var(--felt-light),var(--felt) 55%,var(--felt-deep));box-shadow:inset 0 0 0 2px rgba(0,0,0,.18),0 30px 60px -24px rgba(0,0,0,.6)}
+.felt-card{position:relative;color:#F2EEE3;border:12px solid var(--walnut);border-radius:22px;padding:clamp(20px,3vw,34px);background:radial-gradient(120% 90% at 50% 40%,var(--felt-light),var(--felt) 55%,var(--felt-deep));box-shadow:inset 0 0 0 2px rgba(0,0,0,.18),0 30px 60px -24px rgba(0,0,0,.6)}
 .price-list{list-style:none;padding:0}
 .price-list li{display:flex;align-items:baseline;gap:12px;padding:18px 0;border-bottom:1px solid rgba(242,238,227,.16)}
 .price-list li:last-child{border-bottom:0}
@@ -378,7 +409,7 @@ html:has(dialog[open]){overflow:hidden}
 .now{margin-top:16px;color:var(--muted);font-size:1.125rem}
 .now time{color:var(--ivory);font-variant-numeric:tabular-nums}
 .bigphone{display:inline-flex;margin:clamp(28px,4vw,44px) 0 clamp(40px,6vw,64px);font-family:var(--display);font-weight:700;font-size:clamp(3rem,.8rem + 10vw,9.5rem);line-height:1.1;letter-spacing:-.035em;text-decoration:none;transition:color .3s}
-.bigphone:hover{color:var(--yellow)}
+.bigphone:hover{color:var(--accent-text)}
 .dg{display:inline-block;height:1.1em;overflow:hidden}
 .dg .col{display:block;transition:transform 1.7s var(--ease)}
 .dg .col span{display:block;height:1.1em}
@@ -398,7 +429,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 .view[hidden],.gpanel[hidden],.gp[hidden]{display:none}
 .guide-top{padding:calc(var(--stick) + clamp(1.6rem,1.2rem + 2.4vw,3.6rem)) 0 clamp(1.2rem,1rem + 1.5vw,2rem)}
 .back-link{display:inline-flex;align-items:center;gap:4px;margin-left:-10px;padding:6px 14px 6px 8px;border-radius:999px;color:var(--muted);font-size:.95rem;font-weight:500;text-decoration:none;transition:color .2s,background .2s}
-.back-link:hover{color:var(--ivory);background:rgba(242,238,227,.07)}
+.back-link:hover{color:var(--ivory);background:var(--hover-bg)}
 .back-link svg{width:18px;height:18px}
 .guide-title{margin-top:14px;font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,1.4rem + 3.8vw,4.6rem);line-height:1.04;letter-spacing:-.035em}
 .gtabs-bar{position:sticky;top:var(--stick);z-index:20;padding:2px 0 10px;pointer-events:none}
@@ -442,6 +473,12 @@ html[data-vt="panel-back"]::view-transition-new(gpanel){animation:vtInL .5s var(
 @keyframes vtInR{from{opacity:0;transform:translateX(14%)}}
 @keyframes vtOutR{to{opacity:0;transform:translateX(14%)}}
 @keyframes vtInL{from{opacity:0;transform:translateX(-14%)}}
+/* theme switch: the new colours spread out in a circle from the button */
+html[data-vt="theme"]::view-transition-old(root){animation:none}
+html[data-vt="theme"]::view-transition-new(root){animation:themeReveal .65s cubic-bezier(.4,0,.2,1)}
+html[data-vt="theme"]::view-transition-group(hdr){animation-duration:.65s}
+@keyframes themeReveal{from{clip-path:circle(0 at var(--vx,50%) var(--vy,0px))}to{clip-path:circle(var(--vr,150vmax) at var(--vx,50%) var(--vy,0px))}}
+html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-transition-new(root){animation-duration:.3s}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -457,7 +494,7 @@ html[data-vt="panel-back"]::view-transition-new(gpanel){animation:vtInL .5s var(
   <div class="wrap">
     <a class="brand" href="#hero" aria-label="Metropool Billiard Club, нүүр хуудас">
       <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><defs><clipPath id="bm"><circle cx="15" cy="15" r="14"/></clipPath></defs><circle cx="15" cy="15" r="14" fill="#F3EFE4" stroke="#0E1C33" stroke-opacity=".28" stroke-width="1.2"/><rect x="0" y="8" width="30" height="14" fill="#F5B700" clip-path="url(#bm)"/><circle cx="15" cy="15" r="5.6" fill="#F3EFE4"/><text x="15" y="18.3" font-size="8.6" font-weight="700" text-anchor="middle" fill="#16181C" font-family="Golos Text, Arial, sans-serif">9</text></svg>
-      Metropool <em>Сансар</em>
+      <span class="bname">Metropool</span> <em>Сансар</em>
     </a>
     <nav class="dnav" aria-label="Үндсэн цэс">
       <a href="#tables">Ширээ</a>
@@ -474,6 +511,11 @@ html[data-vt="panel-back"]::view-transition-new(gpanel){animation:vtInL .5s var(
       <a href="#visit">Холбогдох</a>
     </nav>
     <span class="status" title="24 цаг нээлттэй"><i class="dot" aria-hidden="true"></i><b>Нээлттэй</b><time data-clock>--:--</time></span>
+    <div class="langsw" role="group" aria-label="Хэл">
+      <button type="button" data-lang="mn" aria-pressed="true" lang="mn">MN</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+    </div>
+    <button class="themebtn" type="button" data-theme-toggle aria-label="Цайвар горим"><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg></button>
     <a class="call" href="tel:+97680061460" aria-label="8006 1460 руу залгах">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
       <span>8006 1460</span>
@@ -497,6 +539,9 @@ html[data-vt="panel-back"]::view-transition-new(gpanel){animation:vtInL .5s var(
       </nav>
       <div class="mfoot" style="--i:5">
         <span class="mstatus"><i class="dot" aria-hidden="true"></i>24 цаг нээлттэй, одоо <time data-clock>--:--</time></span>
+        <div class="mtools">
+          <button class="mtheme" type="button" data-theme-toggle aria-label="Цайвар горим"><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><span>Цайвар горим</span></button>
+        </div>
         <a class="btn btn-primary" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Залгах: 8006 1460</a>
       </div>
     </div>
@@ -1652,6 +1697,237 @@ html[data-vt="panel-back"]::view-transition-new(gpanel){animation:vtInL .5s var(
   dd.addEventListener('focusin', () => { if (!dd.matches(':hover')) dd.classList.remove('shut'); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && mmenu.classList.contains('open')) { setMenu(false); burger.focus(); } });
   matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+
+  /* ---------- theme: light / dark (follows the system until the visitor picks one) ---------- */
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  function paintTheme(t) {
+    root.dataset.theme = t;
+    if (metaTheme) metaTheme.content = t === 'light' ? '#F4F6FA' : '#0E1C33';
+    const lbl = t === 'light' ? 'Бараан горим' : 'Цайвар горим';
+    document.querySelectorAll('[data-theme-toggle]').forEach(b => { b.setAttribute('aria-label', lbl); const s = b.querySelector('span'); if (s) s.textContent = lbl; });
+  }
+  function setTheme(t, from) {
+    try { localStorage.setItem('mp-theme', t); } catch (e) {}
+    if (reduce || !hasVT || !from) { paintTheme(t); return; }
+    const r = from.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+    root.style.setProperty('--vx', x + 'px');
+    root.style.setProperty('--vy', y + 'px');
+    root.style.setProperty('--vr', Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 'px');
+    root.dataset.vt = 'theme';
+    const vt = document.startViewTransition(() => paintTheme(t));
+    vt.finished.finally(() => { if (root.dataset.vt === 'theme') delete root.dataset.vt; });
+  }
+  document.querySelectorAll('[data-theme-toggle]').forEach(b => b.addEventListener('click', () => setTheme(root.dataset.theme === 'light' ? 'dark' : 'light', b)));
+  paintTheme(root.dataset.theme === 'light' ? 'light' : 'dark');
+  if (window.matchMedia) matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+    let saved = null; try { saved = localStorage.getItem('mp-theme'); } catch (_) {}
+    if (!saved) paintTheme(e.matches ? 'light' : 'dark');
+  });
+
+  /* ---------- language: Монгол / English ---------- */
+  // Mongolian text stays in the HTML; English comes from this table. Text that the page
+  // changes later (table status, hints, game rules…) is translated as it appears.
+  const EN = {
+    'Сансар': 'Sansar', 'Ширээ': 'Tables', 'Заавар': 'Guide', 'Тоглоом': 'Games', 'Эхлэгчдэд': 'Beginners',
+    'Дүрэм': 'Rules', 'Ширээний соёл': 'Table etiquette', 'Үнэ': 'Prices', 'Холбогдох': 'Contact',
+    'Нээлттэй': 'Open', '24 цаг нээлттэй, одоо': 'Open 24/7, now', 'Залгах: 8006 1460': 'Call 8006 1460',
+    'Хэл': 'Language', 'Цайвар горим': 'Light mode', 'Бараан горим': 'Dark mode',
+    'Сансарт, шөнө дунд ч': 'In Sansar, even at midnight,', 'ширээ тань бэлэн.': 'your table is ready.',
+    'Metropool Billiard Club бол Сансарт байрлах pool биллиардын клуб. Бид 24 цаг, долоо хоногийн 7 өдөр нээлттэй — өглөө ч, шөнө ч ирээд тоглоорой.': 'Metropool Billiard Club is a pool hall in Sansar, Ulaanbaatar. We’re open 24 hours a day, 7 days a week, so come and play morning or night.',
+    'Заавар үзэх': 'Open the guide', 'Дахин өрөх': 'Re-rack', '24 цаг нээлттэй': 'Open 24/7',
+    'Сансар, Улаанбаатар': 'Sansar, Ulaanbaatar', 'Найзуудаа дагуулаад ир': 'Bring your friends', '6 ширээ': '6 tables',
+    'Манай зургаан ширээ': 'Our six tables',
+    'Ширээн дээр дарж томруулж үзээрэй. Тодорхой ширээнд тоглох бол урьдчилан залгаж захиалаарай.': 'Tap a table to see it up close. To play on a particular table, call ahead to book it.',
+    'Ширээний үнэ': 'Table prices', 'Цагаар тооцно. Шөнө дунд ирсэн ч ширээ бэлэн байна.': 'Charged by the hour. Even at midnight, a table is ready for you.',
+    'Төрсөн өдөр, байгууллагын арга хэмжээ, тэмцээнд ширээ урьдчилан захиалах бол': 'To book tables in advance for a birthday, company event or tournament, call',
+    'дугаараар холбогдоорой. Үнэ өөрчлөгдөж болно.': 'any time. Prices may change.',
+    'Өдөр': 'Day', '/ цаг': '/ hour', 'Орой': 'Evening', 'Шөнө': 'Night',
+    'Ирээд тоглоорой': 'Come and play', 'Улаанбаатарын цагаар яг одоо': 'It’s', '. Бид нээлттэй.': ' in Ulaanbaatar right now. We’re open.',
+    'Байршил': 'Location', 'Газрын зураг дээр харах': 'View on map', 'Цагийн хуваарь': 'Opening hours',
+    '24 цаг, долоо хоногийн 7 өдөр нээлттэй. Өглөө, орой, шөнө аль ч цагт ирж болно.': 'Open 24 hours a day, 7 days a week. Drop in morning, evening or night.',
+    'Сошиал хуудас': 'Social media',
+    'Facebook дээр 7,000 гаруй хүн биднийг дагадаг. Шинэ мэдээ, видеог тэндээс үзээрэй.': 'More than 7,000 people follow us on Facebook. Catch our latest news and videos there.',
+    'Нүүр хуудас': 'Home',
+    'Тоглоомын дүрэм, эхлэгчдэд зориулсан алхмууд, ширээний соёл нэг дор. Хэсгүүдийг доорх цэснээс сонгох, эсвэл утсан дээр хажуу тийш шударч сольж болно.': 'Game rules, steps for beginners and table etiquette in one place. Pick a section from the menu below, or swipe sideways on your phone.',
+    'Аль тоглоомыг тоглох вэ?': 'Which game will you play?',
+    'Pool биллиардын хамгийн түгээмэл гурван тоглоом. Бөмбөг дээр дарж дүрэм, өрөлтийг нь үзээрэй.': 'The three most popular pool games. Tap a ball to see its rules and rack.',
+    'Зорилго': 'Goal', 'Өрөлт': 'Rack', 'Гол дүрэм': 'Key rule', 'Анхаарах зүйл': 'Watch out',
+    'Хамгийн түгээмэл тоглоом бөгөөд анх суралцагчдад хамгийн тохиромжтой.': 'The most popular game, and the best one to learn first.',
+    '1–7 дугаартай бүтэн өнгөтэй эсвэл 9–15 дугаартай судалтай бөмбөгийн аль нэг бүлгийг бүгдийг нь халаасалж, хамгийн сүүлд хар 8-ыг оруулна.': 'Pocket every ball in one group, either the solids (1–7) or the stripes (9–15), then sink the black 8 last.',
+    '15 бөмбөгийг гурвалжинд өрнө. 8 дугаарыг гол дунд нь, арын хоёр буланд бүтэн өнгийн болон судалтай бөмбөгийг тус бүр нэгийг тавина.': 'Rack all 15 balls in the triangle with the 8 in the middle, and one solid and one stripe in the two back corners.',
+    'Анхны цохилтын дараа ширээ нээлттэй байх бөгөөд эхэлж зөв оруулсан бөмбөгөөр тоглогчийн бүлэг тодорхойлогдоно. Өөрийн бүлгийн бөмбөгийг оруулсан бол дахин цохино.': 'After the break the table is open, and the first ball legally pocketed decides your group. Pocket a ball from your group and you shoot again.',
+    '8-ыг хугацаанаас нь өмнө оруулах, эсвэл 8-тай хамт цагаан бөмбөгийг унагаавал тоглолтод шууд ялагдана.': 'Pocketing the 8 too early, or scratching the cue ball along with the 8, loses the game on the spot.',
+    '8-ball: 15 бөмбөгийг гурвалжинд өрнө': '8-ball: rack 15 balls in a triangle',
+    'Хурдан, хурц тоглоом. Нэг цохилтоор ч хожиж болно.': 'A fast, sharp game. You can even win with a single shot.',
+    '9 дугаартай бөмбөгийг дүрмийн дагуу халаасалсан тоглогч хожно. Энэ нь анхны цохилтоор ч тохиолдож болно.': 'Whoever legally pockets the 9 wins. That can even happen on the break.',
+    '1–9 бөмбөгийг ромбо хэлбэрээр өрнө. 1-ийг хамгийн урд, 9-ийг голд нь тавина.': 'Rack balls 1–9 in a diamond, with the 1 at the front and the 9 in the middle.',
+    'Цагаан бөмбөг ширээн дээрх хамгийн бага дугаартай бөмбөгийг эхэлж мөргөх ёстой. Тэгвэл ямар ч бөмбөг орсон тооцогдоно.': 'The cue ball must hit the lowest-numbered ball on the table first. If it does, any ball that drops counts.',
+    'Алдаа гаргавал өрсөлдөгч тань цагаан бөмбөгийг ширээний хүссэн газраа тавьж цохино.': 'After a foul, your opponent may place the cue ball anywhere on the table.',
+    '9-ball: 9 бөмбөгийг ромбо хэлбэрээр өрнө': '9-ball: rack 9 balls in a diamond',
+    '9-ball-аас илүү нарийн, тэмцээнд түгээмэл хэрэглэгддэг тоглоом.': 'More precise than 9-ball, and a tournament favourite.',
+    '10 дугаартай бөмбөгийг зарласан халаасандаа оруулсан тоглогч хожно.': 'Whoever pockets the 10 in the called pocket wins.',
+    '1–10 бөмбөгийг гурвалжинд өрнө. 1-ийг оройд, 10-ыг гурав дахь эгнээний голд тавина.': 'Rack balls 1–10 in a triangle, with the 1 at the apex and the 10 in the middle of the third row.',
+    'Хамгийн бага дугаартай бөмбөгийг эхэлж мөргөхөөс гадна аль бөмбөгийг аль халаас руу оруулахаа цохилт бүрийн өмнө зарлана.': 'As well as hitting the lowest-numbered ball first, you call which ball goes in which pocket before every shot.',
+    'Зарлаагүй бөмбөг орвол тооцогдохгүй бөгөөд ээлж өрсөлдөгчид шилжинэ.': 'A ball you didn’t call doesn’t count, and the turn passes to your opponent.',
+    '10-ball: 10 бөмбөгийг гурвалжинд өрнө': '10-ball: rack 10 balls in a triangle',
+    'Анх удаа палк барьж байна уу?': 'Holding a cue for the first time?',
+    'Сайн цохилт зургаан алхмаас бүрддэг. Алхам бүрийн жишээ зургийг товч дээр дарж үзээрэй.': 'A good shot comes down to six steps. Tap the button under each step to see an example picture.',
+    'Шохойгоо мартуузай': 'Don’t forget the chalk',
+    'Хоёр гурван цохилт тутамд ишнийхээ үзүүрт шохой түрхээрэй. Шохойгүй үзүүр бөмбөгөөс мултарч, цагаан бөмбөг хүссэн зүг рүүгээ явахгүй.': 'Chalk your cue tip every two or three shots. A tip without chalk slips off the ball, and the cue ball won’t go where you want.',
+    'Байрлал': 'Stance',
+    'Цохих шугамынхаа ард зогсоод урд хөлөө бага зэрэг нугална. Толгой тань иштэй нэг шугамд, нүд байн дээр байна.': 'Stand behind the line of your shot and bend your front leg slightly. Keep your head in line with the cue and your eyes on the target.',
+    'Жишээ зураг харах': 'Show example picture', 'Зургийг нуух': 'Hide picture',
+    'Эрүү палк дээгүүр': 'Chin over the cue', 'Шуу босоо унжина': 'Forearm hangs straight', 'Арын хөл шулуун': 'Back leg straight', 'Урд өвдөг нугална': 'Front knee bent',
+    'Жин хоёр хөлд тэнцүү хуваарилагдана. Дүрмээр цохих үед нэг хөл заавал шалан дээр байх ёстой.': 'Spread your weight evenly over both feet. By the rules, one foot must stay on the floor when you shoot.',
+    'Гүүр': 'Bridge',
+    'Урд гараа ширээнд тулгаад эрхий, долоовор хуруугаараа ишийг тогтвортой чиглүүлнэ. Гүүр хөдлөхгүй байх нь нарийвчлалын үндэс.': 'Rest your front hand on the table and guide the cue steadily between thumb and index finger. A bridge that doesn’t move is the key to accuracy.',
+    'Палк эрхий, долоовор': 'The cue rests in the V', 'хурууны завсарт хэвтэнэ': 'of thumb and index finger',
+    'Хуруугаа дэлгэнэ': 'Fingers spread', 'Алгаа ширээнд тулгана': 'Palm flat on the table',
+    'Нээлттэй гүүр: алгаа ширээнд тулгаад эрхий хуруугаа долоовор хуруунд наахад палк хэвтэх хонхор үүснэ.': 'Open bridge: press your palm on the table and tuck your thumb against your index finger to make a groove for the cue.',
+    'Барьц': 'Grip',
+    'Арын гараараа ишийг сул барина. Хүчтэй атгавал цохилт хөшиж, бөмбөг хазайна.': 'Hold the cue loosely with your back hand. Squeezing it stiffens the stroke and sends the ball off line.',
+    'Сул барина': 'Loose grip', 'Чанга атгахгүй': 'No tight fist',
+    'Палкыг алгаараа шахаж биш, хуруугаараа зөөлөн тэвэрч барина. Алга, палк хоёрын хооронд бага зэрэг зай үлдэнэ.': 'Cradle the cue gently in your fingers instead of pressing it into your palm. Leave a little space between palm and cue.',
+    'Онилгоо': 'Aim',
+    'Бай бөмбөгийг халаас руу оруулахын тулд цагаан бөмбөг яг хаана мөргөх ёстойг төсөөлж, тэр цэг рүү чиглүүлнэ.': 'To send the object ball into the pocket, picture exactly where the cue ball has to hit it, then aim at that spot.',
+    'Халаас': 'Pocket', 'Бай бөмбөг': 'Target', 'Төсөөллийн бөмбөг': 'Ghost ball', 'Цагаан бөмбөг': 'Cue ball',
+    'Халааснаас бай бөмбөгөөр дамжуулж шугам татаад, бөмбөгийн цаад талд нэг бөмбөгийн зайтай цэгийг төсөөлнө. Цагаан бөмбөгийг яг тэр цэг рүү илгээнэ.': 'Draw a line from the pocket through the object ball and picture a spot one ball-width behind it. Send the cue ball exactly to that spot.',
+    'Цохилт': 'Stroke',
+    'Зөвхөн тохойноос доош гараа савлуулна. Мөр, бие хөдлөхгүй — жигд, гулгуулсан цохилт хамгийн найдвартай.': 'Swing only the arm below the elbow. Keep your shoulder and body still: a smooth, gliding stroke is the most reliable.',
+    'Тохой хөдлөхгүй': 'Elbow stays still', 'Зөвхөн шуу савлана': 'Only the forearm swings', 'Мөр хөдлөхгүй': 'Shoulder stays still',
+    'Тохой нэг цэгт тогтож, шуу дүүжин шиг урагш хойш савлана. Мөр, толгой, бие хөдлөхгүй.': 'The elbow stays fixed while the forearm swings back and forth like a pendulum. Shoulder, head and body stay still.',
+    'Дагалт': 'Follow-through',
+    'Цохисны дараа ишийг шууд бүү татаарай. Урагш үргэлжлүүлж, бөмбөг зогстол байрлалаа хадгална.': 'Don’t pull the cue back right after the hit. Keep it moving forward and hold your position until the ball stops.',
+    'Палкаа цааш үргэлжлүүлнэ': 'Keep the cue going', 'Бөмбөг байсан цэг': 'Where the ball was',
+    'Цагаан бөмбөгт хүрсний дараа палкаа зогсоолгүй, бөмбөг байсан цэгээс цааш урагш үргэлжлүүлнэ.': 'Once the tip meets the cue ball, don’t stop the cue: carry it forward past where the ball was.',
+    'Анхан шатны дүрэм': 'Basic rules',
+    'Аль ч тоглоом тоглосон эдгээр дүрэм үйлчилнэ. Зөрчвөл алдаа болж, ээлж өрсөлдөгчид шилжинэ.': 'These rules apply whichever game you play. Break one and it’s a foul, and the turn passes to your opponent.',
+    'Нэг хөл заавал шалан дээр': 'One foot always on the floor',
+    'Цохих мөчид дор хаяж нэг хөл тань шалан дээр байх ёстой. Ширээн дээр гарч, хоёр хөлөө өргөж цохиж болохгүй.': 'At the moment you shoot, at least one foot must touch the floor. Don’t climb onto the table and shoot with both feet off the ground.',
+    'Зөвхөн палкны үзүүрээр цохино': 'Hit only with the cue tip',
+    'Цагаан бөмбөгийг палкны үзүүрээр л цохино. Гараар түлхэх, палкны бусад хэсгээр цохих нь алдаа.': 'Strike the cue ball with the tip of the cue only. Pushing it by hand or hitting it with any other part of the cue is a foul.',
+    'Нэг цохилтод нэг л хүрнэ': 'One touch per shot',
+    'Палк цагаан бөмбөгт хоёр удаа хүрэх, эсвэл бөмбөгийг түлхэж явуулах нь алдаа.': 'Touching the cue ball twice with the cue, or pushing it along, is a foul.',
+    'Бөмбөгнүүд зогссоны дараа цохино': 'Wait for the balls to stop',
+    'Ширээн дээр нэг ч бөмбөг хөдөлж, эргэлдэж байхад дараагийн цохилтыг хийхгүй.': 'Don’t take your next shot while any ball on the table is still moving or spinning.',
+    'Эхлээд зөв бөмбөгийг мөргөнө': 'Hit the right ball first',
+    '8-ball-д цагаан бөмбөг эхлээд өөрийн бүлгийн бөмбөгийг, 9-ball, 10-ball-д ширээн дээрх хамгийн бага дугаартайг мөргөх ёстой.': 'In 8-ball the cue ball must first hit a ball from your group; in 9-ball and 10-ball, the lowest-numbered ball on the table.',
+    'Мөргөсний дараа хүрээнд хүрнэ': 'A rail after contact',
+    'Бөмбөг мөргөлдсөний дараа аль нэг бөмбөг халаасанд орох эсвэл хүрээнд хүрэх ёстой. Үгүй бол алдаа.': 'After the balls make contact, a ball must be pocketed or touch a rail. Otherwise it’s a foul.',
+    'Цагаан бөмбөгийг унагаахгүй': 'Don’t scratch',
+    'Цагаан бөмбөг халаасанд орох, эсвэл аль нэг бөмбөг ширээнээс үсэрч гарвал алдаа болно.': 'Pocketing the cue ball, or knocking any ball off the table, is a foul.',
+    'Бөмбөгт гараар хүрэхгүй': 'Don’t touch the balls',
+    'Тоглолтын үеэр аль нэг бөмбөгийг гар, хувцас, палкаараа хөдөлгөвөл алдаа тооцогдоно.': 'Moving any ball during play with your hand, clothes or cue counts as a foul.',
+    'Алдаа гаргавал': 'After a foul',
+    'Ээлж өрсөлдөгчид шилжинэ. Ихэнх тоглоомд өрсөлдөгч цагаан бөмбөгийг ширээний хүссэн газраа тавьж цохих эрхтэй болдог.': 'The turn passes to your opponent. In most games they may also place the cue ball anywhere on the table.',
+    'Хэн эхэлж цохих вэ?': 'Who breaks first?',
+    'Хоёр тоглогч зэрэг цагаан бөмбөгөө цаад хүрээ рүү цохино. Буцаж ирээд ойрын хүрээнд хамгийн ойр зогссон бөмбөгийн эзэн эхэлж цохино.': 'Both players shoot a cue ball to the far rail at the same time. Whoever’s ball comes back and stops closest to the near rail breaks.',
+    'Биллиард бол бие биенээ хүндэлдэг тоглоом. Хэдхэн энгийн дүрэм бүх хүний тоглолтыг тааламжтай болгоно.': 'Billiards is a game of mutual respect. A few simple habits make it more enjoyable for everyone.',
+    'Өрсөлдөгчөө цохиж байхад чимээгүй': 'Stay quiet while your opponent shoots',
+    'Ширээний ойролцоо зогсохгүй, онилгоонд нь саад болохгүй.': 'Don’t stand right by the table or get in the way of their aim.',
+    'Ширээн дээр суухгүй, юм тавихгүй': 'Don’t sit on the table or put things on it',
+    'Ундаа, утсаа хажуугийн тавиур дээр тавина. Даавуу амархан гэмтдэг.': 'Put drinks and phones on the side shelf. The cloth is easily damaged.',
+    'Шохойг нүхтэй талаар нь дээш харуулна': 'Set the chalk down cup side up',
+    'Ингэвэл хүрээ, даавуу шохойгоор будагдахгүй.': 'That keeps chalk off the rails and the cloth.',
+    'Алдаагаа өөрөө хэлнэ': 'Call your own fouls',
+    'Pool бол шударга тоглоом. Мэдсээр байж нуусан алдаа тоглолтыг сонирхолгүй болгодог.': 'Pool is a game of honesty. A foul you knowingly hide takes the fun out of the match.',
+    'Тоглолтын өмнө, дараа гар барина': 'Shake hands before and after',
+    'Ялсан ч, ялагдсан ч өрсөлдөгчдөө баярлалаа гэж хэлээрэй.': 'Win or lose, thank your opponent.',
+    'Ширээгээ цэвэр үлдээнэ': 'Leave the table tidy',
+    'Бөмбөг, гурвалжин, ишийг байранд нь буцааж дараагийн хүнд бэлэн болгоно.': 'Put the balls, rack and cue back in place so the table is ready for the next players.',
+    'Өмнөх': 'Previous', 'Дараах': 'Next',
+    'Pool биллиардын клуб, Улаанбаатар': 'Pool hall, Ulaanbaatar',
+    'Энэ ширээнд тоглох бол утсаар залгаж, ширээний дугаараа хэлээд захиалаарай.': 'To play on this table, call us and give the table number to book it.',
+    'Metropool Billiard Club, нүүр хуудас': 'Metropool Billiard Club, home', 'Үндсэн цэс': 'Main menu',
+    '8006 1460 руу залгах': 'Call 8006 1460', 'Цэс нээх': 'Open menu', 'Цэс хаах': 'Close menu', 'Гар утасны цэс': 'Mobile menu',
+    'Интерактив pool ширээ. Ширээн дээр дараад чирж онилж, тавихад цагаан бөмбөг цохигдоно. Гараас: сумаар чиглэл ба хүчийг тохируулж, Enter дарж цохино.': 'Interactive pool table. Press on the table and drag to aim; release to strike the cue ball. Keyboard: use the arrow keys to set direction and power, then press Enter to shoot.',
+    'Халаасанд орсон бөмбөгнүүд': 'Pocketed balls', 'Ширээнүүд': 'Tables', 'Зааврын хэсгүүд': 'Guide sections', 'Тоглоомын төрөл': 'Game type',
+    'Зөв байрлал: урд өвдөг бага зэрэг нугалсан, арын хөл шулуун, эрүү палк дээгүүр, шуу босоо': 'Correct stance: front knee slightly bent, back leg straight, chin over the cue, forearm vertical',
+    'Нээлттэй гүүр дээрээс харсан байдал: алга ширээнд тулсан, хуруунууд дэлгэсэн, палк эрхий ба долоовор хурууны завсарт хэвтэж байна': 'Open bridge seen from above: palm on the table, fingers spread, the cue resting between thumb and index finger',
+    'Зөв барьц: палкыг хуруугаараа сул тэвэрнэ. Буруу барьц: нударгаараа чанга атгана': 'Correct grip: the fingers cradle the cue loosely. Wrong grip: the cue squeezed in a tight fist',
+    'Төсөөллийн бөмбөгөөр онилох: бай бөмбөгөөс халаасны эсрэг талд цагаан бөмбөг очих цэгийг төсөөлж, тэр цэг рүү цохино': 'Aiming with a ghost ball: picture where the cue ball must arrive, on the far side of the object ball from the pocket, and shoot at that spot',
+    'Цохилт: тохой нэг цэгт тогтож, зөвхөн шуу дүүжин шиг урагш хойш савлана': 'Stroke: the elbow stays fixed and only the forearm swings back and forth like a pendulum',
+    'Дагалт: цохисны дараа палк бөмбөг байсан цэгээс цааш урагш үргэлжилнэ': 'Follow-through: after the hit the cue carries on past where the ball was',
+    'Өмнөх ширээ': 'Previous table', 'Дараагийн ширээ': 'Next table', 'Хаах': 'Close',
+    'Ширээн дээр дараад цагаан бөмбөгнөөс холдуулан чирж онил. Холдох тусам хүчтэй цохино, тавихад цохилт хийгдэнэ.': 'Press on the table and drag away from the cue ball to aim. The farther you drag, the harder the shot; let go to shoot.',
+    'Цагаан бөмбөг халаасанд орлоо. Дараагийн цохилтод буцааж тавина.': 'Scratch! The cue ball goes back on the table for your next shot.',
+    'Ширээ цэвэрлэлээ! Одоо жинхэнэ ширээн дээр туршаад үзээрэй.': 'Table cleared! Now try it on a real table.',
+    'Гэрэл асаж байна…': 'Lights coming on…', 'Эхний цохилт…': 'The break…',
+    'Сул': 'Free', 'Хүнтэй': 'Occupied'
+  };
+  const EN_RX = [
+    [/^Халаасанд: (\d+) \/ 15$/, 'Pocketed: $1 / 15'],
+    [/^Ширээ (\d+)$/, 'Table $1'],
+    [/^Ширээ (\d+), томруулж үзэх$/, 'Table $1, view larger'],
+    [/^Ширээ (\d+), (сул|хүнтэй), томруулж үзэх$/, (m, n, s) => `Table ${n}, ${s === 'сул' ? 'free' : 'occupied'}, view larger`]
+  ];
+  const CYR = /[А-Яа-яЁёӨөҮү]/;
+  const normT = s => s.replace(/\s+/g, ' ').trim();
+  function toEn(s) {
+    const k = normT(s);
+    if (!k || !CYR.test(k)) return null;
+    if (Object.prototype.hasOwnProperty.call(EN, k)) return EN[k];
+    for (const [rx, rep] of EN_RX) if (rx.test(k)) return k.replace(rx, rep);
+    return null;
+  }
+  const keepWS = (orig, en) => { const m = orig.match(/^(\s*)[\s\S]*?(\s*)$/); return m[1] + en + m[2]; };
+  const TX = new WeakMap(), AX = new WeakMap(), I18N_ATTRS = ['aria-label', 'title', 'alt'];
+  let lang = 'mn';
+  function enText(n) {
+    let r = TX.get(n);
+    if (!r || n.data !== r.out) { const en = toEn(n.data); if (en == null) return; r = {src:n.data, out:keepWS(n.data, en)}; TX.set(n, r); }
+    if (n.data !== r.out) n.data = r.out;
+  }
+  function enAttr(el, a) {
+    const v = el.getAttribute(a); if (v == null) return;
+    let m = AX.get(el); if (!m) AX.set(el, m = {});
+    let r = m[a];
+    if (!r || v !== r.out) { const en = toEn(v); if (en == null) return; r = m[a] = {src:v, out:en}; }
+    if (v !== r.out) el.setAttribute(a, r.out);
+  }
+  const mnText = n => { const r = TX.get(n); if (r && n.data === r.out) n.data = r.src; };
+  const mnAttr = (el, a) => { const m = AX.get(el), r = m && m[a]; if (r && el.getAttribute(a) === r.out) el.setAttribute(a, r.src); };
+  function walkI18n(node, ft, fa) {
+    if (node.nodeType === 3) { ft(node); return; }
+    if (node.nodeType !== 1) return;
+    const tw = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, {acceptNode: t => t.parentElement && t.parentElement.closest('script,style') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+    let t; while ((t = tw.nextNode())) ft(t);
+    [node, ...node.querySelectorAll('[aria-label],[title],[alt]')].forEach(el => I18N_ATTRS.forEach(a => { if (el.hasAttribute(a)) fa(el, a); }));
+  }
+  const i18nObs = new MutationObserver(list => {
+    if (lang !== 'en') return;
+    for (const m of list) {
+      if (m.type === 'characterData') enText(m.target);
+      else if (m.type === 'attributes') enAttr(m.target, m.attributeName);
+      else m.addedNodes.forEach(n => walkI18n(n, enText, enAttr));
+    }
+  });
+  function applyLang(l) {
+    lang = l;
+    root.lang = l;
+    root.dataset.lang = l;
+    if (l === 'en') {
+      walkI18n(document.body, enText, enAttr);
+      document.title = 'Metropool Billiard Club — Sansar';
+      i18nObs.observe(document.body, {subtree:true, childList:true, characterData:true, attributes:true, attributeFilter:I18N_ATTRS});
+    } else {
+      i18nObs.disconnect();
+      walkI18n(document.body, mnText, mnAttr);
+      document.title = 'Metropool Billiard Club — Сансар';
+    }
+    document.querySelectorAll('.langsw button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
+    requestAnimationFrame(moveInd);
+  }
+  document.querySelectorAll('.langsw button').forEach(b => b.addEventListener('click', () => {
+    const l = b.dataset.lang; if (l === lang) return;
+    try { localStorage.setItem('mp-lang', l); } catch (e) {}
+    if (reduce || !hasVT) { applyLang(l); return; }
+    root.dataset.vt = 'lang';
+    const vt = document.startViewTransition(() => applyLang(l));
+    vt.finished.finally(() => { if (root.dataset.vt === 'lang') delete root.dataset.vt; });
+  }));
+  if (root.dataset.lang === 'en') applyLang('en');
+  root.classList.remove('i18n-pending');
 })();
 </script>
 </body>
