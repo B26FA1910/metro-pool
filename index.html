@@ -255,6 +255,60 @@ html:has(dialog[open]){overflow:hidden}
 .steps p{margin-top:6px;color:var(--muted);max-width:52ch}
 @media (max-width:900px){.learn-grid{grid-template-columns:1fr}.learn-side{position:static}}
 
+/* ---------- example pictures (beginner steps) ---------- */
+.steps li{row-gap:0}
+.steps li>.ex{grid-column:2}
+.ex-btn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;min-height:38px;padding:0 14px 0 12px;border-radius:999px;border:1px solid rgba(140,188,240,.35);background:rgba(140,188,240,.08);color:var(--chalk);font-size:.92rem;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s}
+.ex-btn:hover{border-color:var(--chalk);background:rgba(140,188,240,.15)}
+.ex-btn svg{width:18px;height:18px;flex:none}
+.ex-btn .chev{width:16px;height:16px;transition:transform .45s var(--ease)}
+.ex-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.ex{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.ex.open{grid-template-rows:1fr}
+.ex>div{min-height:0;overflow:hidden;opacity:0;transition:opacity .3s ease}
+.ex.open>div{opacity:1;transition-delay:.12s}
+.ex-fig{position:relative;z-index:1;margin:16px 0 4px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0B1830}
+.ex-fig svg{display:block;width:100%;height:auto}
+.ex-fig figcaption{padding:12px 16px;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+.ex-fig text{font-family:var(--text);font-size:17px;fill:#C9D2E2}
+.ex-fig text.hl{fill:var(--ivory);font-weight:600}
+.ex-fig text.num{font-size:9px;font-weight:700;fill:#16181C}
+.ex-fig .pk{fill:none;stroke:#F2EEE3;stroke-width:14;stroke-linecap:round;stroke-linejoin:round}
+.ex-fig .an{fill:none;stroke:var(--yellow);stroke-width:2;stroke-linecap:round;stroke-dasharray:1}
+.ex-fig .an-head{fill:none;stroke:var(--yellow);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ex-fig .dot{fill:var(--yellow)}
+.ex.open .an{animation:drawLn .8s .3s var(--ease) backwards}
+.ex.open text,.ex.open .dot,.ex.open .an-head{animation:fadeIn .5s .65s backwards}
+@keyframes drawLn{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.ex-fig .a-arm{transform-box:view-box;transform-origin:190px 78px}
+.ex.open .a-arm{animation:swingArm 1.7s ease-in-out infinite alternate}
+.ex.open .a-cue{animation:swingCue 1.7s ease-in-out infinite alternate}
+@keyframes swingArm{from{transform:rotate(18deg)}to{transform:rotate(-14deg)}}
+@keyframes swingCue{from{transform:translateX(-32px)}to{transform:translateX(25px)}}
+.ex.open .a-cb{animation:aimCB 3.6s .7s ease-in-out infinite}
+.ex.open .a-ob{animation:aimOB 3.6s .7s ease-out infinite}
+@keyframes aimCB{0%{transform:none;opacity:0}6%,10%{transform:none;opacity:1}38%{transform:translate(222.4px,-98.1px)}90%{transform:translate(222.4px,-98.1px);opacity:1}100%{transform:translate(222.4px,-98.1px);opacity:0}}
+@keyframes aimOB{0%,38%{transform:none;opacity:1}68%{transform:translate(104px,-86px);opacity:1}76%,100%{transform:translate(110px,-91px);opacity:0}}
+.ex.open .a-ft{animation:ftCue 3.2s .6s infinite}
+.ex.open .a-fb{animation:ftBall 3.2s .6s infinite}
+@keyframes ftCue{0%{transform:translateX(-70px);opacity:0}8%{transform:translateX(-70px);opacity:1;animation-timing-function:cubic-bezier(.3,0,.2,1)}30%{transform:none}88%{transform:none;opacity:1}100%{transform:none;opacity:0}}
+@keyframes ftBall{0%{transform:translateX(-150px);opacity:0}8%{transform:translateX(-150px);opacity:1}10%{transform:translateX(-150px);animation-timing-function:cubic-bezier(.1,.6,.3,1)}60%{transform:none}88%{transform:none;opacity:1}100%{transform:none;opacity:0}}
+@media (max-width:560px){.steps li>.ex{grid-column:1/-1}}
+
+/* ---------- basic rules ---------- */
+.sec.rules{padding-top:0}
+.rules>.wrap{padding-top:clamp(3.5rem,2.5rem + 4vw,6rem);border-top:1px solid var(--line)}
+.rule-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:56px;margin-top:44px}
+.rule-list li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:18px;padding:22px 0;border-top:1px solid var(--line)}
+.ri{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--felt);color:var(--ivory);box-shadow:inset -4px -6px 10px rgba(0,0,0,.28)}
+.ri svg{width:24px;height:24px}
+.rule-list b{display:block;font-weight:600}
+.rule-list p{margin-top:4px;color:var(--muted)}
+.rule-notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:36px}
+.rule-notes>div{padding:24px;border-radius:16px;background:rgba(140,188,240,.08);border:1px solid rgba(140,188,240,.22)}
+.rule-notes p{margin-top:6px;color:var(--muted)}
+@media (max-width:760px){.rule-list,.rule-notes{grid-template-columns:1fr}}
+
 /* ---------- etiquette ---------- */
 .etiquette{background:var(--hall-2)}
 .etiq-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:56px;margin-top:44px}
@@ -438,8 +492,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 <section class="sec learn" id="learn">
   <div class="wrap learn-grid">
     <div class="learn-side">
-      <h2 class="h2" data-reveal><span>Анх удаа иш барьж байна уу?</span></h2>
-      <p class="intro" data-reveal>Сайн цохилт зургаан алхмаас бүрддэг. Ширээнд очихоосоо өмнө нэг уншаад гараарай.</p>
+      <h2 class="h2" data-reveal><span>Анх удаа палк барьж байна уу?</span></h2>
+      <p class="intro" data-reveal>Сайн цохилт зургаан алхмаас бүрддэг. Алхам бүрийн жишээ зургийг товч дээр дарж үзээрэй.</p>
       <aside class="chalk" data-reveal>
         <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M8 16 22 9l14 7v14l-14 7-14-7z" fill="#5E95D6"/><path d="M8 16l14 7 14-7-14-7z" fill="#8CBCF0"/><path d="M22 23v14l-14-7V16z" fill="#4A7FC0"/><ellipse cx="22" cy="16" rx="6" ry="3" fill="#2E5E9C"/></svg>
         <div>
@@ -450,13 +504,146 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     </div>
 
     <ol class="steps" id="steps">
-      <li><span class="mk" style="--c:#F5B700"><span>1</span></span><div><h3>Байрлал</h3><p>Цохих шугамынхаа ард зогсоод урд хөлөө бага зэрэг нугална. Толгой тань иштэй нэг шугамд, нүд байн дээр байна.</p></div></li>
-      <li><span class="mk" style="--c:#2453C9"><span>2</span></span><div><h3>Гүүр</h3><p>Урд гараа ширээнд тулгаад эрхий, долоовор хуруугаараа ишийг тогтвортой чиглүүлнэ. Гүүр хөдлөхгүй байх нь нарийвчлалын үндэс.</p></div></li>
-      <li><span class="mk" style="--c:#D8313F"><span>3</span></span><div><h3>Барьц</h3><p>Арын гараараа ишийг сул барина. Хүчтэй атгавал цохилт хөшиж, бөмбөг хазайна.</p></div></li>
-      <li><span class="mk" style="--c:#6A2C91"><span>4</span></span><div><h3>Онилгоо</h3><p>Бай бөмбөгийг халаас руу оруулахын тулд цагаан бөмбөг яг хаана мөргөх ёстойг төсөөлж, тэр цэг рүү чиглүүлнэ.</p></div></li>
-      <li><span class="mk" style="--c:#F07B1C"><span>5</span></span><div><h3>Цохилт</h3><p>Зөвхөн тохойноос доош гараа савлуулна. Мөр, бие хөдлөхгүй — жигд, гулгуулсан цохилт хамгийн найдвартай.</p></div></li>
-      <li><span class="mk" style="--c:#1E8C4E"><span>6</span></span><div><h3>Дагалт</h3><p>Цохисны дараа ишийг шууд бүү татаарай. Урагш үргэлжлүүлж, бөмбөг зогстол байрлалаа хадгална.</p></div></li>
+      <li><span class="mk" style="--c:#F5B700"><span>1</span></span><div><h3>Байрлал</h3><p>Цохих шугамынхаа ард зогсоод урд хөлөө бага зэрэг нугална. Толгой тань иштэй нэг шугамд, нүд байн дээр байна.</p>
+        <button class="ex-btn" type="button" aria-expanded="false" aria-controls="ex-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg><span>Жишээ зураг харах</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
+        <div class="ex" id="ex-1" inert><div><figure class="ex-fig">
+          <svg viewBox="0 0 480 310" role="img" aria-label="Зөв байрлал: урд өвдөг бага зэрэг нугалсан, арын хөл шулуун, эрүү палк дээгүүр, шуу босоо">
+            <path d="M16 250h448" stroke="#22324F" stroke-width="2"/>
+            <rect x="322" y="152" width="150" height="6" fill="#1C7A45"/><rect x="322" y="158" width="150" height="26" rx="3" fill="#4A2C1D"/>
+            <rect x="336" y="184" width="12" height="66" fill="#3A2215"/><rect x="448" y="184" width="12" height="66" fill="#3A2215"/>
+            <circle cx="392" cy="144" r="8" fill="#F3EFE4"/><circle cx="446" cy="144" r="8" fill="#F5B700"/>
+            <path class="pk" d="M120 248 152 170M224 248 216 206 158 170M156 170 264 132M260 134 206 118 204 152M260 136 336 150M108 248h24M220 248h26"/>
+            <circle cx="292" cy="118" r="16" fill="#F2EEE3"/>
+            <path d="M150 160 226 155" stroke="#2B1712" stroke-width="7" stroke-linecap="round"/><path d="M226 155 378 145.2" stroke="#E4C892" stroke-width="5"/><path d="M378 145.2 382 145" stroke="#6FA8E8" stroke-width="5"/>
+            <circle cx="204" cy="155" r="9" fill="#F2EEE3"/><ellipse cx="338" cy="149" rx="11" ry="5" fill="#F2EEE3"/>
+            <path class="an" pathLength="1" d="M302 104 372 62"/><text x="468" y="52" text-anchor="end">Эрүү палк дээгүүр</text>
+            <path class="an" pathLength="1" d="M204 118 170 58"/><text x="150" y="44" text-anchor="middle">Шуу босоо унжина</text>
+            <path class="an" pathLength="1" d="M136 209 100 272"/><text x="96" y="294" text-anchor="middle">Арын хөл шулуун</text>
+            <path class="an" pathLength="1" d="M216 206 288 272"/><text x="300" y="294" text-anchor="middle">Урд өвдөг нугална</text>
+            <circle class="dot" cx="302" cy="104" r="4"/><circle class="dot" cx="204" cy="118" r="4"/><circle class="dot" cx="136" cy="209" r="4"/><circle class="dot" cx="216" cy="206" r="4"/>
+          </svg>
+          <figcaption>Жин хоёр хөлд тэнцүү хуваарилагдана. Дүрмээр цохих үед нэг хөл заавал шалан дээр байх ёстой.</figcaption>
+        </figure></div></div>
+      </li>
+      <li><span class="mk" style="--c:#2453C9"><span>2</span></span><div><h3>Гүүр</h3><p>Урд гараа ширээнд тулгаад эрхий, долоовор хуруугаараа ишийг тогтвортой чиглүүлнэ. Гүүр хөдлөхгүй байх нь нарийвчлалын үндэс.</p>
+        <button class="ex-btn" type="button" aria-expanded="false" aria-controls="ex-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg><span>Жишээ зураг харах</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
+        <div class="ex" id="ex-2" inert><div><figure class="ex-fig">
+          <svg viewBox="0 0 480 310" role="img" aria-label="Нээлттэй гүүр дээрээс харсан байдал: алга ширээнд тулсан, хуруунууд дэлгэсэн, палк эрхий ба долоовор хурууны завсарт хэвтэж байна">
+            <defs><radialGradient id="exFelt2" cx="55%" cy="45%" r="75%"><stop offset="0" stop-color="#2B9A5B"/><stop offset="1" stop-color="#11552F"/></radialGradient></defs>
+            <rect width="480" height="310" fill="url(#exFelt2)"/>
+            <path d="M210 236 112 316" stroke="#D8D0BC" stroke-width="50" stroke-linecap="round"/><path d="M210 236 112 316" stroke="#F2EEE3" stroke-width="46" stroke-linecap="round"/>
+            <path d="M270 176 326 166M284 192 344 196M280 210 334 224M266 224 306 246M236 170 276 154" stroke="#D8D0BC" stroke-width="20" stroke-linecap="round"/>
+            <ellipse cx="248" cy="200" rx="46" ry="38" transform="rotate(-18 248 200)" fill="#F2EEE3" stroke="#D8D0BC" stroke-width="2"/>
+            <path d="M270 176 326 166M284 192 344 196M280 210 334 224M266 224 306 246M236 170 276 154" stroke="#F2EEE3" stroke-width="16" stroke-linecap="round"/>
+            <path d="M0 157h402" stroke="#000" stroke-opacity=".28" stroke-width="12"/>
+            <path d="M0 150h150" stroke="#2B1712" stroke-width="13"/><path d="M150 150h250" stroke="#E4C892" stroke-width="10"/><path d="M400 150h8" stroke="#F3EEE2" stroke-width="9"/><path d="M408 150h4" stroke="#6FA8E8" stroke-width="9"/>
+            <circle cx="440" cy="153" r="18" fill="#000" fill-opacity=".28"/><circle cx="438" cy="150" r="18" fill="#F3EFE4"/>
+            <path class="an" pathLength="1" d="M262 144 190 84"/><text x="24" y="52">Палк эрхий, долоовор</text><text x="24" y="74">хурууны завсарт хэвтэнэ</text>
+            <path class="an" pathLength="1" d="M350 200 404 234"/><text x="470" y="252" text-anchor="end">Хуруугаа дэлгэнэ</text>
+            <path class="an" pathLength="1" d="M252 232 330 274"/><text x="470" y="294" text-anchor="end">Алгаа ширээнд тулгана</text>
+            <circle class="dot" cx="262" cy="150" r="4"/><circle class="dot" cx="350" cy="200" r="4"/><circle class="dot" cx="252" cy="232" r="4"/>
+          </svg>
+          <figcaption>Нээлттэй гүүр: алгаа ширээнд тулгаад эрхий хуруугаа долоовор хуруунд наахад палк хэвтэх хонхор үүснэ.</figcaption>
+        </figure></div></div>
+      </li>
+      <li><span class="mk" style="--c:#D8313F"><span>3</span></span><div><h3>Барьц</h3><p>Арын гараараа ишийг сул барина. Хүчтэй атгавал цохилт хөшиж, бөмбөг хазайна.</p>
+        <button class="ex-btn" type="button" aria-expanded="false" aria-controls="ex-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg><span>Жишээ зураг харах</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
+        <div class="ex" id="ex-3" inert><div><figure class="ex-fig">
+          <svg viewBox="0 0 480 310" role="img" aria-label="Зөв барьц: палкыг хуруугаараа сул тэвэрнэ. Буруу барьц: нударгаараа чанга атгана">
+            <path d="M240 30v210" stroke="#22324F" stroke-width="2"/>
+            <path d="M120-10v130" stroke="#F2EEE3" stroke-width="30" stroke-linecap="round"/>
+            <path d="M10 176h80" stroke="#2B1712" stroke-width="14" stroke-linecap="round"/><path d="M90 176h140" stroke="#CFA86C" stroke-width="12"/>
+            <rect x="98" y="112" width="44" height="48" rx="16" fill="#F2EEE3"/>
+            <path d="M104 154c-6 24 4 42 14 38M118 158c-4 24 6 40 16 34M132 156c-2 22 6 36 14 30" fill="none" stroke="#F2EEE3" stroke-width="9" stroke-linecap="round"/>
+            <path d="M360-10v140" stroke="#F2EEE3" stroke-width="30" stroke-linecap="round"/>
+            <path d="M250 176h80" stroke="#2B1712" stroke-width="14" stroke-linecap="round"/><path d="M330 176h140" stroke="#CFA86C" stroke-width="12"/>
+            <rect x="332" y="140" width="56" height="56" rx="14" fill="#F2EEE3"/>
+            <path d="M346 196v-12M360 197v-13M374 196v-12" stroke="#B9B09C" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M322 140 310 130M398 140l12-10M318 168h-14M402 168h14" stroke="#E25563" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="66" cy="262" r="12" fill="#2FA36B"/><path d="m60 262 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><text class="hl" x="86" y="268">Сул барина</text>
+            <circle cx="306" cy="262" r="12" fill="#E25563"/><path d="m301 257 10 10m0-10-10 10" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><text class="hl" x="326" y="268">Чанга атгахгүй</text>
+          </svg>
+          <figcaption>Палкыг алгаараа шахаж биш, хуруугаараа зөөлөн тэвэрч барина. Алга, палк хоёрын хооронд бага зэрэг зай үлдэнэ.</figcaption>
+        </figure></div></div>
+      </li>
+      <li><span class="mk" style="--c:#6A2C91"><span>4</span></span><div><h3>Онилгоо</h3><p>Бай бөмбөгийг халаас руу оруулахын тулд цагаан бөмбөг яг хаана мөргөх ёстойг төсөөлж, тэр цэг рүү чиглүүлнэ.</p>
+        <button class="ex-btn" type="button" aria-expanded="false" aria-controls="ex-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg><span>Жишээ зураг харах</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
+        <div class="ex" id="ex-4" inert><div><figure class="ex-fig">
+          <svg viewBox="0 0 480 310" role="img" aria-label="Төсөөллийн бөмбөгөөр онилох: бай бөмбөгөөс халаасны эсрэг талд цагаан бөмбөг очих цэгийг төсөөлж, тэр цэг рүү цохино">
+            <defs><radialGradient id="exFelt4" cx="45%" cy="55%" r="75%"><stop offset="0" stop-color="#2B9A5B"/><stop offset="1" stop-color="#11552F"/></radialGradient></defs>
+            <rect width="480" height="310" fill="url(#exFelt4)"/>
+            <rect width="480" height="18" fill="#4A2C1D"/><rect x="462" width="18" height="310" fill="#4A2C1D"/>
+            <rect y="18" width="462" height="4" fill="#0D4A29"/><rect x="458" y="18" width="4" height="292" fill="#0D4A29"/>
+            <circle cx="456" cy="24" r="19" fill="#050A0F"/>
+            <path d="M340 120 456 24" stroke="#F5B700" stroke-width="2" stroke-dasharray="6 6"/>
+            <path d="M96 236 318.4 137.9" stroke="#F2EEE3" stroke-opacity=".75" stroke-width="2" stroke-dasharray="6 6"/>
+            <circle cx="318.4" cy="137.9" r="14" fill="none" stroke="#F2EEE3" stroke-width="2" stroke-dasharray="4 4"/>
+            <g class="a-ob"><circle cx="340" cy="120" r="14" fill="#F5B700"/><circle cx="340" cy="120" r="6" fill="#F3EFE4"/><text class="num" x="340" y="123.4" text-anchor="middle">1</text></g>
+            <g class="a-cb"><circle cx="96" cy="236" r="14" fill="#F3EFE4"/></g>
+            <text x="428" y="38" text-anchor="end">Халаас</text>
+            <text x="362" y="126">Бай бөмбөг</text>
+            <text class="hl" x="302" y="108" text-anchor="end">Төсөөллийн бөмбөг</text>
+            <text x="60" y="278">Цагаан бөмбөг</text>
+          </svg>
+          <figcaption>Халааснаас бай бөмбөгөөр дамжуулж шугам татаад, бөмбөгийн цаад талд нэг бөмбөгийн зайтай цэгийг төсөөлнө. Цагаан бөмбөгийг яг тэр цэг рүү илгээнэ.</figcaption>
+        </figure></div></div>
+      </li>
+      <li><span class="mk" style="--c:#F07B1C"><span>5</span></span><div><h3>Цохилт</h3><p>Зөвхөн тохойноос доош гараа савлуулна. Мөр, бие хөдлөхгүй — жигд, гулгуулсан цохилт хамгийн найдвартай.</p>
+        <button class="ex-btn" type="button" aria-expanded="false" aria-controls="ex-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg><span>Жишээ зураг харах</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
+        <div class="ex" id="ex-5" inert><div><figure class="ex-fig">
+          <svg viewBox="0 0 480 310" role="img" aria-label="Цохилт: тохой нэг цэгт тогтож, зөвхөн шуу дүүжин шиг урагш хойш савлана">
+            <g opacity=".3"><path class="pk" d="M300 100 110 196"/><circle cx="336" cy="80" r="18" fill="#F2EEE3"/></g>
+            <path class="pk" d="M300 100 190 78"/>
+            <path d="M190 78 154.4 175.7M190 78 225.6 175.7" stroke="#F2EEE3" stroke-opacity=".35" stroke-width="3" stroke-dasharray="5 6" stroke-linecap="round"/>
+            <g class="a-cue"><path d="M20 188h110" stroke="#2B1712" stroke-width="12" stroke-linecap="round"/><path d="M130 188h300" stroke="#E4C892" stroke-width="9"/><path d="M430 188h6" stroke="#F3EEE2" stroke-width="8"/><path d="M436 188h4" stroke="#6FA8E8" stroke-width="8"/></g>
+            <g class="a-arm"><path class="pk" d="M190 78v104"/><circle cx="190" cy="186" r="11" fill="#F2EEE3"/></g>
+            <circle cx="190" cy="78" r="8" fill="#0B1830" stroke="#F5B700" stroke-width="3"/>
+            <path class="an" pathLength="1" d="M190 66V46"/><text x="190" y="36" text-anchor="middle">Тохой хөдлөхгүй</text>
+            <path class="an" pathLength="1" d="M144.9 202A132 132 0 0 0 235.1 202"/>
+            <path class="an-head" d="M151.3 209.7 144.9 202l9.9-1.7M228.7 209.7l6.4-7.7-9.9-1.7"/>
+            <text x="190" y="242" text-anchor="middle">Зөвхөн шуу савлана</text>
+            <path class="an" pathLength="1" d="M306 108 340 132"/><text x="468" y="152" text-anchor="end">Мөр хөдлөхгүй</text>
+          </svg>
+          <figcaption>Тохой нэг цэгт тогтож, шуу дүүжин шиг урагш хойш савлана. Мөр, толгой, бие хөдлөхгүй.</figcaption>
+        </figure></div></div>
+      </li>
+      <li><span class="mk" style="--c:#1E8C4E"><span>6</span></span><div><h3>Дагалт</h3><p>Цохисны дараа ишийг шууд бүү татаарай. Урагш үргэлжлүүлж, бөмбөг зогстол байрлалаа хадгална.</p>
+        <button class="ex-btn" type="button" aria-expanded="false" aria-controls="ex-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg><span>Жишээ зураг харах</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
+        <div class="ex" id="ex-6" inert><div><figure class="ex-fig">
+          <svg viewBox="0 0 480 310" role="img" aria-label="Дагалт: цохисны дараа палк бөмбөг байсан цэгээс цааш урагш үргэлжилнэ">
+            <rect y="196" width="480" height="10" fill="#1C7A45"/><rect y="206" width="480" height="30" fill="#4A2C1D"/>
+            <circle cx="250" cy="180" r="16" fill="none" stroke="#F2EEE3" stroke-opacity=".7" stroke-width="2" stroke-dasharray="4 5"/>
+            <ellipse cx="170" cy="191" rx="16" ry="6" fill="#F2EEE3"/>
+            <g class="a-fb"><path d="M346 172h18M338 180h26M346 188h18" stroke="#F2EEE3" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round"/><circle cx="400" cy="180" r="16" fill="#F3EFE4"/></g>
+            <g class="a-ft"><path d="M-10 182H90" stroke="#2B1712" stroke-width="12" stroke-linecap="round"/><path d="M90 182h204" stroke="#E4C892" stroke-width="9"/><path d="M294 182h5" stroke="#F3EEE2" stroke-width="8"/><path d="M299 182h4" stroke="#6FA8E8" stroke-width="8"/></g>
+            <path class="an" pathLength="1" d="M234 140v-18M234 131h69M303 140v-18"/><text class="hl" x="268" y="108" text-anchor="middle">Палкаа цааш үргэлжлүүлнэ</text>
+            <path class="an" pathLength="1" d="M250 200v52"/><text x="250" y="278" text-anchor="middle">Бөмбөг байсан цэг</text>
+          </svg>
+          <figcaption>Цагаан бөмбөгт хүрсний дараа палкаа зогсоолгүй, бөмбөг байсан цэгээс цааш урагш үргэлжлүүлнэ.</figcaption>
+        </figure></div></div>
+      </li>
     </ol>
+  </div>
+</section>
+
+<section class="sec rules" id="rules">
+  <div class="wrap">
+    <h2 class="h2" data-reveal><span>Анхан шатны дүрэм</span></h2>
+    <p class="intro" data-reveal>Аль ч тоглоом тоглосон эдгээр дүрэм үйлчилнэ. Зөрчвөл алдаа болж, ээлж өрсөлдөгчид шилжинэ.</p>
+    <ul class="rule-list">
+      <li data-reveal><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M9 3v8.5L6.2 15a2 2 0 0 0 1.6 3H17a1.5 1.5 0 0 0 .4-2.9L13 13.5V3"/></svg></span><div><b>Нэг хөл заавал шалан дээр</b><p>Цохих мөчид дор хаяж нэг хөл тань шалан дээр байх ёстой. Ширээн дээр гарч, хоёр хөлөө өргөж цохиж болохгүй.</p></div></li>
+      <li data-reveal><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="17" r="4"/><path d="M3 3l9.5 9.5"/><path d="M12.5 12.5l1 1" stroke-width="3.5"/></svg></span><div><b>Зөвхөн палкны үзүүрээр цохино</b><p>Цагаан бөмбөгийг палкны үзүүрээр л цохино. Гараар түлхэх, палкны бусад хэсгээр цохих нь алдаа.</p></div></li>
+      <li data-reveal><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15" cy="12" r="6"/><path d="M3 12h5"/><path d="M13.6 10.2 15.4 9v6"/></svg></span><div><b>Нэг цохилтод нэг л хүрнэ</b><p>Палк цагаан бөмбөгт хоёр удаа хүрэх, эсвэл бөмбөгийг түлхэж явуулах нь алдаа.</p></div></li>
+      <li data-reveal><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="16" r="4"/><circle cx="17" cy="16" r="4"/><path d="M10 4v5M14 4v5"/></svg></span><div><b>Бөмбөгнүүд зогссоны дараа цохино</b><p>Ширээн дээр нэг ч бөмбөг хөдөлж, эргэлдэж байхад дараагийн цохилтыг хийхгүй.</p></div></li>
+      <li data-reveal><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="17.5" r="3"/><circle cx="17" cy="7" r="4.5"/><path d="M8 15.5l5-4"/></svg></span><div><b>Эхлээд зөв бөмбөгийг мөргөнө</b><p>8-ball-д цагаан бөмбөг эхлээд өөрийн бүлгийн бөмбөгийг, 9-ball, 10-ball-д ширээн дээрх хамгийн бага дугаартайг мөргөх ёстой.</p></div></li>
+      <li data-reveal><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3v18"/><circle cx="7" cy="16" r="3"/><path d="M9.5 14 18.5 9.5 12 19"/></svg></span><div><b>Мөргөсний дараа хүрээнд хүрнэ</b><p>Бөмбөг мөргөлдсөний дараа аль нэг бөмбөг халаасанд орох эсвэл хүрээнд хүрэх ёстой. Үгүй бол алдаа.</p></div></li>
+      <li data-reveal><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="5"/><circle cx="12" cy="5.5" r="2.5"/><path d="M12 9v3"/></svg></span><div><b>Цагаан бөмбөгийг унагаахгүй</b><p>Цагаан бөмбөг халаасанд орох, эсвэл аль нэг бөмбөг ширээнээс үсэрч гарвал алдаа болно.</p></div></li>
+      <li data-reveal><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-6-2.3l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15"/><path d="M3 3l18 18"/></svg></span><div><b>Бөмбөгт гараар хүрэхгүй</b><p>Тоглолтын үеэр аль нэг бөмбөгийг гар, хувцас, палкаараа хөдөлгөвөл алдаа тооцогдоно.</p></div></li>
+    </ul>
+    <div class="rule-notes">
+      <div data-reveal><h3>Алдаа гаргавал</h3><p>Ээлж өрсөлдөгчид шилжинэ. Ихэнх тоглоомд өрсөлдөгч цагаан бөмбөгийг ширээний хүссэн газраа тавьж цохих эрхтэй болдог.</p></div>
+      <div data-reveal><h3>Хэн эхэлж цохих вэ?</h3><p>Хоёр тоглогч зэрэг цагаан бөмбөгөө цаад хүрээ рүү цохино. Буцаж ирээд ойрын хүрээнд хамгийн ойр зогссон бөмбөгийн эзэн эхэлж цохино.</p></div>
+    </div>
   </div>
 </section>
 
@@ -1184,6 +1371,21 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   loadStatus();
   setInterval(() => { if (!document.hidden) loadStatus(); }, 15000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) loadStatus(); });
+
+  /* ---------- example pictures: hidden until "Жишээ зураг харах" is pressed ---------- */
+  document.querySelectorAll('.ex-btn').forEach(btn => {
+    const box = document.getElementById(btn.getAttribute('aria-controls'));
+    const label = btn.querySelector('span');
+    box.inert = true;
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      box.classList.toggle('open', open);
+      box.inert = !open;
+      label.textContent = open ? 'Зургийг нуух' : 'Жишээ зураг харах';
+      setTimeout(stepProgress, 600);
+    });
+  });
 })();
 </script>
 </body>
