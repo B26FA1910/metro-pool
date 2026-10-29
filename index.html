@@ -2,7 +2,7 @@
 <html lang="mn">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Metropool Billiard Club — Сансар</title>
 <meta name="description" content="Metropool Billiard Club Сансар — 24 цаг, 7 хоног нээлттэй pool биллиардын клуб. 8-ball, 9-ball, 10-ball тоглоомын дүрэм, эхлэгчдэд зориулсан зөвлөгөө. Утас: 8006 1460.">
 <meta name="theme-color" content="#0E1C33">
@@ -41,7 +41,7 @@
 }
 .i18n-pending body{visibility:hidden}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 body{background:var(--hall);color:var(--ivory);font-family:var(--text);font-size:1.0625rem;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 img,svg,canvas{display:block}
@@ -53,12 +53,16 @@ button{font:inherit;color:inherit}
 /* ---------- header: floating pill with dropdown (colour follows the theme) ---------- */
 :root{--stick:92px}
 .top{position:fixed;inset:0 0 auto;z-index:30;pointer-events:none;view-transition-name:hdr}
+@media (max-width:900px){
+  .top::before{content:"";position:absolute;inset:0 0 auto;height:calc(100% + 22px);z-index:-1;background:linear-gradient(var(--hall) 45%,transparent);opacity:0;transition:opacity .3s}
+  .top.scrolled::before{opacity:1}
+}
 .top>.wrap{pointer-events:auto;display:flex;align-items:center;gap:18px;height:64px;margin-top:16px;padding:0 10px 0 22px;border-radius:999px;border:1px solid var(--pill-line);background:var(--pill);color:var(--ink);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);box-shadow:0 10px 28px -8px rgba(0,0,0,.35);transition:box-shadow .35s}
 .top.scrolled>.wrap{box-shadow:0 16px 40px -10px rgba(0,0,0,.55)}
 :root[data-theme="light"] .top.scrolled>.wrap{box-shadow:0 14px 34px -12px rgba(14,28,51,.35)}
 .top :focus-visible{outline-color:var(--focus)}
 .langsw{display:flex;flex:none;padding:3px;border-radius:999px;border:1px solid var(--pill-line)}
-.langsw button{padding:6px 10px;border:0;border-radius:999px;background:none;color:var(--ink-3);font-size:.8rem;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:background .3s,color .3s}
+.langsw button{padding:8px 11px;border:0;border-radius:999px;background:none;color:var(--ink-3);font-size:.8rem;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:background .3s,color .3s}
 .langsw button:hover{color:var(--ink)}
 .langsw button[aria-pressed="true"]{background:var(--ink);color:var(--pill-solid)}
 .themebtn{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:999px;border:1px solid var(--pill-line);background:none;color:var(--ink);cursor:pointer;transition:background .2s}
@@ -171,7 +175,7 @@ html.menu-locked{overflow:hidden}
 .tray .ball{--s:22px;animation:pop .45s var(--ease)}
 @keyframes pop{from{transform:scale(0) rotate(-90deg)}}
 .count{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.btn-small{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:none;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s}
+.btn-small{height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:none;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s}
 .btn-small:hover{border-color:var(--chalk)}
 .btn-small.pulse{background:var(--yellow);color:#1b1604;border-color:var(--yellow)}
 @media (max-width:900px){
@@ -240,11 +244,19 @@ h3{font-size:1.15rem;font-weight:600;line-height:1.35}
 .tphoto.big .t3{animation:settle 1s var(--ease)}
 @keyframes settle{from{transform:rotateX(70deg) rotateZ(-9deg) scale(.88)}}
 @media (max-width:900px){.tables-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* phones: all six tables visible at once in a compact two-column grid */
 @media (max-width:560px){
-  .tables-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px;padding:0 16px 6px;scroll-padding-inline:16px}
-  .tables-grid::-webkit-scrollbar{display:none}
-  .tables-grid>li{scroll-snap-align:start}
+  .tables-grid{gap:16px 12px;margin-top:24px}
+  .tphoto{border-radius:14px}
+  .tcap{margin-top:8px;font-size:.95rem}
+  .tcap>svg{display:none}
+  .tcap .tstatus{margin-left:6px;padding:2px 8px}
 }
+.tphoto{transition:border-color .3s,transform .2s var(--ease)}
+.tcard:active .tphoto{transform:scale(.97)}
+.tsum{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:9px 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--hover-bg);font-weight:500}
+.tsum[hidden]{display:none}
+.tsum b{font-family:var(--display);font-variant-numeric:tabular-nums}
 
 /* ---------- live table status (Google Sheet: free = ногоон, full = улаан) ---------- */
 .st-free{--lamp:47,200,120;--lampcore:#8EF5C0;--lamptx:#6EE7A8;--glow:.38;--lampa:.6}
@@ -281,6 +293,17 @@ html:has(dialog[open]){overflow:hidden}
 .td-close{position:absolute;top:14px;right:14px;z-index:5;width:42px;height:42px;border:1px solid var(--pill-line);background:var(--pill);color:var(--ink)}
 .td-close:hover{border-color:var(--chalk)}
 @media (max-width:760px){.td-wrap{grid-template-columns:1fr}.td-nav{margin-top:4px}}
+/* phones: the table window slides up from the bottom like a sheet */
+@media (max-width:760px){
+  .tdialog{margin:auto 0 0;width:100%;max-height:94dvh;border-radius:26px 26px 0 0;border-width:1px 0 0;padding-bottom:env(safe-area-inset-bottom)}
+  .tdialog[open]{animation:sheetUp .5s var(--ease)}
+  .tdialog.closing{animation:sheetDown .22s ease-in forwards}
+  .td-wrap::before{content:"";position:absolute;z-index:6;top:8px;left:50%;width:42px;height:5px;margin-left:-21px;border-radius:3px;background:rgba(242,238,227,.6)}
+  .td-side{padding:20px 20px 24px;gap:14px}
+  .td-side .btn{align-self:stretch;justify-content:center}
+}
+@keyframes sheetUp{from{transform:translateY(100%)}}
+@keyframes sheetDown{to{transform:translateY(100%)}}
 
 /* ---------- games ---------- */
 .games{background:linear-gradient(var(--hall),var(--hall-2))}
@@ -304,8 +327,11 @@ html:has(dialog[open]){overflow:hidden}
 #rack .rb{transition:transform .75s var(--ease),opacity .45s ease}
 .rack-fig figcaption{margin-top:14px;text-align:center;color:var(--muted);font-size:.95rem}
 @media (max-width:900px){
-  .games-grid{grid-template-columns:1fr}
-  .rack-fig{order:2;max-width:380px}
+  .games-grid{grid-template-columns:1fr;gap:0}
+  .games-copy{display:contents}
+  .games-copy>*{order:1}
+  .rack-fig{order:2;max-width:300px;margin:0 auto 10px}
+  .games-copy>.rules{order:3}
 }
 @media (max-width:560px){
   .rules dl>div{grid-template-columns:1fr;gap:4px}
@@ -421,6 +447,28 @@ html:has(dialog[open]){overflow:hidden}
 .visit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;padding-top:32px;border-top:1px solid var(--line)}
 .visit-grid p{margin-top:8px;color:var(--muted)}
 .links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:14px}
+.maplink{display:inline-flex;align-items:center;gap:8px;margin-top:14px;min-height:46px;padding:0 18px 0 14px;border-radius:999px;border:1px solid var(--line-2);color:var(--ivory);font-weight:500;text-decoration:none;transition:border-color .2s,background .2s,transform .15s}
+.maplink:hover{border-color:var(--chalk);background:var(--hover-bg)}
+.maplink svg{width:18px;height:18px;color:var(--chalk)}
+.btn:active,.btn-small:active,.soc:active,.maplink:active,.tab:active,.gp:active{transform:scale(.97)}
+/* phones: quick-action bar fixed at the bottom, within thumb reach */
+.mbar{display:none}
+@media (max-width:900px){
+  .mbar{view-transition-name:mbar;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:28;display:grid;grid-template-columns:1.25fr 1fr 1fr;align-items:stretch;gap:6px;height:64px;padding:6px;border-radius:22px;border:1px solid var(--pill-line);background:var(--pill);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);box-shadow:0 14px 34px -12px rgba(0,0,0,.55);transition:transform .45s var(--ease),opacity .3s}
+  html.menu-locked .mbar{transform:translateY(140%);opacity:0}
+  .mbar a{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:16px;color:var(--ink);text-decoration:none;font-weight:600;line-height:1.15;transition:background .2s,transform .15s}
+  .mbar a:active{transform:scale(.95);background:var(--hover-bg)}
+  .mbar svg{width:20px;height:20px;flex:none}
+  .mb-call{background:var(--yellow);color:#1b1604!important;font-size:.98rem}
+  .mb-call:active{background:#FFC620!important}
+  .mb-free,.mb-map{flex-direction:column;gap:3px!important}
+  .mb-top{display:flex;align-items:center;gap:6px;height:22px}
+  .mb-top b{font-family:var(--display);font-size:1.2rem;line-height:1}
+  .mb-free>span:last-child,.mb-map span{font-size:.72rem;font-weight:500;color:var(--ink-3)}
+  .mb-map svg{color:var(--chalk)}
+  .top .call{display:none}
+  body{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+}
 .socials{display:flex;gap:12px;margin-top:16px}
 .soc{display:grid;place-items:center;width:54px;height:54px;border-radius:16px;border:1px solid var(--line-2);color:var(--ivory);transition:transform .35s var(--ease),background .3s,border-color .3s,color .3s,box-shadow .35s var(--ease)}
 .soc svg{width:24px;height:24px}
@@ -449,6 +497,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 .gtabs a:hover{color:var(--ink)}
 .gtabs a[aria-current="true"]{color:#1b1604}
 .gtabs :focus-visible{outline-color:#2453C9}
+.t-short{display:none}
+@media (max-width:560px){.gtabs a{padding:9px 13px;font-size:.92rem}.t-long{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.t-short{display:inline}}
 .gind{position:absolute;left:0;top:6px;bottom:6px;width:0;border-radius:999px;background:var(--yellow);transition:transform .5s var(--ease),width .5s var(--ease)}
 .sec.gpanel{background:none;padding-top:clamp(2rem,1.6rem + 2vw,3.4rem)}
 .gpanel .learn-side{top:calc(var(--stick) + 84px)}
@@ -523,7 +573,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
 :root[data-theme="light"] .orb{opacity:calc(var(--o) * .7)}
 :root[data-theme="light"] .bg-grain{mix-blend-mode:multiply;opacity:.05}
 .ticker{background:color-mix(in srgb,var(--hall-2) 72%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-@media (max-width:700px){.orb.wide{display:none}.bg-layer.near{--k:40}}
+@media (max-width:700px){.orb.wide{display:none}.bg-layer.near{--k:40}.bg-layer.far .orb{filter:blur(44px)}.bg-glow{animation-duration:50s}}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -611,6 +661,12 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     </div>
 </div>
 
+<nav class="mbar" aria-label="Шуурхай товч">
+  <a class="mb-call" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>Залгах</span></a>
+  <a class="mb-free" href="#tables"><span class="mb-top"><svg id="mbIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="3.5" cy="6.5" r=".5"/><circle cx="20.5" cy="6.5" r=".5"/><circle cx="3.5" cy="17.5" r=".5"/><circle cx="20.5" cy="17.5" r=".5"/></svg><i class="dot" id="mbDot" hidden></i><b id="mbN" hidden>0</b></span><span id="mbL">Ширээнүүд</span></a>
+  <a class="mb-map" href="https://www.google.com/maps/dir/?api=1&amp;destination=Metropool+Billiard+Club+Sansar+Ulaanbaatar" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Зам заах</span></a>
+</nav>
+
 <main>
 <div class="view" id="view-home">
 <section class="hero" id="hero">
@@ -672,6 +728,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   <div class="wrap">
     <h2 class="h2" data-reveal><span>Манай зургаан ширээ</span></h2>
     <p class="intro" data-reveal>Ширээн дээр дарж томруулж үзээрэй. Тодорхой ширээнд тоглох бол урьдчилан залгаж захиалаарай.</p>
+    <p class="tsum" id="tsum" hidden><i class="dot" aria-hidden="true"></i><span>Яг одоо сул ширээ:</span> <b id="tsumN">0 / 6</b></p>
     <ul class="tables-grid" id="tablesGrid" aria-label="Ширээнүүд"></ul>
   </div>
 </section>
@@ -703,7 +760,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
       <div data-reveal>
         <h3>Байршил</h3>
         <p>Сансар, Улаанбаатар</p>
-        <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Metropool+Billiard+Club+Sansar+Ulaanbaatar" target="_blank" rel="noopener">Газрын зураг дээр харах</a></div>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Metropool+Billiard+Club+Sansar+Ulaanbaatar" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Газрын зураг дээр харах</a>
       </div>
       <div data-reveal>
         <h3>Цагийн хуваарь</h3>
@@ -737,7 +794,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
       <a href="#guide/games" data-panel="games" aria-current="true">Тоглоом</a>
       <a href="#guide/learn" data-panel="learn" aria-current="false">Эхлэгчдэд</a>
       <a href="#guide/rules" data-panel="rules" aria-current="false">Дүрэм</a>
-      <a href="#guide/etiquette" data-panel="etiquette" aria-current="false">Ширээний соёл</a>
+      <a href="#guide/etiquette" data-panel="etiquette" aria-current="false"><span class="t-long">Ширээний соёл</span><span class="t-short" aria-hidden="true">Соёл</span></a>
       <span class="gind" aria-hidden="true"></span>
     </nav>
   </div>
@@ -1600,6 +1657,15 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     dPhoto.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') tilt(dPhoto, e); });
     dPhoto.addEventListener('pointerleave', () => untilt(dPhoto));
   }
+  // phones: swipe the sheet down to close it, or sideways to see the next table
+  let dsx = null, dsy = 0;
+  dlg.addEventListener('touchstart', e => { if (e.touches.length === 1) { dsx = e.touches[0].clientX; dsy = e.touches[0].clientY; } else dsx = null; }, {passive:true});
+  dlg.addEventListener('touchend', e => {
+    if (dsx === null) return;
+    const t = e.changedTouches[0], dx = t.clientX - dsx, dy = t.clientY - dsy; dsx = null;
+    if (dy > 90 && Math.abs(dx) < dy * .7 && dlg.scrollTop <= 0) { closeDlg(); return; }
+    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 2) showTable(cur + (dx < 0 ? 1 : -1));
+  }, {passive:true});
 
   // ШИРЭЭНИЙ ТӨЛӨВ: Google Sheet "metro pool" (A: Ширээ 1..6, B: s = сул, h = хүнтэй).
   // Латин s/h, кирилл с/х, мөн free/full, сул/хүнтэй/дүүрэн гэж бичсэн ч танина.
@@ -1629,6 +1695,16 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
         card.setAttribute('aria-label', `Ширээ ${i + 1}${LABEL[s] ? ', ' + LABEL[s].toLowerCase() : ''}, томруулж үзэх`);
       });
       if (dlg.open) paintStatus(dlg, document.getElementById('tdStatus'), STATUS[cur]);
+      // live count of free tables: summary above the grid + phone quick-action bar
+      const known = STATUS.filter(Boolean).length, free = STATUS.filter(s => s === 'free').length;
+      if (known) {
+        document.getElementById('tsum').hidden = false;
+        document.getElementById('tsumN').textContent = `${free} / ${TABLES.length}`;
+        document.getElementById('mbIcon').style.display = 'none';
+        document.getElementById('mbDot').hidden = free === 0;
+        const n = document.getElementById('mbN'); n.hidden = false; n.textContent = free;
+        document.getElementById('mbL').textContent = 'сул ширээ';
+      }
     } catch (err) {
       console.warn('Ширээний төлөв уншиж чадсангүй:', err);
     }
@@ -1928,7 +2004,9 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     'Цагаан бөмбөг халаасанд орлоо. Дараагийн цохилтод буцааж тавина.': 'Scratch! The cue ball goes back on the table for your next shot.',
     'Ширээ цэвэрлэлээ! Одоо жинхэнэ ширээн дээр туршаад үзээрэй.': 'Table cleared! Now try it on a real table.',
     'Гэрэл асаж байна…': 'Lights coming on…', 'Эхний цохилт…': 'The break…',
-    'Сул': 'Free', 'Хүнтэй': 'Occupied'
+    'Сул': 'Free', 'Хүнтэй': 'Occupied',
+    'Шуурхай товч': 'Quick actions', 'Залгах': 'Call', 'сул ширээ': 'free tables', 'Зам заах': 'Directions',
+    'Яг одоо сул ширээ:': 'Free tables right now:', 'Соёл': 'Etiquette'
   };
   const EN_RX = [
     [/^Халаасанд: (\d+) \/ 15$/, 'Pocketed: $1 / 15'],
