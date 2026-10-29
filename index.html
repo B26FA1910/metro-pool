@@ -490,6 +490,41 @@ html[data-vt="theme"]::view-transition-group(hdr){animation-duration:.65s}
 @keyframes themeReveal{from{clip-path:circle(0 at var(--vx,50%) var(--vy,0px))}to{clip-path:circle(var(--vr,150vmax) at var(--vx,50%) var(--vy,0px))}}
 html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-transition-new(root){animation-duration:.3s}
 
+/* ---------- background scene: lamp light, felt glow and drifting pool balls ---------- */
+.bg-scene{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;contain:strict}
+.bg-scene::after{content:"";position:absolute;inset:0;background:radial-gradient(130% 95% at 50% 35%,transparent 52%,rgba(3,8,18,.55))}
+.bg-glow{position:absolute;inset:-25%;background:
+  radial-gradient(30% 26% at 70% 22%,rgba(255,214,140,.16),transparent 70%),
+  radial-gradient(34% 30% at 26% 80%,rgba(43,154,91,.24),transparent 72%),
+  radial-gradient(36% 32% at 22% 30%,rgba(36,83,201,.26),transparent 70%),
+  radial-gradient(28% 24% at 82% 74%,rgba(106,44,145,.18),transparent 72%);
+  animation:glowDrift 36s ease-in-out infinite alternate;will-change:transform}
+@keyframes glowDrift{to{transform:translate3d(5%,-4%,0) rotate(6deg) scale(1.08)}}
+.bg-layer{position:absolute;inset:0;transform:translate3d(calc(var(--px,0) * var(--k) * 1px),calc(var(--py,0) * var(--k) * 1px),0);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.bg-layer.far{--k:16}
+.bg-layer.mid{--k:40}
+.bg-layer.near{--k:80}
+.orb{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;opacity:var(--o);filter:blur(var(--b));will-change:transform;
+  background:radial-gradient(circle at 32% 27%,rgba(255,255,255,.65),rgba(255,255,255,0) 24%),radial-gradient(circle at 50% 50%,transparent 55%,rgba(0,0,0,.42) 100%),var(--c);
+  animation:var(--a) var(--d) ease-in-out infinite alternate}
+.orb.st{background:radial-gradient(circle at 32% 27%,rgba(255,255,255,.65),rgba(255,255,255,0) 24%),radial-gradient(circle at 50% 50%,transparent 55%,rgba(0,0,0,.42) 100%),linear-gradient(#F3EFE4 0 24%,var(--c) 24% 76%,#F3EFE4 76%)}
+.orb[data-n]::after{content:attr(data-n);position:absolute;inset:31%;display:grid;place-items:center;border-radius:50%;background:#F3EFE4;color:#16181C;font:700 calc(var(--s) * .15)/1 var(--text)}
+@keyframes drift1{to{transform:translate3d(-7vmax,5vmax,0) rotate(38deg)}}
+@keyframes drift2{to{transform:translate3d(6vmax,-5vmax,0) rotate(-32deg)}}
+@keyframes drift3{to{transform:translate3d(-4vmax,-7vmax,0) rotate(24deg)}}
+@keyframes drift4{to{transform:translate3d(5vmax,6vmax,0) rotate(-20deg)}}
+.bg-grain{position:absolute;inset:0;z-index:1;opacity:.08;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+:root[data-theme="light"] .bg-scene::after{background:radial-gradient(130% 95% at 50% 35%,transparent 60%,rgba(14,28,51,.07))}
+:root[data-theme="light"] .bg-glow{background:
+  radial-gradient(30% 26% at 70% 22%,rgba(245,183,0,.16),transparent 70%),
+  radial-gradient(34% 30% at 26% 80%,rgba(43,154,91,.15),transparent 72%),
+  radial-gradient(36% 32% at 22% 30%,rgba(36,83,201,.13),transparent 70%),
+  radial-gradient(28% 24% at 82% 74%,rgba(106,44,145,.10),transparent 72%)}
+:root[data-theme="light"] .orb{opacity:calc(var(--o) * .7)}
+:root[data-theme="light"] .bg-grain{mix-blend-mode:multiply;opacity:.05}
+.ticker{background:color-mix(in srgb,var(--hall-2) 72%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+@media (max-width:700px){.orb.wide{display:none}.bg-layer.near{--k:40}}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
@@ -499,6 +534,25 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
 </style>
 </head>
 <body>
+<div class="bg-scene" id="bgScene" aria-hidden="true">
+  <div class="bg-glow"></div>
+  <div class="bg-layer far">
+    <i class="orb" style="--c:#F5B700;--x:66%;--y:4%;--s:30vmax;--b:64px;--o:.34;--d:64s;--a:drift1"></i>
+    <i class="orb" style="--c:#2453C9;--x:-10%;--y:38%;--s:34vmax;--b:72px;--o:.38;--d:72s;--a:drift2"></i>
+    <i class="orb wide" style="--c:#1E8C4E;--x:56%;--y:68%;--s:32vmax;--b:72px;--o:.32;--d:68s;--a:drift3"></i>
+  </div>
+  <div class="bg-layer mid">
+    <i class="orb" style="--c:#D8313F;--x:16%;--y:10%;--s:11vmax;--b:16px;--o:.26;--d:48s;--a:drift4" data-n="3"></i>
+    <i class="orb wide" style="--c:#6A2C91;--x:86%;--y:46%;--s:9vmax;--b:12px;--o:.28;--d:52s;--a:drift2" data-n="4"></i>
+    <i class="orb st" style="--c:#8A2430;--x:40%;--y:84%;--s:8vmax;--b:10px;--o:.24;--d:56s;--a:drift1" data-n="15"></i>
+  </div>
+  <div class="bg-layer near">
+    <i class="orb" style="--c:#F07B1C;--x:6%;--y:72%;--s:6.5vmax;--b:3px;--o:.2;--d:40s;--a:drift3" data-n="5"></i>
+    <i class="orb wide" style="--c:#F4F1E8;--x:47%;--y:30%;--s:4.5vmax;--b:2px;--o:.14;--d:44s;--a:drift4"></i>
+    <i class="orb st" style="--c:#F5B700;--x:80%;--y:14%;--s:5.5vmax;--b:4px;--o:.18;--d:46s;--a:drift2" data-n="9"></i>
+  </div>
+  <div class="bg-grain"></div>
+</div>
 
 <header class="top" id="top">
   <div class="wrap">
@@ -942,6 +996,16 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   const top = document.getElementById('top');
   const onHeader = () => top.classList.toggle('scrolled', scrollY > 20);
   onHeader(); addEventListener('scroll', onHeader, {passive:true});
+
+  // background balls sway gently at different depths as the page scrolls
+  const bgScene = document.getElementById('bgScene');
+  let bgQueued = false;
+  const bgParallax = () => {
+    bgQueued = false;
+    bgScene.style.setProperty('--py', Math.sin(scrollY / 650).toFixed(3));
+    bgScene.style.setProperty('--px', (Math.cos(scrollY / 900) - 1).toFixed(3));
+  };
+  if (!reduce) addEventListener('scroll', () => { if (!bgQueued) { bgQueued = true; requestAnimationFrame(bgParallax); } }, {passive:true});
 
   let fmt;
   try { fmt = new Intl.DateTimeFormat('en-GB', {timeZone:'Asia/Ulaanbaatar', hour:'2-digit', minute:'2-digit', hour12:false}); }
