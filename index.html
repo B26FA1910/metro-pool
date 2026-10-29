@@ -36,12 +36,15 @@ button{font:inherit;color:inherit}
 /* ---------- header ---------- */
 .top{position:fixed;inset:0 0 auto;z-index:30;border-bottom:1px solid transparent;transition:background .35s,border-color .35s,backdrop-filter .35s}
 .top.scrolled{background:rgba(14,28,51,.8);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-color:var(--line)}
-.top .wrap{display:flex;align-items:center;gap:20px;height:68px}
+.top{view-transition-name:hdr}
+.top>.wrap{display:flex;align-items:center;gap:20px;height:68px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
 .brand em{font-style:normal;font-family:var(--text);font-weight:500;font-size:.85rem;color:var(--muted);letter-spacing:0}
-.top nav{display:flex;gap:22px;margin-left:auto}
-.top nav a{text-decoration:none;color:var(--muted);font-size:.95rem;transition:color .2s}
-.top nav a:hover{color:var(--ivory)}
+.dnav{display:flex;gap:26px;margin-left:auto}
+.dnav a{position:relative;padding:6px 0;text-decoration:none;color:var(--muted);font-size:.95rem;transition:color .2s}
+.dnav a:hover,.dnav a[aria-current="page"]{color:var(--ivory)}
+.dnav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--yellow);transform:scaleX(0);transition:transform .4s var(--ease)}
+.dnav a[aria-current="page"]::after{transform:scaleX(1)}
 .status{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--muted);padding:6px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
 .status b{font-weight:500;color:var(--ivory)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:ping 2.2s infinite}
@@ -49,9 +52,37 @@ button{font:inherit;color:inherit}
 .call{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;background:var(--yellow);color:#1b1604;font-weight:600;font-size:.92rem;text-decoration:none;white-space:nowrap;transition:transform .2s var(--ease),background .2s}
 .call:hover{background:#FFC620;transform:translateY(-1px)}
 .call svg{width:16px;height:16px}
-@media (min-width:901px) and (max-width:1180px){.status{display:none}}
-@media (max-width:900px){.top nav{display:none}.status{margin-left:auto}}
-@media (max-width:520px){.brand em{display:none}.call span{display:none}.call{width:38px;padding:0;justify-content:center}.status{padding:6px 10px}}
+/* mobile menu (three lines) */
+.burger{display:none;position:relative;flex:none;width:42px;height:42px;border-radius:12px;border:1px solid rgba(242,238,227,.24);background:rgba(14,28,51,.4);cursor:pointer}
+.burger span{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:var(--ivory);transition:transform .45s var(--ease),opacity .25s}
+.burger span:nth-child(1){top:13px}
+.burger span:nth-child(2){top:19px}
+.burger span:nth-child(3){top:25px}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0;transform:scaleX(.2)}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mmenu{position:fixed;inset:68px 0 0;z-index:29;overflow-y:auto;overscroll-behavior:contain;background:rgba(10,20,38,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-top:1px solid var(--line);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s}
+.mmenu.open{opacity:1;visibility:visible;transition:opacity .3s ease}
+.mmenu>.wrap{padding:18px 0 36px}
+.mnav{display:flex;flex-direction:column}
+.mnav>a{display:block;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--display);font-weight:700;font-size:1.55rem;letter-spacing:-.02em;text-decoration:none}
+.mnav>a[aria-current="page"]{color:var(--yellow)}
+.msub{display:flex;flex-wrap:wrap;gap:8px;padding:12px 0 16px;border-bottom:1px solid var(--line)}
+.msub a{padding:8px 14px;border-radius:999px;border:1px solid rgba(140,188,240,.3);background:rgba(140,188,240,.07);color:var(--chalk);font-size:.95rem;font-weight:500;text-decoration:none}
+.msub a[aria-current="page"]{background:var(--yellow);border-color:var(--yellow);color:#1b1604}
+.mfoot{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:26px}
+.mstatus{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.mstatus time{color:var(--ivory);font-variant-numeric:tabular-nums}
+.mnav>*,.mfoot{opacity:0;transform:translateY(-12px);transition:opacity .35s ease,transform .5s var(--ease)}
+.mmenu.open .mnav>*,.mmenu.open .mfoot{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 45ms + 60ms)}
+.top.menu-open{background:var(--hall);border-color:var(--line)}
+html.menu-locked{overflow:hidden}
+@media (min-width:901px){.mmenu{display:none}}
+@media (min-width:901px) and (max-width:1000px){.status{display:none}}
+@media (max-width:900px){.dnav{display:none}.brand{margin-right:auto}.burger{display:block}.top>.wrap{gap:12px}}
+@media (max-width:600px){.call span{display:none}.call{width:42px;height:42px;padding:0;justify-content:center}}
+@media (max-width:520px){.brand em{display:none}.status{padding:6px 10px}}
+@media (max-width:460px){.status{display:none}}
 
 /* ---------- hero ---------- */
 .hero{position:relative;isolation:isolate;min-height:100svh;display:grid;align-items:center;padding:112px 0 72px}
@@ -296,8 +327,6 @@ html:has(dialog[open]){overflow:hidden}
 @media (max-width:560px){.steps li>.ex{grid-column:1/-1}}
 
 /* ---------- basic rules ---------- */
-.sec.rules{padding-top:0}
-.rules>.wrap{padding-top:clamp(3.5rem,2.5rem + 4vw,6rem);border-top:1px solid var(--line)}
 .rule-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:56px;margin-top:44px}
 .rule-list li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:18px;padding:22px 0;border-top:1px solid var(--line)}
 .ri{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--felt);color:var(--ivory);box-shadow:inset -4px -6px 10px rgba(0,0,0,.28)}
@@ -354,6 +383,54 @@ html:has(dialog[open]){overflow:hidden}
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--faint);font-size:.9rem}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
+/* ---------- views: home ↔ guide (Заавар) ---------- */
+.view[hidden],.gpanel[hidden],.gp[hidden]{display:none}
+.guide-top{padding:calc(68px + clamp(2.2rem,1.6rem + 3vw,4.5rem)) 0 clamp(1.6rem,1.2rem + 2vw,2.6rem)}
+.back-link{display:inline-flex;align-items:center;gap:4px;margin-left:-10px;padding:6px 14px 6px 8px;border-radius:999px;color:var(--muted);font-size:.95rem;font-weight:500;text-decoration:none;transition:color .2s,background .2s}
+.back-link:hover{color:var(--ivory);background:rgba(242,238,227,.07)}
+.back-link svg{width:18px;height:18px}
+.guide-title{margin-top:14px;font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,1.4rem + 3.8vw,4.6rem);line-height:1.04;letter-spacing:-.035em}
+.gtabs-bar{position:sticky;top:68px;z-index:20;background:rgba(14,28,51,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-block:1px solid var(--line)}
+.gtabs{position:relative;display:flex;gap:4px;padding:10px 0;overflow-x:auto;scrollbar-width:none}
+.gtabs::-webkit-scrollbar{display:none}
+.gtabs a{position:relative;z-index:1;flex:none;padding:10px 18px;border-radius:999px;color:var(--muted);font-weight:600;font-size:.98rem;text-decoration:none;transition:color .35s}
+.gtabs a:hover{color:var(--ivory)}
+.gtabs a[aria-current="true"]{color:#1b1604}
+.gind{position:absolute;left:0;top:10px;bottom:10px;width:0;border-radius:999px;background:var(--yellow);transition:transform .5s var(--ease),width .5s var(--ease)}
+.sec.gpanel{background:none;padding-top:clamp(2.6rem,2rem + 2.6vw,4.2rem)}
+.gpanel .learn-side{top:150px}
+.gpanel.in-fwd,.view.in-fwd{animation:slideFwd .55s var(--ease)}
+.gpanel.in-back,.view.in-back{animation:slideBack .55s var(--ease)}
+@keyframes slideFwd{from{opacity:0;transform:translateX(64px)}}
+@keyframes slideBack{from{opacity:0;transform:translateX(-64px)}}
+.gpager{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-bottom:clamp(3.5rem,2.5rem + 4vw,6rem)}
+.gp{display:flex;flex-direction:column;gap:6px;padding:20px 24px;border-radius:18px;border:1px solid var(--line);text-decoration:none;transition:border-color .25s,background .25s}
+.gp:hover{border-color:rgba(140,188,240,.45);background:rgba(140,188,240,.06)}
+.gp small{display:flex;align-items:center;gap:4px;color:var(--muted);font-size:.9rem}
+.gp small svg{width:16px;height:16px}
+.gp b{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,1rem + .7vw,1.5rem);letter-spacing:-.015em}
+.gp.next{grid-column:2;align-items:flex-end;text-align:right}
+@media (max-width:560px){.gp{padding:16px 18px}}
+/* intro animations play once, not every time the home page is shown again */
+.played .lamp,.played .lampbar::after,.played .canvas-box,.played .hl .ln>span,.played .lede,.played .ctas{animation:none}
+.tables-grid.lit-done .tdark{animation:none;opacity:0}
+/* sliding transitions between home ↔ guide, and between guide slides */
+html[data-vt="page-fwd"]::view-transition-old(root){animation:vtOutL .45s var(--ease) both}
+html[data-vt="page-fwd"]::view-transition-new(root){animation:vtInR .5s var(--ease) both}
+html[data-vt="page-back"]::view-transition-old(root){animation:vtOutR .45s var(--ease) both}
+html[data-vt="page-back"]::view-transition-new(root){animation:vtInL .5s var(--ease) both}
+html[data-vt^="panel"] .gpanels{view-transition-name:gpanel}
+html[data-vt^="panel"]::view-transition-old(root),html[data-vt^="panel"]::view-transition-new(root){animation:none}
+html[data-vt="panel-fwd"]::view-transition-old(gpanel){animation:vtOutL .4s var(--ease) both}
+html[data-vt="panel-fwd"]::view-transition-new(gpanel){animation:vtInR .5s var(--ease) both}
+html[data-vt="panel-back"]::view-transition-old(gpanel){animation:vtOutR .4s var(--ease) both}
+html[data-vt="panel-back"]::view-transition-new(gpanel){animation:vtInL .5s var(--ease) both}
+::view-transition-group(gpanel){animation-duration:.5s}
+@keyframes vtOutL{to{opacity:0;transform:translateX(-14%)}}
+@keyframes vtInR{from{opacity:0;transform:translateX(14%)}}
+@keyframes vtOutR{to{opacity:0;transform:translateX(14%)}}
+@keyframes vtInL{from{opacity:0;transform:translateX(-14%)}}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
@@ -370,11 +447,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><defs><clipPath id="bm"><circle cx="15" cy="15" r="14"/></clipPath></defs><circle cx="15" cy="15" r="14" fill="#F3EFE4"/><rect x="0" y="8" width="30" height="14" fill="#F5B700" clip-path="url(#bm)"/><circle cx="15" cy="15" r="5.6" fill="#F3EFE4"/><text x="15" y="18.3" font-size="8.6" font-weight="700" text-anchor="middle" fill="#16181C" font-family="Golos Text, Arial, sans-serif">9</text></svg>
       Metropool <em>Сансар</em>
     </a>
-    <nav aria-label="Үндсэн цэс">
+    <nav class="dnav" aria-label="Үндсэн цэс">
       <a href="#tables">Ширээ</a>
-      <a href="#games">Тоглоом</a>
-      <a href="#learn">Эхлэгчдэд</a>
-      <a href="#etiquette">Ширээний соёл</a>
+      <a href="#guide" data-guide>Заавар</a>
       <a href="#prices">Үнэ</a>
       <a href="#visit">Холбогдох</a>
     </nav>
@@ -383,10 +458,32 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
       <span>8006 1460</span>
     </a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mmenu" aria-label="Цэс нээх"><span></span><span></span><span></span></button>
   </div>
 </header>
+<div class="mmenu" id="mmenu" inert>
+    <div class="wrap">
+      <nav class="mnav" aria-label="Гар утасны цэс">
+        <a href="#tables" style="--i:0">Ширээ</a>
+        <a href="#guide" data-guide style="--i:1">Заавар</a>
+        <div class="msub" style="--i:2">
+          <a href="#guide/games">Тоглоом</a>
+          <a href="#guide/learn">Эхлэгчдэд</a>
+          <a href="#guide/rules">Дүрэм</a>
+          <a href="#guide/etiquette">Ширээний соёл</a>
+        </div>
+        <a href="#prices" style="--i:3">Үнэ</a>
+        <a href="#visit" style="--i:4">Холбогдох</a>
+      </nav>
+      <div class="mfoot" style="--i:5">
+        <span class="mstatus"><i class="dot" aria-hidden="true"></i>24 цаг нээлттэй, одоо <time data-clock>--:--</time></span>
+        <a class="btn btn-primary" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Залгах: 8006 1460</a>
+      </div>
+    </div>
+</div>
 
 <main>
+<div class="view" id="view-home">
 <section class="hero" id="hero">
   <div class="lamp" aria-hidden="true"></div>
   <div class="wrap hero-grid">
@@ -395,7 +492,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <p class="lede">Metropool Billiard Club бол Сансарт байрлах pool биллиардын клуб. Бид 24 цаг, долоо хоногийн 7 өдөр нээлттэй — өглөө ч, шөнө ч ирээд тоглоорой.</p>
       <div class="ctas">
         <a class="btn btn-primary" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Залгах: 8006 1460</a>
-        <a class="btn btn-ghost" href="#games">Тоглоомын дүрэм</a>
+        <a class="btn btn-ghost" href="#guide">Заавар үзэх</a>
       </div>
     </div>
 
@@ -450,7 +547,73 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   </div>
 </section>
 
-<section class="sec games" id="games">
+<section class="sec prices" id="prices">
+  <div class="wrap prices-grid">
+    <div>
+      <h2 class="h2" data-reveal><span>Ширээний үнэ</span></h2>
+      <p class="intro" data-reveal>Цагаар тооцно. Шөнө дунд ирсэн ч ширээ бэлэн байна.</p>
+      <p class="note" data-reveal>Төрсөн өдөр, байгууллагын арга хэмжээ, тэмцээнд ширээ урьдчилан захиалах бол <a href="tel:+97680061460">8006 1460</a> дугаараар холбогдоорой. Үнэ өөрчлөгдөж болно.</p>
+    </div>
+    <div class="felt-card" data-reveal>
+      <!-- ЖИШЭЭ ҮНЭ: доорх үнийг клубын бодит үнээр солино уу -->
+      <ul class="price-list">
+        <li><span class="nm">Өдөр<small>10:00–18:00</small></span><i></i><b>12,000₮ <small>/ цаг</small></b></li>
+        <li><span class="nm">Орой<small>18:00–02:00</small></span><i></i><b>15,000₮ <small>/ цаг</small></b></li>
+        <li><span class="nm">Шөнө<small>02:00–10:00</small></span><i></i><b>10,000₮ <small>/ цаг</small></b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec visit" id="visit">
+  <div class="wrap">
+    <h2 class="h2" data-reveal><span>Ирээд тоглоорой</span></h2>
+    <p class="now" data-reveal>Улаанбаатарын цагаар яг одоо <time data-clock>--:--</time>. Бид нээлттэй.</p>
+    <a class="bigphone" href="tel:+97680061460" aria-label="8006 1460 руу залгах" data-num="8006 1460">8006 1460</a>
+    <div class="visit-grid">
+      <div data-reveal>
+        <h3>Байршил</h3>
+        <p>Сансар, Улаанбаатар</p>
+        <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Metropool+Billiard+Club+Sansar+Ulaanbaatar" target="_blank" rel="noopener">Газрын зураг дээр харах</a></div>
+      </div>
+      <div data-reveal>
+        <h3>Цагийн хуваарь</h3>
+        <p>24 цаг, долоо хоногийн 7 өдөр нээлттэй. Өглөө, орой, шөнө аль ч цагт ирж болно.</p>
+      </div>
+      <div data-reveal>
+        <h3>Сошиал хуудас</h3>
+        <p>Facebook дээр 7,000 гаруй хүн биднийг дагадаг. Шинэ мэдээ, видеог тэндээс үзээрэй.</p>
+        <div class="links">
+          <a href="https://www.facebook.com/khuchumaral" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/metro_pool_billiard" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-guide" hidden>
+<section class="guide-top">
+  <div class="wrap">
+    <a class="back-link" href="#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Нүүр хуудас</a>
+    <h1 class="guide-title">Заавар</h1>
+    <p class="intro">Тоглоомын дүрэм, эхлэгчдэд зориулсан алхмууд, ширээний соёл нэг дор. Хэсгүүдийг доорх цэснээс сонгох, эсвэл утсан дээр хажуу тийш шударч сольж болно.</p>
+  </div>
+</section>
+<div class="gtabs-bar">
+  <div class="wrap">
+    <nav class="gtabs" id="gtabs" aria-label="Зааврын хэсгүүд">
+      <a href="#guide/games" data-panel="games" aria-current="true">Тоглоом</a>
+      <a href="#guide/learn" data-panel="learn" aria-current="false">Эхлэгчдэд</a>
+      <a href="#guide/rules" data-panel="rules" aria-current="false">Дүрэм</a>
+      <a href="#guide/etiquette" data-panel="etiquette" aria-current="false">Ширээний соёл</a>
+      <span class="gind" aria-hidden="true"></span>
+    </nav>
+  </div>
+</div>
+<div class="gpanels" id="gpanels">
+<section class="sec games gpanel" id="games" aria-label="Тоглоом">
   <div class="wrap games-grid">
     <div class="games-copy">
       <h2 class="h2" data-reveal><span>Аль тоглоомыг тоглох вэ?</span></h2>
@@ -489,7 +652,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   </div>
 </section>
 
-<section class="sec learn" id="learn">
+<section class="sec learn gpanel" id="learn" aria-label="Эхлэгчдэд" hidden>
   <div class="wrap learn-grid">
     <div class="learn-side">
       <h2 class="h2" data-reveal><span>Анх удаа палк барьж байна уу?</span></h2>
@@ -626,7 +789,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   </div>
 </section>
 
-<section class="sec rules" id="rules">
+<section class="sec rules gpanel" id="rules" aria-label="Дүрэм" hidden>
   <div class="wrap">
     <h2 class="h2" data-reveal><span>Анхан шатны дүрэм</span></h2>
     <p class="intro" data-reveal>Аль ч тоглоом тоглосон эдгээр дүрэм үйлчилнэ. Зөрчвөл алдаа болж, ээлж өрсөлдөгчид шилжинэ.</p>
@@ -647,7 +810,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   </div>
 </section>
 
-<section class="sec etiquette" id="etiquette">
+<section class="sec etiquette gpanel" id="etiquette" aria-label="Ширээний соёл" hidden>
   <div class="wrap">
     <h2 class="h2" data-reveal><span>Ширээний соёл</span></h2>
     <p class="intro" data-reveal>Биллиард бол бие биенээ хүндэлдэг тоглоом. Хэдхэн энгийн дүрэм бүх хүний тоглолтыг тааламжтай болгоно.</p>
@@ -661,51 +824,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     </ul>
   </div>
 </section>
-
-<section class="sec prices" id="prices">
-  <div class="wrap prices-grid">
-    <div>
-      <h2 class="h2" data-reveal><span>Ширээний үнэ</span></h2>
-      <p class="intro" data-reveal>Цагаар тооцно. Шөнө дунд ирсэн ч ширээ бэлэн байна.</p>
-      <p class="note" data-reveal>Төрсөн өдөр, байгууллагын арга хэмжээ, тэмцээнд ширээ урьдчилан захиалах бол <a href="tel:+97680061460">8006 1460</a> дугаараар холбогдоорой. Үнэ өөрчлөгдөж болно.</p>
-    </div>
-    <div class="felt-card" data-reveal>
-      <!-- ЖИШЭЭ ҮНЭ: доорх үнийг клубын бодит үнээр солино уу -->
-      <ul class="price-list">
-        <li><span class="nm">Өдөр<small>10:00–18:00</small></span><i></i><b>12,000₮ <small>/ цаг</small></b></li>
-        <li><span class="nm">Орой<small>18:00–02:00</small></span><i></i><b>15,000₮ <small>/ цаг</small></b></li>
-        <li><span class="nm">Шөнө<small>02:00–10:00</small></span><i></i><b>10,000₮ <small>/ цаг</small></b></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="sec visit" id="visit">
-  <div class="wrap">
-    <h2 class="h2" data-reveal><span>Ирээд тоглоорой</span></h2>
-    <p class="now" data-reveal>Улаанбаатарын цагаар яг одоо <time data-clock>--:--</time>. Бид нээлттэй.</p>
-    <a class="bigphone" href="tel:+97680061460" aria-label="8006 1460 руу залгах" data-num="8006 1460">8006 1460</a>
-    <div class="visit-grid">
-      <div data-reveal>
-        <h3>Байршил</h3>
-        <p>Сансар, Улаанбаатар</p>
-        <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Metropool+Billiard+Club+Sansar+Ulaanbaatar" target="_blank" rel="noopener">Газрын зураг дээр харах</a></div>
-      </div>
-      <div data-reveal>
-        <h3>Цагийн хуваарь</h3>
-        <p>24 цаг, долоо хоногийн 7 өдөр нээлттэй. Өглөө, орой, шөнө аль ч цагт ирж болно.</p>
-      </div>
-      <div data-reveal>
-        <h3>Сошиал хуудас</h3>
-        <p>Facebook дээр 7,000 гаруй хүн биднийг дагадаг. Шинэ мэдээ, видеог тэндээс үзээрэй.</p>
-        <div class="links">
-          <a href="https://www.facebook.com/khuchumaral" target="_blank" rel="noopener">Facebook</a>
-          <a href="https://www.instagram.com/metro_pool_billiard" target="_blank" rel="noopener">Instagram</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</div>
+<div class="wrap gpager">
+  <a class="gp prev" id="gpPrev" href="#guide/games" hidden><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Өмнөх</small><b>Тоглоом</b></a>
+  <a class="gp next" id="gpNext" href="#guide/learn"><small>Дараах<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></small><b>Эхлэгчдэд</b></a>
+</div>
+</div>
 </main>
 
 <footer>
@@ -1289,7 +1413,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     cap.innerHTML = `<span>Ширээ ${i + 1}<em class="tstatus"></em></span>${expandIcon}`;
     btn.append(cap); li.append(btn); grid.append(li);
   });
-  const litIO = new IntersectionObserver(es => { if (es[0].isIntersecting) { grid.classList.add('lit'); litIO.disconnect(); } }, {threshold:.25});
+  const litIO = new IntersectionObserver(es => { if (es[0].isIntersecting) { grid.classList.add('lit'); litIO.disconnect(); setTimeout(() => grid.classList.add('lit-done'), 2400); } }, {threshold:.25});
   litIO.observe(grid);
 
   const tilt = (el, e) => {
@@ -1387,6 +1511,120 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       setTimeout(stepProgress, 600);
     });
   });
+
+  /* ---------- views: home ↔ guide (Заавар), with sliding transitions ---------- */
+  setTimeout(() => document.documentElement.classList.add('played'), 2600);
+  const root = document.documentElement;
+  const viewHome = document.getElementById('view-home'), viewGuide = document.getElementById('view-guide');
+  const PANELS = ['games', 'learn', 'rules', 'etiquette'];
+  const PANEL_NAME = {games:'Тоглоом', learn:'Эхлэгчдэд', rules:'Дүрэм', etiquette:'Ширээний соёл'};
+  const gtabs = document.getElementById('gtabs'), gind = gtabs.querySelector('.gind');
+  const guideTop = viewGuide.querySelector('.guide-top');
+  const gpPrev = document.getElementById('gpPrev'), gpNext = document.getElementById('gpNext');
+  const hasVT = typeof document.startViewTransition === 'function';
+  let curView = 'home', curPanel = 'games', homeScroll = 0;
+
+  const jump = y => window.scrollTo({top:y, behavior:'instant'});
+  function slide(kind, dir, update) {
+    if (reduce || !hasVT) { update(!reduce); return; }
+    const tag = kind + '-' + dir;
+    root.dataset.vt = tag;
+    const t = document.startViewTransition(() => update(false));
+    t.finished.finally(() => { if (root.dataset.vt === tag) delete root.dataset.vt; });
+  }
+  function enter(el, dir, animate) {
+    if (!animate) return;
+    el.classList.remove('in-fwd', 'in-back'); void el.offsetWidth; el.classList.add('in-' + dir);
+  }
+  function moveInd() {
+    const a = gtabs.querySelector('[aria-current="true"]');
+    if (!a || viewGuide.hidden) return;
+    gind.style.width = a.offsetWidth + 'px';
+    gind.style.transform = `translateX(${a.offsetLeft}px)`;
+    gtabs.scrollTo({left:a.offsetLeft - (gtabs.clientWidth - a.offsetWidth) / 2, behavior:reduce ? 'auto' : 'smooth'});
+  }
+  function markNav() {
+    document.querySelectorAll('.dnav a, .mnav a').forEach(a => {
+      const href = a.getAttribute('href');
+      const on = curView === 'guide' && (href === '#guide' || href === '#guide/' + curPanel);
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  }
+  function after() {
+    markNav();
+    requestAnimationFrame(() => { moveInd(); if (curView === 'guide' && curPanel === 'learn') stepProgress(); });
+  }
+  function setPanel(p) {
+    PANELS.forEach(id => { document.getElementById(id).hidden = id !== p; });
+    gtabs.querySelectorAll('a').forEach(a => a.setAttribute('aria-current', String(a.dataset.panel === p)));
+    const i = PANELS.indexOf(p), prev = PANELS[i - 1], next = PANELS[i + 1];
+    gpPrev.hidden = !prev; gpNext.hidden = !next;
+    if (prev) { gpPrev.href = '#guide/' + prev; gpPrev.querySelector('b').textContent = PANEL_NAME[prev]; }
+    if (next) { gpNext.href = '#guide/' + next; gpNext.querySelector('b').textContent = PANEL_NAME[next]; }
+    curPanel = p;
+  }
+  function showView(v) { viewHome.hidden = v !== 'home'; viewGuide.hidden = v !== 'guide'; curView = v; }
+  const stickY = () => guideTop.offsetTop + guideTop.offsetHeight - 68;
+
+  function route(first) {
+    const h = decodeURIComponent(location.hash.slice(1));
+    let view = 'home', panel = null, target = null;
+    if (h === 'guide' || h.startsWith('guide/')) { view = 'guide'; panel = h.slice(6); }
+    else if (PANELS.includes(h)) { view = 'guide'; panel = h; }
+    else if (h && h !== 'home') target = document.getElementById(h);
+    if (view === 'guide' && !PANELS.includes(panel)) panel = curView === 'guide' ? curPanel : 'games';
+
+    if (first) {
+      showView(view);
+      if (view === 'guide') setPanel(panel); else if (target) target.scrollIntoView();
+      after(); return;
+    }
+    if (view === 'guide' && curView === 'home') {
+      homeScroll = scrollY;
+      slide('page', 'fwd', anim => { showView('guide'); setPanel(panel); jump(0); enter(viewGuide, 'fwd', anim); after(); });
+    } else if (view === 'home' && curView === 'guide') {
+      slide('page', 'back', anim => {
+        showView('home');
+        if (target) target.scrollIntoView({behavior:'instant'}); else jump(homeScroll);
+        enter(viewHome, 'back', anim); after();
+      });
+    } else if (view === 'guide' && panel !== curPanel) {
+      const dir = PANELS.indexOf(panel) > PANELS.indexOf(curPanel) ? 'fwd' : 'back';
+      if (scrollY > stickY()) jump(stickY());
+      slide('panel', dir, anim => { setPanel(panel); enter(document.getElementById(panel), dir, anim); after(); });
+    } else after();
+  }
+  addEventListener('hashchange', () => route(false));
+  addEventListener('resize', moveInd);
+  if (document.fonts) document.fonts.ready.then(moveInd);
+  route(true);
+
+  // swipe left / right on a phone to change guide slides
+  const gpanels = document.getElementById('gpanels');
+  let sx = null, sy = 0;
+  gpanels.addEventListener('touchstart', e => { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; } else sx = null; }, {passive:true});
+  gpanels.addEventListener('touchend', e => {
+    if (sx === null) return;
+    const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy; sx = null;
+    if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 2) return;
+    const next = PANELS[PANELS.indexOf(curPanel) + (dx < 0 ? 1 : -1)];
+    if (next) location.hash = 'guide/' + next;
+  }, {passive:true});
+
+  /* ---------- mobile menu (three lines, top right) ---------- */
+  const burger = document.getElementById('burger'), mmenu = document.getElementById('mmenu'), topBar = document.getElementById('top');
+  function setMenu(open) {
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Цэс хаах' : 'Цэс нээх');
+    mmenu.classList.toggle('open', open);
+    mmenu.inert = !open;
+    topBar.classList.toggle('menu-open', open);
+    root.classList.toggle('menu-locked', open);
+  }
+  burger.addEventListener('click', () => setMenu(burger.getAttribute('aria-expanded') !== 'true'));
+  mmenu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && mmenu.classList.contains('open')) { setMenu(false); burger.focus(); } });
+  matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 })();
 </script>
 </body>
