@@ -503,7 +503,8 @@ html:has(dialog[open]){overflow:hidden}
 .rt1{--c:var(--rc1)}.rt2{--c:var(--rc2)}.rt3{--c:var(--rc3)}
 .r3d{position:absolute;inset:0;overflow:hidden}
 #rcam{position:absolute;left:0;top:0;width:5120px;height:1840px;transform-origin:0 0;will-change:transform}
-#rcam img,#rcam svg{position:absolute;left:0;top:0;width:5120px;height:1840px;max-width:none}
+#rcam svg{position:absolute;left:0;top:0;width:5120px;height:1840px;max-width:none;overflow:visible}
+#rcam img{position:absolute;left:-240px;top:-280px;width:5360px;height:2120px;max-width:none}
 #rmap{opacity:0;transition:opacity .6s}
 #rmap.ok{opacity:1}
 #rcam .rgh,#rcam .rcm,#rcam .rgw,#rcam .rcore{stroke:var(--c)}
@@ -940,6 +941,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
           <div class="rlabel" id="rlb0">Энх тайвны өргөн чөлөө</div>
           <div class="rlabel" id="rlb1">Их тойруу</div>
           <div class="rlabel" id="rlb3">Самбуугийн гудамж</div>
+          <div class="rlabel" id="rlb4">Их тойруу</div>
           <div class="rlabel area" id="rlb2">САНСАР</div>
           <div class="rpin rstart rt1"><div class="rdot"></div></div><div class="rchip rschip rt1"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">Сүхбаатарын талбай</span></div></div><div class="rpin rstart rt2"><div class="rdot"></div></div><div class="rchip rschip rt2"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">Самбуугийн гудамж</span></div></div><div class="rpin rstart rt3"><div class="rdot"></div></div><div class="rchip rschip rt3"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">ЧД 9-р хороо</span></div></div>
           <div class="rring" id="rring0"></div><div class="rring" id="rring1"></div><div class="rring" id="rring2"></div>
@@ -2453,11 +2455,12 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   const T_INTRO = 2.2, T_FLY = 3.6, T_TRAVEL = 15.4, T_ARRIVE = 17.6, T_PULL = 19.2, DUR = 21.6;
   // map units = OpenStreetMap zoom-15 pixels (map image 1280×460 units, drawn at 5120×1840); club at 47.923417° N 106.942444° E
   const SC = 4, M_PER_UNIT = 3.2011, DEST = [831.3, 177];
-  // 1 Sükhbaatar Square → Peace Ave → Ikh Toiruu · 2 Sambuu St → Ikh Toiruu · 3 Chingeltei 9th khoroo → Sambuu St → Ikh Toiruu
+  // 1 Sükhbaatar Square → Peace Ave → Ikh Toiruu · 2 Sambuu St → Ikh Toiruu · 3 Chingeltei 9th khoroo → Ikh Toiruu (north, via 47.929416, 106.921950) → Ikh Toiruu (east)
+  // the map image reaches 60 units further west and 70 units further north than the original; the northern Ikh Toiruu is drawn there
   const PTS = [
     [[256,408],[317,394],[423,370],[475,362],[851,332],[824,186],[831.3,177]],
     [[322.3,212.6],[376,207],[422,201],[472,192],[529,186],[584,179],[658,169],[720,162],[771,163],[790,157],[808,156],[818.5,157],[822,172],[831.3,177]],
-    [[-34.4,4.6],[0,8],[86,11],[88,24],[95,57],[96,91],[88,110],[88,124],[106,147],[97,170],[98,216],[103,221],[192,221],[277,220],[280.0,214.5],[375.7,204.4],[421.6,198.4],[471.6,189.4],[528.7,183.4],[583.7,176.4],[657.7,166.4],[719.9,159.4],[770.6,160.4],[789.5,154.4],[808.1,153.4],[820.6,154.6],[824.5,171.4],[831.3,177]]
+    [[-34.4,4.6],[-34.4,-14],[-30,-30.2],[100,-30.9],[353.8,-31.6],[500,-31],[580,-29],[640,-24],[680,-14],[711,0],[727,6],[749,15],[773.5,25],[797,40],[800.5,50],[806,75],[810,100],[813,120],[817,140],[820.5,156],[824.5,171.4],[831.3,177]]
   ];
 
   const clamp = (x,a=0,b=1) => Math.min(b,Math.max(a,x));
@@ -2580,6 +2583,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   const labels = [
     {el:$('rlb0'), a:[585,353], b:[705,343], off:24, win:[[.8, tX(.8)], OVW]},
     {el:$('rlb3'), a:[420,201.2], b:[540,184.8], off:24, win:[[.8, tX(.75)], OVW]},
+    {el:$('rlb4'), a:[200,-31.2], b:[340,-31.6], off:22, win:[[.8, tX(.6)], OVW]},
     {el:$('rlb1'), a:[846,262], b:[837,205], off:34, win:[[tX(.35), T_TRAVEL+.6], OVW]},
     {el:$('rlb2'), a:[875,226], b:[935,226], off:0, win:[[tX(.8), T_PULL+.2]]},
   ];
