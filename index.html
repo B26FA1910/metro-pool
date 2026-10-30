@@ -487,6 +487,8 @@ html:has(dialog[open]){overflow:hidden}
 .price-list b{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,.9rem + .8vw,1.45rem);white-space:nowrap}
 .price-list b small{font-family:var(--text);font-weight:500;font-size:.8rem;color:rgba(242,238,227,.75)}
 @media (max-width:900px){.prices-grid{grid-template-columns:1fr}}
+/* phones: the name gets its own line, hours · leader · price on the line below */
+@media (max-width:560px){.price-list li{display:grid;grid-template-columns:auto minmax(16px,1fr) auto;column-gap:10px;row-gap:3px;align-items:baseline}.price-list .nm{display:contents}.price-list .nm>span{grid-column:1/-1}}
 
 /* ---------- location: the route plays as you scroll ---------- */
 .route-sec{padding-bottom:clamp(1.5rem,1rem + 2vw,3rem)}
@@ -904,9 +906,9 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
       </div>
       <div class="pt-felt">
         <ul class="price-list">
-          <li><span class="nm">Өдөр<small>10:00–18:00</small></span><i></i><b>15,000₮ <small>/ цаг</small></b></li>
-          <li><span class="nm">Орой<small>18:00–02:00</small></span><i></i><b>15,000₮ <small>/ цаг</small></b></li>
-          <li><span class="nm">Шөнө<small>02:00–04:00</small></span><i></i><b>10,000₮ <small>/ цаг</small></b></li>
+          <li><span class="nm"><span>17-гоос доош насныхан</span><small>10:00–17:00</small></span><i></i><b>8,000₮ <small>/ цаг</small></b></li>
+          <li><span class="nm"><span>17-гоос дээш насныхан</span><small>10:00–00:00</small></span><i></i><b>15,000₮ <small>/ цаг</small></b></li>
+          <li><span class="nm"><span>Шөнө</span><small>00:00–04:00</small></span><i></i><b>20,000₮ <small>/ цаг</small></b></li>
         </ul>
         <span class="pt-ball cb" aria-hidden="true"></span><span class="pt-ball b8" aria-hidden="true"></span>
       </div>
@@ -2233,7 +2235,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     'Ширээний үнэ': 'Table prices', 'Цагаар тооцно. Өдөр бүр 10:00-аас шөнийн 04:00 хүртэл нээлттэй.': 'Charged by the hour. Open daily from 10:00 to 04:00.',
     'Төрсөн өдөр, байгууллагын арга хэмжээ, тэмцээнд ширээ урьдчилан захиалах бол': 'To book tables in advance for a birthday, company event or tournament, call',
     'дугаараар холбогдоорой. Үнэ өөрчлөгдөж болно.': 'any time. Prices may change.',
-    'Өдөр': 'Day', '/ цаг': '/ hour', 'Орой': 'Evening', 'Шөнө': 'Night',
+    'Өдөр': 'Day', '/ цаг': '/ hour', 'Орой': 'Evening', 'Шөнө': 'Night', '17-гоос доош насныхан': 'Under 17', '17-гоос дээш насныхан': 'Over 17',
     'Ирээд тоглоорой': 'Come and play', 'Улаанбаатарын цагаар яг одоо': 'It’s', '. Бид нээлттэй.': ' in Ulaanbaatar right now. We’re open.',
     'Байршил': 'Location', 'Газрын зураг дээр харах': 'View on map', 'Цагийн хуваарь': 'Opening hours',
     '24 цаг, долоо хоногийн 7 өдөр нээлттэй. Өглөө, орой, шөнө аль ч цагт ирж болно.': 'Open 24 hours a day, 7 days a week. Drop in morning, evening or night.',
