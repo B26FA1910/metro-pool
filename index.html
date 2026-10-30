@@ -490,105 +490,107 @@ html:has(dialog[open]){overflow:hidden}
 /* phones: the name gets its own line, hours · leader · price on the line below */
 @media (max-width:560px){.price-list li{display:grid;grid-template-columns:auto minmax(16px,1fr) auto;column-gap:10px;row-gap:3px;align-items:baseline}.price-list .nm{display:contents}.price-list .nm>span{grid-column:1/-1}}
 
-/* ---------- location: the route plays as you scroll ---------- */
+/* ---------- location: three routes meet at the club as you scroll ---------- */
 .route-sec{padding-bottom:clamp(1.5rem,1rem + 2vw,3rem)}
 .route-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 40px}
 .route-head .maplink{margin-top:0}
 .rscroll{position:relative;height:420vh;margin-top:clamp(26px,3.5vw,44px)}
 .rsticky{position:sticky;top:calc(var(--stick) + 2px);height:calc(100vh - var(--stick) - 18px);height:calc(100svh - var(--stick) - 18px);display:grid;justify-items:center}
-.rstage{--r-bg:#0E1C33;--r-ink:#F2EEE3;--r-ink2:rgba(242,238,227,.72);--r-ink3:rgba(242,238,227,.48);--r-glass:rgba(17,36,64,.88);--r-line:rgba(242,238,227,.13);--r-label:rgba(236,240,250,.94);--r-area:#F5B700;--r-ghost:rgba(236,240,250,.5);--r-comet:#FFE7A3;--r-mid:#F5B700;--r-dim:#050B16;--r-dimop:.76;--r-vig:rgba(4,9,18,.72);--r-tag:rgba(242,238,227,.05);--pin:64px;
+.rstage{--r-bg:#0E1C33;--r-ink:#F2EEE3;--r-ink2:rgba(242,238,227,.72);--r-ink3:rgba(242,238,227,.48);--r-glass:rgba(17,36,64,.88);--r-line:rgba(242,238,227,.13);--r-label:rgba(236,240,250,.94);--r-area:#F5B700;--r-dim:#050B16;--r-dimop:.76;--r-vig:rgba(4,9,18,.72);--r-tag:rgba(242,238,227,.05);--pin:64px;
+  --rc1:#6E98FF;--rc2:#FF5F6B;--rc3:#3FCB80;
   position:relative;width:min(1440px,100% - 32px);height:100%;overflow:hidden;border-radius:clamp(20px,2.2vw,30px);background:var(--r-bg);color:var(--r-ink);border:1px solid var(--line);box-shadow:0 40px 80px -44px rgba(0,0,0,.6);isolation:isolate;contain:layout paint;font-family:var(--text)}
-:root[data-theme="light"] .rstage{--r-bg:#D4DDEA;--r-ink:#0E1C33;--r-ink2:#33445F;--r-ink3:#5A6B88;--r-glass:rgba(255,255,255,.92);--r-line:rgba(14,28,51,.1);--r-label:#1B355E;--r-area:#A87800;--r-ghost:rgba(14,28,51,.42);--r-comet:#F5B700;--r-mid:#9A6A00;--r-dim:#F4F6FA;--r-dimop:.88;--r-vig:rgba(14,28,51,.16);--r-tag:rgba(14,28,51,.04);box-shadow:0 40px 80px -44px rgba(14,28,51,.45)}
+:root[data-theme="light"] .rstage{--r-bg:#D4DDEA;--r-ink:#0E1C33;--r-ink2:#33445F;--r-ink3:#5A6B88;--r-glass:rgba(255,255,255,.92);--r-line:rgba(14,28,51,.1);--r-label:#1B355E;--r-area:#A87800;--r-dim:#F4F6FA;--r-dimop:.88;--r-vig:rgba(14,28,51,.16);--r-tag:rgba(14,28,51,.04);--rc1:#2453C9;--rc2:#D8313F;--rc3:#178246;box-shadow:0 40px 80px -44px rgba(14,28,51,.45)}
+.rt1{--c:var(--rc1)}.rt2{--c:var(--rc2)}.rt3{--c:var(--rc3)}
 .r3d{position:absolute;inset:0;overflow:hidden}
 #rcam{position:absolute;left:0;top:0;width:5120px;height:1840px;transform-origin:0 0;will-change:transform}
 #rcam img,#rcam svg{position:absolute;left:0;top:0;width:5120px;height:1840px;max-width:none}
 #rmap{opacity:0;transition:opacity .6s}
 #rmap.ok{opacity:1}
-#rGhost{stroke:var(--r-ghost)}#rComet{stroke:var(--r-comet)}#rMid{stroke:var(--r-mid)}
+#rcam .rgh,#rcam .rcm,#rcam .rgw,#rcam .rcore{stroke:var(--c)}
+#rcam .rcm{stroke:color-mix(in srgb,var(--c) 45%,#fff)}
 .rfog{position:absolute;left:0;right:0;top:0;height:42%;pointer-events:none;background:linear-gradient(to bottom,var(--r-bg) 0%,color-mix(in srgb,var(--r-bg) 82%,transparent) 30%,transparent 100%)}
 .rvig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 55%,transparent 55%,var(--r-vig) 100%)}
 .rov,.rfx{position:absolute;inset:0;pointer-events:none}
 .rfx{width:100%;height:100%}
 .rglass{background:var(--r-glass);border:1px solid var(--r-line);border-radius:20px;box-shadow:0 22px 50px -18px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05)}
-.rlabel{position:absolute;left:0;top:0;white-space:nowrap;font-weight:600;font-size:17px;letter-spacing:.01em;color:var(--r-label);opacity:0;text-shadow:0 0 3px var(--r-bg),0 0 3px var(--r-bg),0 0 8px var(--r-bg)}
+.rlabel{position:absolute;left:0;top:0;white-space:nowrap;font-weight:600;font-size:16px;letter-spacing:.01em;color:var(--r-label);opacity:0;text-shadow:0 0 3px var(--r-bg),0 0 3px var(--r-bg),0 0 8px var(--r-bg)}
 .rlabel.area{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.32em;color:var(--r-area)}
-.rpin{position:absolute;left:0;top:0;opacity:0}
-#rStartPin .rdot{width:26px;height:26px;border-radius:50%;background:#fff;border:6px solid var(--chalk);box-shadow:0 0 0 6px color-mix(in srgb,var(--chalk) 25%,transparent),0 6px 16px rgba(0,0,0,.45);transform:translate(-50%,-50%)}
+.rpin,.rchip,.rring,.rball{position:absolute;left:0;top:0;opacity:0}
+.rstart .rdot{width:24px;height:24px;border-radius:50%;background:#fff;border:6px solid var(--c);box-shadow:0 0 0 6px color-mix(in srgb,var(--c) 25%,transparent),0 6px 16px rgba(0,0,0,.45);transform:translate(-50%,-50%)}
 #rDestPin .drop{position:absolute;left:calc(var(--pin) / -2);top:calc(var(--pin) * -1.22);width:var(--pin);height:calc(var(--pin) * 1.22);overflow:visible}
 #rDestPin .shadow{position:absolute;left:-16px;top:-6px;width:32px;height:12px;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(3px)}
-.rchip{position:absolute;left:0;top:0;opacity:0;white-space:nowrap;padding:9px 15px 9px 13px;border-radius:14px;background:var(--r-glass);border:1px solid var(--r-line);box-shadow:0 10px 26px -6px rgba(0,0,0,.4);display:flex;align-items:center;gap:10px}
-.rchip .k{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--r-ink3);text-transform:uppercase}
-.rchip .v{font-size:17px;font-weight:600;color:var(--r-ink)}
-.rchip .bullet{width:10px;height:10px;border-radius:50%;flex:none}
+.rchip{white-space:nowrap;padding:8px 14px 8px 12px;border-radius:14px;background:var(--r-glass);border:1px solid var(--r-line);box-shadow:0 10px 26px -6px rgba(0,0,0,.4);display:flex;align-items:center;gap:9px}
+.rchip .k{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--r-ink3);text-transform:uppercase}
+.rchip .v{font-size:16px;font-weight:600;color:var(--r-ink)}
+.rchip .bullet{width:10px;height:10px;border-radius:50%;flex:none;background:var(--c)}
 .rchip .col{display:flex;flex-direction:column;gap:1px}
-.rring{position:absolute;left:0;top:0;border-radius:50%;border:3px solid var(--yellow);opacity:0}
-.rmarker{position:absolute;left:0;top:0;opacity:0}
-.rmarker .halo{position:absolute;left:-24px;top:-24px;width:48px;height:48px;border-radius:50%;background:rgba(245,183,0,.38)}
-.rmarker .body{position:absolute;left:-20px;top:-20px;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff 0 30%,#EFEBE0 58%,#C4BEAE 100%);border:3px solid var(--yellow);box-shadow:0 0 22px rgba(245,183,0,.8),0 6px 14px rgba(0,0,0,.45);display:grid;place-items:center}
-.rmarker .body svg{width:21px;height:21px}
+.rring{border-radius:50%;border:3px solid var(--yellow)}
+/* the travelling balls: 2 (blue), 3 (red), 6 (green) roll into the 8-ball pin */
+.rball .halo{position:absolute;left:-22px;top:-22px;width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,var(--c) 40%,transparent)}
+.rball .body{position:absolute;left:-16px;top:-16px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:2px solid #fff;background:radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--bc) 55%,#fff),var(--bc) 55%,color-mix(in srgb,var(--bc) 65%,#000));box-shadow:0 0 18px color-mix(in srgb,var(--c) 70%,transparent),0 6px 14px rgba(0,0,0,.45)}
+.rball .body span{display:grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#F7F4EC;font:800 9px/1 var(--display);color:#16181C}
 .rhead{position:absolute;left:20px;top:20px;display:flex;gap:16px;align-items:center;padding:16px 24px 16px 16px;opacity:0}
 .rlogo{width:60px;height:60px;border-radius:50%;flex:none;background:#fff;box-shadow:0 0 0 3px rgba(245,183,0,.55),0 10px 24px -6px rgba(0,0,0,.45)}
 .rhead .eyebrow,.rend .eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;color:var(--r-area)}
 .rhead .htitle{font-family:var(--display);font-size:clamp(19px,1rem + .8vw,28px);font-weight:700;letter-spacing:-.01em;margin-top:4px;line-height:1.1}
 .rhead .hmeta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .rstage .tag{font-size:13px;font-weight:600;color:var(--r-ink2);padding:5px 11px;border-radius:999px;border:1px solid var(--r-line);background:var(--r-tag);white-space:nowrap}
-.rnav{position:absolute;left:0;right:0;bottom:28px;margin-inline:auto;width:min(640px,100% - 24px);padding:16px 20px 16px 16px;opacity:0}
-.rnav .row{display:flex;gap:16px;align-items:center;height:66px}
-.rnav .icon{position:relative;width:66px;height:66px;border-radius:18px;flex:none;background:linear-gradient(150deg,#FFCC33,#E8A400);box-shadow:0 10px 24px -6px rgba(245,183,0,.45)}
-.rnav .icon svg{position:absolute;left:16px;top:16px;width:34px;height:34px}
-.rnav .texts{position:relative;flex:1;min-width:0;height:66px}
-.rnav .st{position:absolute;left:0;top:0;right:0;opacity:0}
-.rnav .small{display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600;color:var(--r-ink2);white-space:nowrap;overflow:hidden}
-.rnav .small b{color:var(--r-area);font-weight:700;letter-spacing:.12em;font-size:12px}
-.rnav .big{font-family:var(--display);font-size:clamp(20px,1rem + 1vw,29px);font-weight:700;letter-spacing:-.01em;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rnav .bars{display:flex;gap:8px;margin-top:14px}
-.rnav .bar{flex:1;height:5px;border-radius:5px;background:var(--r-line);overflow:hidden}
-.rnav .bar i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,var(--yellow),#FFD35A)}
-.rhint{position:absolute;left:0;right:0;bottom:28px;margin-inline:auto;width:max-content;display:flex;align-items:center;gap:8px;padding:11px 18px 11px 14px;border-radius:999px;background:var(--r-glass);border:1px solid var(--r-line);font-weight:600;font-size:.95rem;box-shadow:0 14px 30px -12px rgba(0,0,0,.45)}
+.rnav{position:absolute;left:0;right:0;bottom:26px;margin-inline:auto;width:min(540px,100% - 24px);padding:14px 18px 16px;opacity:0}
+.rn-top{display:flex;gap:10px;align-items:baseline;font-size:13.5px;font-weight:600;color:var(--r-ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rn-top b{color:var(--r-area);letter-spacing:.12em;font-size:12px;font-weight:700}
+.rn-list{list-style:none;padding:0;margin-top:10px;display:grid;gap:7px}
+.rn-list li{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px}
+.rn-ball{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font:800 8.5px/1 var(--display);font-style:normal;color:#16181C;background:radial-gradient(circle,#F7F4EC 0 32%,transparent 35%),radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--bc) 55%,#fff),var(--bc) 55%,color-mix(in srgb,var(--bc) 65%,#000))}
+.rn-list .nm{font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rn-list .km{font-family:var(--display);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--c);white-space:nowrap}
+.rn-bar{height:4px;margin-top:12px;border-radius:4px;background:var(--r-line);overflow:hidden}
+.rn-bar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--yellow),#FFD35A)}
+.rhint{position:absolute;left:0;right:0;bottom:26px;margin-inline:auto;width:max-content;display:flex;align-items:center;gap:8px;padding:11px 18px 11px 14px;border-radius:999px;background:var(--r-glass);border:1px solid var(--r-line);font-weight:600;font-size:.95rem;box-shadow:0 14px 30px -12px rgba(0,0,0,.45)}
 .rhint svg{width:18px;height:18px;color:var(--r-area);animation:rhintB 1.6s ease-in-out infinite}
 @keyframes rhintB{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 .rdim{position:absolute;inset:0;background:var(--r-dim);opacity:0;pointer-events:none}
-.rend{position:absolute;left:0;right:0;top:50%;margin-inline:auto;width:min(780px,100% - 32px);text-align:center;opacity:0}
+.rend{position:absolute;left:0;right:0;top:50%;margin-inline:auto;width:min(820px,100% - 32px);text-align:center;opacity:0}
 .rend .rlogo{width:104px;height:104px;margin:0 auto;box-shadow:0 0 0 4px rgba(245,183,0,.6),0 18px 44px -10px rgba(0,0,0,.5)}
 .rend .eyebrow{margin-top:24px}
 .rend .etitle{font-family:var(--display);font-size:clamp(32px,1.2rem + 3.6vw,66px);font-weight:800;letter-spacing:-.02em;margin-top:8px;line-height:1}
 .rend .nw{white-space:nowrap}
 .rend .esub{font-size:clamp(15px,.9rem + .4vw,20px);color:var(--r-ink2);margin-top:12px;font-weight:500}
-.rend .eroute{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 10px;margin-top:26px}
-.rend .eroute .tag{font-size:15px;color:var(--r-ink);padding:8px 15px;background:rgba(245,183,0,.1);border-color:rgba(245,183,0,.35)}
-.rend .eroute .arr{color:var(--r-area);font-weight:700}
-.rend .eact{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:26px}
+.rend .eroute{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;margin-top:24px}
+.rend .eroute .tag{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--r-ink);padding:7px 14px}
+.rend .eroute .tag i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.rend .eroute .sep{color:var(--r-ink3)}
+.rend .eact{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}
 .rend .btn{min-height:48px}
 .rbtn2{border:1px solid var(--r-line);background:var(--r-glass);color:var(--r-ink)}
 .rbtn2:hover{border-color:var(--chalk);transform:translateY(-2px)}
-.rend.live a{pointer-events:auto}
 .rend a{pointer-events:none}
+.rend.live a{pointer-events:auto}
 .rattr{position:absolute;right:14px;bottom:7px;font-size:11px;color:var(--r-ink3)}
 @media (max-width:900px){
   .rscroll{height:400vh}
   .rsticky{height:calc(100vh - var(--stick) - 100px - env(safe-area-inset-bottom));height:calc(100svh - var(--stick) - 100px - env(safe-area-inset-bottom))}
 }
 @media (max-width:640px){
-  .rstage{--pin:48px;width:calc(100% - 20px)}
-  .rlabel{font-size:12.5px}.rlabel.area{font-size:11px;letter-spacing:.26em}
-  .rchip{padding:6px 10px 6px 9px;border-radius:11px;gap:7px}.rchip .k{font-size:9px}.rchip .v{font-size:13px}.rchip .bullet{width:8px;height:8px}
-  #rStartPin .rdot{width:20px;height:20px;border-width:5px}
-  .rmarker .halo{left:-19px;top:-19px;width:38px;height:38px}
-  .rmarker .body{left:-16px;top:-16px;width:32px;height:32px;border-width:2.5px}.rmarker .body svg{width:17px;height:17px}
-  .rhead{left:10px;right:10px;top:10px;gap:12px;padding:11px 14px 11px 11px;border-radius:16px}
-  .rhead .rlogo{width:44px;height:44px}
-  .rhead .eyebrow{font-size:10px}.rhead .htitle{font-size:17px}
-  .rhead .hmeta{gap:6px;margin-top:7px}.rstage .tag{font-size:11px;padding:3px 9px}
-  .rnav{bottom:24px;width:calc(100% - 20px);padding:12px 14px 12px 12px;border-radius:16px}
-  .rnav .row,.rnav .texts{height:50px}.rnav .row{gap:12px}
-  .rnav .icon{width:50px;height:50px;border-radius:14px}.rnav .icon svg{left:12px;top:12px;width:26px;height:26px}
-  .rnav .small{font-size:12px;gap:6px}.rnav .small b{font-size:10px}
-  .rnav .big{font-size:18px;margin-top:4px}
-  .rnav .bars{margin-top:10px}
-  .rhint{bottom:24px;font-size:.88rem}
+  .rstage{--pin:46px;width:calc(100% - 20px)}
+  .rlabel{font-size:12px}.rlabel.area{font-size:11px;letter-spacing:.26em}
+  .rchip{padding:5px 9px 5px 8px;border-radius:10px;gap:6px}.rchip .k{font-size:9px}.rchip .v{font-size:12px}.rchip .bullet{width:7px;height:7px}
+  .rstart .rdot{width:18px;height:18px;border-width:4.5px;box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 25%,transparent),0 4px 10px rgba(0,0,0,.45)}
+  .rball .halo{left:-17px;top:-17px;width:34px;height:34px}
+  .rball .body{left:-12px;top:-12px;width:24px;height:24px;border-width:1.5px}.rball .body span{width:11px;height:11px;font-size:7px}
+  .rhead{left:10px;right:10px;top:10px;gap:12px;padding:10px 14px 10px 10px;border-radius:16px}
+  .rhead .rlogo{width:42px;height:42px}
+  .rhead .eyebrow{font-size:10px}.rhead .htitle{font-size:16.5px}
+  .rhead .hmeta{gap:6px;margin-top:6px}.rstage .tag{font-size:11px;padding:3px 9px}
+  .rnav{bottom:22px;width:calc(100% - 20px);padding:11px 13px 13px;border-radius:16px}
+  .rn-top{font-size:11.5px;gap:8px}.rn-top b{font-size:10px}
+  .rn-list{margin-top:8px;gap:5px}.rn-list li{grid-template-columns:20px minmax(0,1fr) auto;gap:8px}
+  .rn-ball{width:19px;height:19px;font-size:7.5px}
+  .rn-list .nm{font-size:13.5px}.rn-list .km{font-size:13px}
+  .rn-bar{margin-top:9px;height:3px}
+  .rhint{bottom:22px;font-size:.88rem}
   .rend .rlogo{width:76px;height:76px}.rend .eyebrow{margin-top:18px;font-size:10.5px}
-  .rend .eroute{margin-top:18px}.rend .eroute .tag{font-size:12.5px;padding:6px 11px}
-  .rend .eact{margin-top:20px}
+  .rend .eroute{margin-top:16px;gap:6px}.rend .eroute .tag{font-size:12px;padding:5px 10px}
+  .rend .eact{margin-top:18px}
   .rattr{right:10px;bottom:5px;font-size:9.5px}
 }
 
@@ -920,7 +922,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   <div class="wrap route-head">
     <div>
       <h2 class="h2" id="locTitle" data-reveal><span>Хаяг байршил</span></h2>
-      <p class="intro" data-reveal>Сансар, Их тойруугийн дагуу. Сүхбаатарын талбайгаас ердөө <span data-rdist>2.4 км</span>. Доош гүйлгээд замаа хараарай.</p>
+      <p class="intro" data-reveal>Сансар, Их тойруугийн дагуу. Сүхбаатарын талбай, Самбуугийн гудамж, ЧД 9-р хорооноос ирэх замыг доош гүйлгээд хараарай.</p>
     </div>
     <a class="maplink" data-reveal href="https://www.google.com/maps/dir/?api=1&amp;destination=47.923417,106.942444" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-8-8 18-2-8-8-2z"/></svg>Google Maps-аар зам заалгах</a>
   </div>
@@ -930,24 +932,16 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
         <div class="r3d" id="r3d">
           <div id="rcam">
             <img id="rmap" alt="" decoding="async">
-            <svg viewBox="0 0 5120 1840" xmlns="http://www.w3.org/2000/svg">
-              <defs><linearGradient id="rgrad" gradientUnits="userSpaceOnUse" x1="1024" y1="1632" x2="3325" y2="708"><stop offset="0" stop-color="#F5B700"/><stop offset=".6" stop-color="#FFC93A"/><stop offset="1" stop-color="#FFE08A"/></linearGradient></defs>
-              <path id="rGhost" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <path id="rComet" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <path id="rGlow" fill="none" stroke="#F5B700" stroke-opacity=".16" stroke-linecap="round" stroke-linejoin="round"/>
-              <path id="rMid" fill="none" stroke-opacity=".35" stroke-linecap="round" stroke-linejoin="round"/>
-              <path id="rCore" fill="none" stroke="url(#rgrad)" stroke-linecap="round" stroke-linejoin="round"/>
-              <path id="rHi" fill="none" stroke="#FFF8DE" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <svg viewBox="0 0 5120 1840" xmlns="http://www.w3.org/2000/svg"><g class="rt1"><path class="rgh" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".55"/><path class="rcm" fill="none" stroke-linecap="round"/><path class="rgw" fill="none" stroke-opacity=".18" stroke-linecap="round" stroke-linejoin="round"/><path class="rcore" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path class="rhi" fill="none" stroke="#fff" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round"/></g><g class="rt2"><path class="rgh" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".55"/><path class="rcm" fill="none" stroke-linecap="round"/><path class="rgw" fill="none" stroke-opacity=".18" stroke-linecap="round" stroke-linejoin="round"/><path class="rcore" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path class="rhi" fill="none" stroke="#fff" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round"/></g><g class="rt3"><path class="rgh" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".55"/><path class="rcm" fill="none" stroke-linecap="round"/><path class="rgw" fill="none" stroke-opacity=".18" stroke-linecap="round" stroke-linejoin="round"/><path class="rcore" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path class="rhi" fill="none" stroke="#fff" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
           </div>
         </div>
         <div class="rfog"></div><div class="rvig"></div>
         <div class="rov">
           <div class="rlabel" id="rlb0">Энх тайвны өргөн чөлөө</div>
           <div class="rlabel" id="rlb1">Их тойруу</div>
+          <div class="rlabel" id="rlb3">Самбуугийн гудамж</div>
           <div class="rlabel area" id="rlb2">САНСАР</div>
-          <div class="rpin" id="rStartPin"><div class="rdot"></div></div>
-          <div class="rchip" id="rStartChip"><span class="bullet" style="background:var(--chalk)"></span><div class="col"><span class="k">Эхлэх цэг</span><span class="v">Сүхбаатарын талбай</span></div></div>
+          <div class="rpin rstart rt1"><div class="rdot"></div></div><div class="rchip rschip rt1"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">Сүхбаатарын талбай</span></div></div><div class="rpin rstart rt2"><div class="rdot"></div></div><div class="rchip rschip rt2"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">Самбуугийн гудамж</span></div></div><div class="rpin rstart rt3"><div class="rdot"></div></div><div class="rchip rschip rt3"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">ЧД 9-р хороо</span></div></div>
           <div class="rring" id="rring0"></div><div class="rring" id="rring1"></div><div class="rring" id="rring2"></div>
           <div class="rpin" id="rDestPin">
             <div class="shadow"></div>
@@ -960,7 +954,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
             </svg>
           </div>
           <div class="rchip" id="rDestChip"><span class="bullet" style="background:var(--yellow)"></span><div class="col"><span class="k">Хүрэх газар</span><span class="v">Metro Pool Club</span></div></div>
-          <div class="rmarker" id="rMarker"><div class="halo"></div><div class="body"><svg id="rChev" viewBox="0 0 24 24"><path d="M12 2.5l7.5 18-7.5-4.6-7.5 4.6z" fill="#0A1527"/></svg></div></div>
+          <div class="rball rt1" style="--bc:#2453C9"><div class="halo"></div><div class="body"><span>2</span></div></div><div class="rball rt2" style="--bc:#D8313F"><div class="halo"></div><div class="body"><span>3</span></div></div><div class="rball rt3" style="--bc:#1E8C4E"><div class="halo"></div><div class="body"><span>6</span></div></div>
         </div>
         <canvas class="rfx" id="rfx"></canvas>
 
@@ -968,27 +962,15 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
           <img class="rlogo" id="rlogoA" alt="">
           <div>
             <div class="eyebrow" id="rh1">METRO POOL CLUB</div>
-            <div class="htitle" id="rh2">Сүхбаатарын талбайгаас</div>
-            <div class="hmeta" id="rh3"><span class="tag">Төв замаар</span><span class="tag">2 алхам</span><span class="tag" data-rdist>2.4 км</span></div>
+            <div class="htitle" id="rh2">Гурван цэгээс хүрэх зам</div>
+            <div class="hmeta" id="rh3"><span class="tag">3 чиглэл</span><span class="tag">Сансар</span><span class="tag">Их тойруу</span></div>
           </div>
         </div>
 
         <div class="rnav rglass" id="rnav">
-          <div class="row">
-            <div class="icon">
-              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#0A1527" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3.2"/><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/></svg>
-              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#0A1527" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4.5M6 10.5l6-6 6 6"/></svg>
-              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#0A1527" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-8a4 4 0 0 0-4-4H5"/><path d="M9.5 4.5 5 9l4.5 4.5"/></svg>
-              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#0A1527" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-            </div>
-            <div class="texts">
-              <div class="st"><div class="small"><b>ЭХЛЭЛ</b><span>Талбайн урд талын төв зам</span></div><div class="big">Сүхбаатарын талбай</div></div>
-              <div class="st"><div class="small"><b>АЛХАМ 1/2</b><span>Зүүн зүг рүү шууд</span><span class="sep">·</span><span id="rn1">2.0 км</span></div><div class="big">Энх тайвны өргөн чөлөө</div></div>
-              <div class="st"><div class="small"><b>АЛХАМ 2/2</b><span>Зүүн гар тийш эргэнэ</span><span class="sep">·</span><span id="rn2">450 м</span></div><div class="big">Их тойруу</div></div>
-              <div class="st"><div class="small"><b>ИРЛЭЭ</b><span>Баруун гар талд, Сансар</span></div><div class="big">Metro Pool Club-д ирлээ!</div></div>
-            </div>
-          </div>
-          <div class="bars"><div class="bar"><i></i></div><div class="bar"><i></i></div></div>
+          <div class="rn-top"><b id="rnState">ЭХЛЭЛ</b><span id="rnMsg">Гурван цэгээс Metro Pool Club руу</span></div>
+          <ul class="rn-list"><li class="rt1"><i class="rn-ball" style="--bc:#2453C9">2</i><span class="nm">Сүхбаатарын талбай</span><b class="km">0 км</b></li><li class="rt2"><i class="rn-ball" style="--bc:#D8313F">3</i><span class="nm">Самбуугийн гудамж</span><b class="km">0 км</b></li><li class="rt3"><i class="rn-ball" style="--bc:#1E8C4E">6</i><span class="nm">ЧД 9-р хороо</span><b class="km">0 км</b></li></ul>
+          <div class="rn-bar"><i id="rnBar"></i></div>
         </div>
 
         <div class="rhint" id="rhint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg><span>Доош гүйлгээд замаа хар</span></div>
@@ -999,7 +981,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
           <div class="eyebrow" id="re1">ТАНЫГ ХҮЛЭЭЖ БАЙНА</div>
           <div class="etitle" id="re2">Metro Pool Club</div>
           <div class="esub" id="re3"><span>Pool биллиардын клуб, өдөр бүр</span> <span class="nw">10:00–04:00</span></div>
-          <div class="eroute" id="re4"><span class="tag">Энх тайвны өргөн чөлөө</span><span class="arr">→</span><span class="tag">Их тойруу</span><span class="arr">→</span><span class="tag">Сансар</span></div>
+          <div class="eroute" id="re4"><span class="tag rt1"><i></i><span>Сүхбаатарын талбай</span><span class="sep">·</span><span data-rkm>0 км</span></span><span class="tag rt2"><i></i><span>Самбуугийн гудамж</span><span class="sep">·</span><span data-rkm>0 км</span></span><span class="tag rt3"><i></i><span>ЧД 9-р хороо</span><span class="sep">·</span><span data-rkm>0 км</span></span></div>
           <div class="eact" id="re5">
             <a class="btn btn-primary" tabindex="-1" href="https://www.google.com/maps/dir/?api=1&amp;destination=47.923417,106.942444" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-8-8 18-2-8-8-2z"/></svg><span>Зам заалгах</span></a>
             <a class="btn rbtn2" tabindex="-1" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>8006 1460</span></a>
@@ -2352,7 +2334,10 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     'Яг одоо сул ширээ:': 'Free tables right now:', 'Соёл': 'Etiquette',
     'Metro Pool Club-ийн тухай': 'About Metro Pool Club',
     '2011 оноос хойш Сансарт үйл ажиллагаа явуулж буй pool биллиардын клуб. 6 ширээтэй, өдөр бүр 10:00–04:00 нээлттэй.': 'A pool club in Sansar, open since 2011. Six tables, open daily 10:00–04:00.',
-    'Хаяг байршил': 'Address & directions', 'Сансар, Их тойруугийн дагуу. Сүхбаатарын талбайгаас ердөө': 'In Sansar, on Ikh Toiruu. Just', '. Доош гүйлгээд замаа хараарай.': ' from Sükhbaatar Square. Scroll down to follow the route.',
+    'Хаяг байршил': 'Address & directions',
+    'Сансар, Их тойруугийн дагуу. Сүхбаатарын талбай, Самбуугийн гудамж, ЧД 9-р хорооноос ирэх замыг доош гүйлгээд хараарай.': 'In Sansar, on Ikh Toiruu. Scroll down to see the way here from Sükhbaatar Square, Sambuu Street and Chingeltei’s 9th khoroo.',
+    'Самбуугийн гудамж': 'Sambuu Street', 'ЧД 9-р хороо': 'Chingeltei, 9th khoroo', 'Гурван цэгээс хүрэх зам': 'Three ways to get here', '3 чиглэл': '3 routes',
+    'ЗАМДАА': 'ON THE WAY', 'Гурван цэгээс Metro Pool Club руу': 'From three points to Metro Pool Club', 'Бүгд Metro Pool Club-д ирлээ!': 'Everyone’s at Metro Pool Club!', 'Сансар, Их тойруугийн дагуу. Сүхбаатарын талбайгаас ердөө': 'In Sansar, on Ikh Toiruu. Just', '. Доош гүйлгээд замаа хараарай.': ' from Sükhbaatar Square. Scroll down to follow the route.',
     'Google Maps-аар зам заалгах': 'Directions in Google Maps', 'Зам заалгах': 'Directions',
     'Энх тайвны өргөн чөлөө': 'Peace Avenue', 'Их тойруу': 'Ikh Toiruu', 'САНСАР': 'SANSAR',
     'Эхлэх цэг': 'Start', 'Сүхбаатарын талбай': 'Sükhbaatar Square', 'Хүрэх газар': 'Destination',
@@ -2456,7 +2441,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
 })();
 </script>
 <script>
-/* Хаяг байршил: Сүхбаатарын талбайгаас Metro Pool Club хүрэх зам — гүйлгэхэд дагаж хөдөлнө */
+/* Хаяг байршил: гурван цэгээс (Сүхбаатарын талбай, Самбуугийн гудамж, ЧД 9-р хороо) Metro Pool Club хүрэх зам — гүйлгэхэд гурван бөмбөг нэг дор нийлнэ */
 (function(){
   const box = document.getElementById('rscroll'); if (!box) return;
   const $ = id => document.getElementById(id);
@@ -2464,12 +2449,16 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   const stage = $('rstage'), r3d = $('r3d'), cam = $('rcam'), map = $('rmap');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // timeline (seconds of "story"); scroll position is mapped onto it
+  // story timeline (seconds); the scroll position is mapped onto it
   const T_INTRO = 2.2, T_FLY = 3.6, T_TRAVEL = 15.4, T_ARRIVE = 17.6, T_PULL = 19.2, DUR = 21.6;
-  const SC = 4; // world px per map unit (map is 1280×460 units, drawn 5120×1840)
-  // Sükhbaatar Square → Peace Avenue (east) → Ikh Toiruu (north) → Metro Pool Club, 47.923417° N 106.942444° E
-  const W = [[256,408],[317,394],[423,370],[475,362],[851,332],[824,186],[831.3,177]];
-  const LEG_END_IDX = [4,6], START = W[0], DEST = W[W.length-1], M_PER_UNIT = 3.2011;
+  // map units = OpenStreetMap zoom-15 pixels (map image 1280×460 units, drawn at 5120×1840); club at 47.923417° N 106.942444° E
+  const SC = 4, M_PER_UNIT = 3.2011, DEST = [831.3, 177];
+  // 1 Sükhbaatar Square → Peace Ave → Ikh Toiruu · 2 Sambuu St → Ikh Toiruu · 3 Chingeltei 9th khoroo → Sambuu St → Ikh Toiruu
+  const PTS = [
+    [[256,408],[317,394],[423,370],[475,362],[851,332],[824,186],[831.3,177]],
+    [[322.3,212.6],[376,207],[422,201],[472,192],[529,186],[584,179],[658,169],[720,162],[771,163],[790,157],[808,156],[818.5,157],[822,172],[831.3,177]],
+    [[-34.4,4.6],[0,8],[86,11],[88,24],[95,57],[96,91],[88,110],[88,124],[106,147],[97,170],[98,216],[103,221],[192,221],[277,220],[280.0,214.5],[375.7,204.4],[421.6,198.4],[471.6,189.4],[528.7,183.4],[583.7,176.4],[657.7,166.4],[719.9,159.4],[770.6,160.4],[789.5,154.4],[808.1,153.4],[820.6,154.6],[824.5,171.4],[831.3,177]]
+  ];
 
   const clamp = (x,a=0,b=1) => Math.min(b,Math.max(a,x));
   const lerp = (a,b,u) => a+(b-a)*u;
@@ -2480,64 +2469,59 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   const ebounce = u => { const n=7.5625,d=2.75; if(u<1/d) return n*u*u; if(u<2/d) return n*(u-=1.5/d)*u+.75; if(u<2.5/d) return n*(u-=2.25/d)*u+.9375; return n*(u-=2.625/d)*u+.984375; };
   const win = (t,a,b,fi=.4,fo=.4) => Math.min(ss(a,a+fi,t), 1-ss(b-fo,b,t));
 
-  // ---------- route geometry (sampled here, no DOM measuring needed) ----------
-  const W4 = W.map(p => [p[0]*SC, p[1]*SC]);
-  let D = `M${W4[0][0]} ${W4[0][1]}`; const poly = [W4[0]];
-  for (let i = 1; i < W4.length-1; i++) {
-    const p = W4[i], a = W4[i-1], b = W4[i+1];
-    const v1 = [p[0]-a[0], p[1]-a[1]], v2 = [b[0]-p[0], b[1]-p[1]];
-    const l1 = Math.hypot(...v1), l2 = Math.hypot(...v2), rr = Math.min(40, l1/2, l2/2);
-    const s1 = [p[0]-v1[0]/l1*rr, p[1]-v1[1]/l1*rr], s2 = [p[0]+v2[0]/l2*rr, p[1]+v2[1]/l2*rr];
-    D += ` L${s1[0].toFixed(1)} ${s1[1].toFixed(1)} Q${p[0]} ${p[1]} ${s2[0].toFixed(1)} ${s2[1].toFixed(1)}`;
-    poly.push(s1);
-    for (let k = 1; k <= 12; k++) { const u = k/12, m = 1-u; poly.push([m*m*s1[0]+2*m*u*p[0]+u*u*s2[0], m*m*s1[1]+2*m*u*p[1]+u*u*s2[1]]); }
+  // ---------- route geometry: rounded corners, sampled once per map unit ----------
+  function build(W) {
+    const W4 = W.map(p => [p[0]*SC, p[1]*SC]);
+    let D = `M${W4[0][0]} ${W4[0][1]}`; const poly = [W4[0]];
+    for (let i = 1; i < W4.length-1; i++) {
+      const p = W4[i], a = W4[i-1], b = W4[i+1];
+      const v1 = [p[0]-a[0], p[1]-a[1]], v2 = [b[0]-p[0], b[1]-p[1]];
+      const l1 = Math.hypot(...v1), l2 = Math.hypot(...v2), rr = Math.min(36, l1/2, l2/2);
+      const s1 = [p[0]-v1[0]/l1*rr, p[1]-v1[1]/l1*rr], s2 = [p[0]+v2[0]/l2*rr, p[1]+v2[1]/l2*rr];
+      D += ` L${s1[0].toFixed(1)} ${s1[1].toFixed(1)} Q${p[0]} ${p[1]} ${s2[0].toFixed(1)} ${s2[1].toFixed(1)}`;
+      poly.push(s1);
+      for (let k = 1; k <= 10; k++) { const u = k/10, m = 1-u; poly.push([m*m*s1[0]+2*m*u*p[0]+u*u*s2[0], m*m*s1[1]+2*m*u*p[1]+u*u*s2[1]]); }
+    }
+    const e = W4[W4.length-1]; D += ` L${e[0]} ${e[1]}`; poly.push(e);
+    const CUM = [0]; for (let i = 1; i < poly.length; i++) CUM.push(CUM[i-1] + Math.hypot(poly[i][0]-poly[i-1][0], poly[i][1]-poly[i-1][1]));
+    const L4 = CUM[CUM.length-1], L = L4/SC, N = Math.ceil(L)+1, PX = new Float32Array(N), PY = new Float32Array(N);
+    for (let i = 0, j = 0; i < N; i++) {
+      const d = Math.min(L4, i*SC); while (j < CUM.length-2 && CUM[j+1] < d) j++;
+      const f = (d-CUM[j]) / ((CUM[j+1]-CUM[j]) || 1);
+      PX[i] = lerp(poly[j][0], poly[j+1][0], f)/SC; PY[i] = lerp(poly[j][1], poly[j+1][1], f)/SC;
+    }
+    return {D, L4, L, N, PX, PY};
   }
-  D += ` L${W4[W4.length-1][0]} ${W4[W4.length-1][1]}`; poly.push(W4[W4.length-1]);
-  ['rGhost','rComet','rGlow','rMid','rCore','rHi'].forEach(id => $(id).setAttribute('d', D));
-  const CUM = [0]; for (let i = 1; i < poly.length; i++) CUM.push(CUM[i-1] + Math.hypot(poly[i][0]-poly[i-1][0], poly[i][1]-poly[i-1][1]));
-  const L4 = CUM[CUM.length-1], L = L4/SC, N = Math.ceil(L)+1;
-  const PX = new Float32Array(N), PY = new Float32Array(N);
-  for (let i = 0, j = 0; i < N; i++) {
-    const d = Math.min(L4, i*SC); while (j < CUM.length-2 && CUM[j+1] < d) j++;
-    const f = (d-CUM[j]) / ((CUM[j+1]-CUM[j]) || 1);
-    PX[i] = lerp(poly[j][0], poly[j+1][0], f)/SC; PY[i] = lerp(poly[j][1], poly[j+1][1], f)/SC;
-  }
-  const at = s => { s = clamp(s,0,L); const i = Math.floor(s), f = s-i, j = Math.min(N-1,i+1); return [lerp(PX[i],PX[j],f), lerp(PY[i],PY[j],f)]; };
-  const nearestS = (p, from) => { let best = 1e9, bs = from; for (let i = Math.floor(from); i < N; i++) { const d = Math.hypot(PX[i]-p[0], PY[i]-p[1]); if (d < best) { best = d; bs = i; } } return bs; };
-  const LEG_S = []; { let f = 0; for (const idx of LEG_END_IDX) { f = nearestS(W[idx], f); LEG_S.push(f); } LEG_S[LEG_S.length-1] = L; }
-  const LEG_START = [0, LEG_S[0]], TURNS = [LEG_S[0]];
+  const groups = stage.querySelectorAll('#rcam svg g');
+  const R = PTS.map((W, i) => {
+    const r = build(W), g = groups[i];
+    r.start = W[0]; r.gh = g.querySelector('.rgh'); r.cm = g.querySelector('.rcm');
+    r.trail = [['.rgw',26],['.rcore',7],['.rhi',2]].map(([q,w]) => [g.querySelector(q), w]);
+    [r.gh, r.cm, ...r.trail.map(x => x[0])].forEach(el => el.setAttribute('d', r.D));
+    r.cls = 'rt' + (i+1);
+    r.pin = stage.querySelector('.rstart.' + r.cls); r.chip = stage.querySelector('.rschip.' + r.cls);
+    r.ball = stage.querySelector('.rball.' + r.cls); r.halo = r.ball.querySelector('.halo'); r.num = r.ball.querySelector('.body span');
+    r.kmEl = stage.querySelector('.rn-list .' + r.cls + ' .km');
+    const km = (r.L*M_PER_UNIT/1000).toFixed(1) + ' км';
+    stage.querySelectorAll('.' + r.cls + ' [data-rkm]').forEach(el => { el.textContent = km; });
+    return r;
+  });
+  const at = (r, s) => { s = clamp(s, 0, r.L); const i = Math.floor(s), f = s-i, j = Math.min(r.N-1, i+1); return [lerp(r.PX[i], r.PX[j], f), lerp(r.PY[i], r.PY[j], f)]; };
+  const ALL = [].concat(...PTS, [DEST]);
+  // all three leave together and arrive together: progress 0 → 1, gentle at both ends
+  const prog = t => { const x = clamp((t-T_FLY)/(T_TRAVEL-T_FLY)); return .5-.5*Math.cos(Math.PI*x); };
 
-  // distances (km / m) shown on the cards
-  const fmtKm = u => (u*M_PER_UNIT/1000).toFixed(1) + ' км';
-  const fmtM = u => (Math.round(u*M_PER_UNIT/50)*50) + ' м';
-  document.querySelectorAll('[data-rdist]').forEach(el => { el.textContent = fmtKm(L); });
-  $('rn1').textContent = fmtKm(LEG_S[0]); $('rn2').textContent = fmtM(L-LEG_S[0]);
-
-  // ---------- speed profile: slow into the turn, ease at both ends ----------
-  const STEP = 1, M = Math.ceil(L/STEP)+1, TS = new Float32Array(M);
-  { let acc = 0;
-    for (let i = 1; i < M; i++) {
-      const s = (i-.5)*STEP; let v = 1;
-      for (const tS of TURNS) v -= .42*Math.exp(-Math.pow((s-tS)/38,2));
-      v *= 1 + .45*Math.exp(-Math.pow((s-LEG_S[0]*.5)/(LEG_S[0]*.26),2));
-      v *= .12 + .88*ss(0,110,s); v *= .12 + .88*ss(0,80,L-s);
-      acc += STEP/Math.max(.05,v); TS[i] = acc; }
-    const k = (T_TRAVEL-T_FLY)/acc; for (let i = 0; i < M; i++) TS[i] *= k; }
-  function sOfT(t) {
-    const x = t-T_FLY; if (x <= 0) return 0; if (x >= TS[M-1]) return L;
-    let lo = 0, hi = M-1; while (hi-lo > 1) { const m = (lo+hi)>>1; if (TS[m] < x) lo = m; else hi = m; }
-    return Math.min(L, (lo + (x-TS[lo])/(TS[hi]-TS[lo]))*STEP);
-  }
-  const tOfS = s => T_FLY + TS[Math.min(M-1, Math.max(0, Math.round(s/STEP)))];
-
-  // ---------- stage size: wide screens keep north up, tall phones turn the map "heading up" ----------
-  let SW = 0, SH = 0, PORT = false, FF = 1, FO = 1, PERSP = 1600, FS = 1, PIN = 64, DPR = 1, B0 = 0;
+  // ---------- stage size: wide screens keep north up, tall phones turn the map so east (the club) is up ----------
+  let SW = 0, SH = 0, PORT = false, FF = 1, PERSP = 1600, FS = 1, PIN = 64, DPR = 1, B0 = 0;
   const fxc = $('rfx'), fx = fxc.getContext('2d');
+  const hdr = $('rhead'), hParts = ['rh1','rh2','rh3'].map($), nav = $('rnav'), hint = $('rhint'), dim = $('rdim'), end = $('rend');
+  const eParts = ['rlogoB','re1','re2','re3','re4','re5'].map($);
+  const rnState = $('rnState'), rnMsg = $('rnMsg'), rnBar = $('rnBar'), fog = stage.querySelector('.rfog');
+  const dPin = $('rDestPin'), dChip = $('rDestChip'), rings = [0,1,2].map(i => $('rring'+i));
   function measure() {
     SW = stage.clientWidth; SH = stage.clientHeight; if (!SW || !SH) return false;
     PORT = SW < SH*.92; B0 = PORT ? -90 : 0;
     FF = Math.sqrt(SW*SH/(1920*1080)) * (PORT ? 1.12 : 1);
-    FO = PORT ? Math.min(SH/2350, SW/1150) : Math.min(SW/1920, SH/820);
     PERSP = 1600*Math.max(SW/1920, SH/1080);
     r3d.style.perspective = PERSP + 'px'; r3d.style.perspectiveOrigin = `${SW/2}px ${SH/2}px`;
     FS = clamp(SW/1400, .5, 1);
@@ -2547,36 +2531,41 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     return true;
   }
 
-  // ---------- camera ----------
-  function followCam(s) {
-    let cx = 0, cy = 0, wsum = 0;
-    for (let k = -30; k <= 90; k += 6) { const w = Math.exp(-Math.pow((k-25)/45,2)); const p = at(s+k); cx += p[0]*w; cy += p[1]*w; wsum += w; }
-    cx /= wsum; cy /= wsum;
-    let hx = 0, hy = 0;
-    for (let k = -60; k <= 90; k += 6) { const a = at(s+k-8), b = at(s+k+8); const dx = b[0]-a[0], dy = b[1]-a[1]; const l = Math.hypot(dx,dy) || 1; const w = Math.exp(-Math.pow((k-10)/50,2)); hx += dx/l*w; hy += dy/l*w; }
-    const head = Math.atan2(hy,hx)*180/Math.PI;
-    const bearing = PORT ? -(head+90)*.92 : clamp(-(head+90)*.3,-18,18);
-    const zoom = 3.3 + .7*ss(L-150,L,s) - .6*Math.exp(-Math.pow((s-LEG_S[0]*.52)/(LEG_S[0]*.24),2));
-    const late = ss(LEG_S[0]-40, LEG_S[0]+110, s);
-    return {cx, cy, zoom, f:FF, pitch:50-15*late, bearing, ay:650-30*late};
+  // ---------- camera: fit a set of points into the free area between the two cards ----------
+  let NAVV = 1; // how much of the routes card is on screen (0 → 1): the free area grows while it is hidden
+  function area() {
+    const px = SW < 640 ? 22 : 56;
+    return {x0:px, x1:SW-px, y0:hdr.offsetTop+hdr.offsetHeight+PIN*1.25+14, y1:lerp(SH-24, nav.offsetTop-18, NAVV)};
   }
-  const OV  = () => ({cx:PORT?592:565, cy:PORT?268:250, zoom:2.4, f:FO, pitch:0, bearing:B0, ay:540});
-  const ARR = () => ({cx:DEST[0]-4, cy:DEST[1]+12, zoom:4.4, f:FF, pitch:40, bearing:-10, ay:600});
-  const OUT = () => ({cx:PORT?596:570, cy:PORT?268:252, zoom:2.45, f:FO, pitch:24, bearing:B0-6, ay:PORT?545:560});
-  const mix = (a,b,u) => ({cx:lerp(a.cx,b.cx,u), cy:lerp(a.cy,b.cy,u), zoom:Math.exp(lerp(Math.log(a.zoom),Math.log(b.zoom),u)), f:Math.exp(lerp(Math.log(a.f),Math.log(b.f),u)), pitch:lerp(a.pitch,b.pitch,u), bearing:lerp(a.bearing,b.bearing,u), ay:lerp(a.ay,b.ay,u)});
+  function fit(pts, pitch, bearing, zMax) {
+    const A = area(), b = bearing*Math.PI/180, cb = Math.cos(b), sb = Math.sin(b);
+    let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+    for (const p of pts) { const rx = p[0]*cb-p[1]*sb, ry = p[0]*sb+p[1]*cb; if (rx < x0) x0 = rx; if (rx > x1) x1 = rx; if (ry < y0) y0 = ry; if (ry > y1) y1 = ry; }
+    const z = Math.min(zMax, (A.x1-A.x0)/Math.max(30, x1-x0), (A.y1-A.y0)/Math.max(30, (y1-y0)*Math.cos(pitch*Math.PI/180))) * (PORT ? .9 : .94);
+    const rcx = (x0+x1)/2, rcy = (y0+y1)/2;
+    return {cx:rcx*cb+rcy*sb, cy:-rcx*sb+rcy*cb, z, pitch, bearing, ax:(A.x0+A.x1)/2, ay:(A.y0+A.y1)/2};
+  }
+  // phones tilt the overview a little more so the long, narrow map fills the tall screen
+  const overview = (pitch, bd) => fit(ALL, PORT ? pitch+26 : pitch, B0+bd, 99);
+  function travelCam(x) {
+    const u = .5-.5*Math.cos(Math.PI*x), pts = [[DEST[0]-42, DEST[1]-42], [DEST[0]+42, DEST[1]+42]];
+    for (const r of R) { const s = u*r.L; pts.push(at(r, s), at(r, s+.3*(r.L-s))); }
+    return fit(pts, lerp(12, 40, ss(0,1,x)), B0+lerp(-2,-6,x), 3.3*FF);
+  }
+  function arrCam() { const A = area(); return {cx:DEST[0], cy:DEST[1]+(PORT?0:8), z:4.2*FF, pitch:40, bearing:B0+(PORT?-6:-10), ax:SW/2, ay:(A.y0+A.y1)/2+24}; }
+  const mix = (a,b,u) => ({cx:lerp(a.cx,b.cx,u), cy:lerp(a.cy,b.cy,u), z:Math.exp(lerp(Math.log(a.z),Math.log(b.z),u)), pitch:lerp(a.pitch,b.pitch,u), bearing:lerp(a.bearing,b.bearing,u), ax:lerp(a.ax,b.ax,u), ay:lerp(a.ay,b.ay,u)});
   function camAt(t) {
-    const ov = OV();
-    if (t < T_INTRO) { const u = t/T_INTRO; return {...ov, cx:ov.cx-6*u, cy:ov.cy+2*u, zoom:ov.zoom+.08*eio(u), pitch:6*u, bearing:B0-2*u}; }
-    if (t < T_FLY) { const u = eio((t-T_INTRO)/(T_FLY-T_INTRO)); return mix({...ov, cx:ov.cx-6, cy:ov.cy+2, zoom:ov.zoom+.08, pitch:6, bearing:B0-2}, followCam(0), u); }
-    if (t < T_TRAVEL) return followCam(sOfT(t));
-    if (t < T_ARRIVE) { const v = (t-T_TRAVEL)/(T_ARRIVE-T_TRAVEL); const c = mix(followCam(L), ARR(), eio(v)); c.bearing -= 6*v; return c; }
-    if (t < T_PULL) { const u = eio((t-T_ARRIVE)/(T_PULL-T_ARRIVE)); const a = ARR(); a.bearing -= 6; return mix(a, OUT(), u); }
-    const u = (t-T_PULL)/(DUR-T_PULL), o = OUT(); return {...o, bearing:o.bearing-3*u, zoom:o.zoom*(1+.03*u)};
+    if (t < T_INTRO) { const u = t/T_INTRO, c = overview(6*u, -2*u); c.z *= 1+.04*eio(u); return c; }
+    if (t < T_FLY) { const a = overview(6, -2); a.z *= 1.04; return mix(a, travelCam(0), eio((t-T_INTRO)/(T_FLY-T_INTRO))); }
+    if (t < T_TRAVEL) return travelCam((t-T_FLY)/(T_TRAVEL-T_FLY));
+    if (t < T_ARRIVE) { const v = (t-T_TRAVEL)/(T_ARRIVE-T_TRAVEL); const c = mix(travelCam(1), arrCam(), eio(v)); c.bearing -= 4*v; return c; }
+    if (t < T_PULL) { const a = arrCam(); a.bearing -= 4; return mix(a, overview(24, -6), eio((t-T_ARRIVE)/(T_PULL-T_ARRIVE))); }
+    const u = (t-T_PULL)/(DUR-T_PULL), o = overview(24, -6-3*u); o.z *= 1+.03*u; return o;
   }
   let MAT = new DOMMatrix();
   function applyCam(c) {
-    const s = c.zoom*c.f/SC;
-    MAT = new DOMMatrix().translateSelf(SW/2, c.ay*SH/1080, 0).rotateSelf(c.pitch,0,0).rotateSelf(0,0,c.bearing).scaleSelf(s,s,1).translateSelf(-c.cx*SC, -c.cy*SC, 0);
+    const s = c.z/SC;
+    MAT = new DOMMatrix().translateSelf(c.ax, c.ay, 0).rotateSelf(c.pitch,0,0).rotateSelf(0,0,c.bearing).scaleSelf(s,s,1).translateSelf(-c.cx*SC, -c.cy*SC, 0);
     cam.style.transform = MAT.toString();
     return s;
   }
@@ -2585,51 +2574,43 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   // ---------- helpers ----------
   const place = (el,x,y,sc=1,rot=0,op=1) => { el.style.transform = `translate(${x.toFixed(2)}px,${y.toFixed(2)}px) rotate(${rot.toFixed(2)}deg) scale(${sc.toFixed(4)})`; el.style.opacity = op.toFixed(3); };
   function rng(seed) { return () => { seed |= 0; seed = seed+0x6D2B79F5|0; let t = Math.imul(seed^seed>>>15, 1|seed); t = t+Math.imul(t^t>>>7, 61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
-  const R = rng(7), CONF = [], CCOL = ['#F5B700','#2453C9','#D8313F','#ffffff','#2FA36B','#F07F1D','#7A4FC0'];
-  for (let i = 0; i < 110; i++) { const a = -Math.PI/2+(R()-.5)*Math.PI*1.25, sp = 380+R()*620; CONF.push({vx:Math.cos(a)*sp, vy:Math.sin(a)*sp, c:CCOL[i%CCOL.length], w:6+R()*8, h:4+R()*6, rot:R()*6.28, vr:(R()-.5)*14, delay:R()*.18, life:1.6+R()*.8, wob:R()*6.28, round:i%4===0}); }
-
-  const OVW = [T_ARRIVE+.1, T_PULL+.2];
+  const RN = rng(7), CONF = [], CCOL = ['#F5B700','#2453C9','#D8313F','#ffffff','#1E8C4E','#F07F1D','#7A4FC0'];
+  for (let i = 0; i < 110; i++) { const a = -Math.PI/2+(RN()-.5)*Math.PI*1.25, sp = 380+RN()*620; CONF.push({vx:Math.cos(a)*sp, vy:Math.sin(a)*sp, c:CCOL[i%CCOL.length], w:6+RN()*8, h:4+RN()*6, rot:RN()*6.28, vr:(RN()-.5)*14, delay:RN()*.18, life:1.6+RN()*.8, wob:RN()*6.28, round:i%4===0}); }
+  const tX = x => T_FLY + (T_TRAVEL-T_FLY)*x, OVW = [T_ARRIVE+.1, T_PULL+.2];
   const labels = [
-    {el:$('rlb0'), a:[585,353], b:[705,343], off:30, win:[[T_FLY-.7, tOfS(LEG_S[0]-70)], OVW]},
-    {el:$('rlb1'), a:[846,262], b:[837,205], off:40, win:[[tOfS(LEG_S[0]-110), T_TRAVEL+.6], OVW]},
-    {el:$('rlb2'), a:[875,226], b:[935,226], off:0, win:[[tOfS(L-60), T_PULL+.2]]},
+    {el:$('rlb0'), a:[585,353], b:[705,343], off:24, win:[[.8, tX(.8)], OVW]},
+    {el:$('rlb3'), a:[420,201.2], b:[540,184.8], off:24, win:[[.8, tX(.75)], OVW]},
+    {el:$('rlb1'), a:[846,262], b:[837,205], off:34, win:[[tX(.35), T_TRAVEL+.6], OVW]},
+    {el:$('rlb2'), a:[875,226], b:[935,226], off:0, win:[[tX(.8), T_PULL+.2]]},
   ];
-  const navStates = [2.35, 3.75, tOfS(TURNS[0]-50), T_TRAVEL];
-  const stEls = [...stage.querySelectorAll('.rnav .st')], icEls = [...stage.querySelectorAll('.rnav .ic')], bars = [...stage.querySelectorAll('.rnav .bar i')];
-  const paths = [['rGlow',34],['rMid',18],['rCore',9],['rHi',2.6]].map(([id,w]) => [$(id), w]);
-  const gh = $('rGhost'), comet = $('rComet'), glow = $('rGlow'), fog = stage.querySelector('.rfog');
-  const sPin = $('rStartPin'), sChip = $('rStartChip'), dPin = $('rDestPin'), dChip = $('rDestChip'), mk = $('rMarker'), chev = $('rChev'), halo = mk.querySelector('.halo');
-  const rings = [0,1,2].map(i => $('rring'+i));
-  const hdr = $('rhead'), hParts = ['rh1','rh2','rh3'].map($), nav = $('rnav'), hint = $('rhint'), dim = $('rdim'), end = $('rend');
-  const eParts = ['rlogoB','re1','re2','re3','re4','re5'].map($);
+  let lastSt = -1;
 
   // ---------- one frame: t = story time from scroll, now = wall clock for the gentle pulses ----------
   function render(t, now) {
     t = clamp(t, 0, DUR);
-    const c = camAt(t), s = applyCam(c);
-    const sv = t < T_FLY ? 0 : sOfT(t);
-    const k = (.7+.3*FS)/s;
-
-    // dashed preview of the whole route, then a comet runs along it
-    const gp = eio(clamp((t-.45)/1.45)), dA = 10*k, dB = 11*k;
-    gh.setAttribute('stroke-width', (4*k).toFixed(2));
-    if (gp < 1) { const Rv = gp*L4, per = dA+dB, n = Math.floor(Rv/per), rem = Rv-n*per, parts = [];
-      for (let i = 0; i < n; i++) parts.push(dA.toFixed(2), dB.toFixed(2));
-      parts.push(Math.min(rem,dA).toFixed(2), (L4*2+per).toFixed(1));
-      gh.setAttribute('stroke-dasharray', parts.join(' ')); gh.setAttribute('stroke-dashoffset', '0');
-    } else { gh.setAttribute('stroke-dasharray', `${dA.toFixed(2)} ${dB.toFixed(2)}`); gh.setAttribute('stroke-dashoffset', (-now*26*k).toFixed(2)); }
-    gh.style.opacity = (ss(.35,1.9,t)*(1-.35*ss(T_TRAVEL,T_ARRIVE,t))).toFixed(3);
-    const cl = 320;
-    comet.setAttribute('stroke-width', (8*k).toFixed(2));
-    comet.setAttribute('stroke-dasharray', `${cl} ${L4+cl}`);
-    comet.setAttribute('stroke-dashoffset', (-(gp*L4-cl)).toFixed(1));
-    comet.style.opacity = win(t,.45,2.0,.15,.35).toFixed(3);
-
-    // the travelled part of the route in gold
-    const tr = sv*SC;
-    for (const [el,w] of paths) { el.setAttribute('stroke-width', (w*k).toFixed(2)); el.setAttribute('stroke-dasharray', `${L4} ${L4}`); el.setAttribute('stroke-dashoffset', (L4-tr).toFixed(1)); el.style.opacity = tr > 1 ? 1 : 0; }
-    glow.setAttribute('stroke-opacity', (.16 + .06*Math.sin(now*4) + .12*ss(T_TRAVEL,T_ARRIVE,t)).toFixed(3));
+    const nu = eout(clamp((t-2.2)/.6)), nOut = 1-ss(T_PULL-.5,T_PULL,t); NAVV = nu*nOut;
+    const c = camAt(t), s = applyCam(c), k = (.7+.3*FS)/s, u = t < T_FLY ? 0 : prog(t), A = area(), topLim = hdr.offsetTop+hdr.offsetHeight+6;
     fog.style.opacity = (.25 + .75*c.pitch/56).toFixed(3);
+
+    // routes: dashed preview + comet first, then each colour fills in behind its ball
+    R.forEach((r, i) => {
+      const t0 = .45+i*.14, gp = eio(clamp((t-t0)/1.45)), dA = 9*k, dB = 10*k;
+      r.gh.setAttribute('stroke-width', (3.6*k).toFixed(2));
+      if (gp < 1) { const Rv = gp*r.L4, per = dA+dB, n = Math.floor(Rv/per), rem = Rv-n*per, parts = [];
+        for (let q = 0; q < n; q++) parts.push(dA.toFixed(2), dB.toFixed(2));
+        parts.push(Math.min(rem,dA).toFixed(2), (r.L4*2+per).toFixed(1));
+        r.gh.setAttribute('stroke-dasharray', parts.join(' ')); r.gh.setAttribute('stroke-dashoffset', '0');
+      } else { r.gh.setAttribute('stroke-dasharray', `${dA.toFixed(2)} ${dB.toFixed(2)}`); r.gh.setAttribute('stroke-dashoffset', (-now*24*k).toFixed(2)); }
+      r.gh.style.opacity = (ss(t0-.1, t0+1.4, t)*(1-.4*ss(T_TRAVEL,T_ARRIVE,t))).toFixed(3);
+      const cl = 300;
+      r.cm.setAttribute('stroke-width', (7*k).toFixed(2));
+      r.cm.setAttribute('stroke-dasharray', `${cl} ${r.L4+cl}`);
+      r.cm.setAttribute('stroke-dashoffset', (-(gp*r.L4-cl)).toFixed(1));
+      r.cm.style.opacity = win(t, t0, t0+1.55, .15, .35).toFixed(3);
+      const tr = u*r.L4;
+      for (const [el, w] of r.trail) { el.setAttribute('stroke-width', (w*k).toFixed(2)); el.setAttribute('stroke-dasharray', `${r.L4} ${r.L4}`); el.setAttribute('stroke-dashoffset', (r.L4-tr).toFixed(1)); el.style.opacity = tr > 1 ? 1 : 0; }
+      r.trail[0][0].setAttribute('stroke-opacity', (.16 + .06*Math.sin(now*4+i) + .1*ss(T_TRAVEL,T_ARRIVE,t)).toFixed(3));
+    });
 
     // street names follow their streets
     for (const lb of labels) {
@@ -2637,48 +2618,57 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
       if (o <= 0) { lb.el.style.opacity = 0; continue; }
       const A = proj(lb.a), B = proj(lb.b); let dx = B[0]-A[0], dy = B[1]-A[1]; let ang = Math.atan2(dy,dx)*180/Math.PI;
       if (ang > 90) { ang -= 180; dx = -dx; dy = -dy; } if (ang < -90) { ang += 180; dx = -dx; dy = -dy; }
-      const l = Math.hypot(dx,dy) || 1, ux = dy/l, uy = -dx/l, off = lb.off*FS;
-      const mx = (A[0]+B[0])/2+ux*off, my = (A[1]+B[1])/2+uy*off;
+      const l = Math.hypot(dx,dy) || 1, off = lb.off*FS, mx = (A[0]+B[0])/2+dy/l*off, my = (A[1]+B[1])/2-dx/l*off;
       const w = lb.el.offsetWidth, h = lb.el.offsetHeight, sc = clamp(.85+.18*(A[2]-1)*3, .8, 1.15);
       lb.el.style.transform = `translate(${(mx-w/2).toFixed(1)}px,${(my-h/2).toFixed(1)}px) rotate(${ang.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
       lb.el.style.opacity = o.toFixed(3);
     }
 
-    // start pin + chip
-    const SP = proj(START), spDrop = t < .9 ? 0 : ebounce(clamp((t-.9)/.7));
-    place(sPin, SP[0], SP[1]-(1-spDrop)*70*FS, .3+.7*spDrop, 0, ss(.9,1.5,t));
-    const scIn = eout(clamp((t-1.35)/.5)), scOut = 1-ss(4.9,5.5,t);
-    const cw = sChip.offsetWidth, ch = sChip.offsetHeight, fu = eio(clamp((t-T_INTRO)/(T_FLY-T_INTRO)));
-    const cxp = clamp(lerp(SP[0]-cw/2, SP[0]-cw-30*FS, fu), 10, SW-cw-10), cyp = lerp(SP[1]+26, SP[1]-ch-24, fu);
-    place(sChip, cxp, cyp+(1-scIn)*14, 1, 0, scIn*clamp(scOut));
+    // three start pins; their chips sit on the side away from the other two
+    const SPs = R.map(r => proj(r.start)), mx0 = (SPs[0][0]+SPs[1][0]+SPs[2][0])/3, my0 = (SPs[0][1]+SPs[1][1]+SPs[2][1])/3;
+    R.forEach((r, i) => {
+      const SP = SPs[i], t0 = .9+i*.14, drop = t < t0 ? 0 : ebounce(clamp((t-t0)/.7));
+      place(r.pin, SP[0], SP[1]-(1-drop)*60*FS, .3+.7*drop, 0, ss(t0, t0+.5, t));
+      const cin = eout(clamp((t-1.35-i*.12)/.5)), op = Math.max(cin*(1-ss(4.9,5.5,t)), win(t, T_ARRIVE+.2, T_PULL+.3, .4, .5));
+      if (op <= 0) { r.chip.style.opacity = 0; return; }
+      let dx = SP[0]-mx0, dy = SP[1]-my0; const dl = Math.hypot(dx,dy); if (dl < 1) { dx = 0; dy = 1; } else { dx /= dl; dy /= dl; }
+      const cw = r.chip.offsetWidth, ch = r.chip.offsetHeight;
+      let cx = clamp(SP[0]+dx*(cw/2+16)-cw/2, 8, SW-cw-8), cy = clamp(SP[1]+dy*(ch/2+16)-ch/2, topLim, A.y1-ch);
+      // kept clear of the cards; if that pushed the chip onto its own pin, put it beside the pin instead
+      if (SP[0] > cx-14 && SP[0] < cx+cw+14 && SP[1] > cy-14 && SP[1] < cy+ch+14) { cx = clamp(SP[0]+(SP[0] > SW/2 ? -cw-18 : 18), 8, SW-cw-8); cy = clamp(SP[1]-ch/2, topLim, A.y1-ch); }
+      place(r.chip, cx, cy+(1-cin)*10, 1, 0, op);
+    });
 
     // destination pin + chip
     const DP = proj(DEST), dpT = 1.15, dDrop = t < dpT ? 0 : ebounce(clamp((t-dpT)/.75));
     const arrB = t > T_TRAVEL ? 1+.18*Math.sin(clamp((t-T_TRAVEL)/.5)*Math.PI)*Math.exp(-(t-T_TRAVEL)*1.5) : 1;
     const dsc = clamp(.85+.25*(DP[2]-1)*3, .85, 1.25)*arrB;
     place(dPin, DP[0], DP[1]-(1-dDrop)*90*FS, dsc*(t < dpT ? 0 : 1), 0, ss(dpT,dpT+.25,t));
-    const dw = dChip.offsetWidth, dh = dChip.offsetHeight;
-    const dcx = clamp(DP[0]-dw/2, 10, SW-dw-10), dcy = DP[1]-PIN*1.22*dsc-dh-10;
-    const dEdge = clamp((dcy-6)/40) * clamp((SW+40-DP[0])/60) * clamp((DP[0]+40)/60);
-    place(dChip, dcx, dcy+(1-eout(clamp((t-1.65)/.5)))*14, 1, 0, eout(clamp((t-1.65)/.5))*dEdge);
+    const dw = dChip.offsetWidth, dh = dChip.offsetHeight, dIn = eout(clamp((t-1.65)/.5));
+    let dcx = clamp(DP[0]-dw/2, 10, SW-dw-10), dcy = DP[1]-PIN*1.22*dsc-dh-10;
+    // under the header there is no room above the pin: put the chip beside it
+    if (dcy < topLim) { dcy = clamp(DP[1]-PIN*.7*dsc-dh/2, topLim, SH-dh-8); dcx = DP[0] > SW/2 ? DP[0]-PIN*.5-dw-10 : DP[0]+PIN*.5+10; dcx = clamp(dcx, 10, SW-dw-10); }
+    const dEdge = clamp((SW+40-DP[0])/60)*clamp((DP[0]+40)/60)*clamp((DP[1]+20)/40);
+    place(dChip, dcx, dcy+(1-dIn)*14, 1, 0, dIn*dEdge);
 
     // ripples around the club
-    rings.forEach((r,i) => {
+    rings.forEach((rg, i) => {
       let o = 0, R0 = 0; const t0 = T_TRAVEL+.05+i*.32;
-      if (t > t0 && t < t0+1.6) { const u = (t-t0)/1.6; R0 = (20+150*eout(u))*FS; o = (1-u)*.85; }
+      if (t > t0 && t < t0+1.6) { const q = (t-t0)/1.6; R0 = (20+150*eout(q))*FS; o = (1-q)*.85; }
       else if (t > 1.9 && t < T_TRAVEL && !reduce) { const per = 2.2, ph = ((now-i*.73)%per+per)%per/per; R0 = (14+52*eout(ph))*FS; o = (1-ph)*.45*ss(1.9,2.6,t); }
-      r.style.width = r.style.height = (2*R0)+'px';
-      r.style.transform = `translate(${(DP[0]-R0).toFixed(1)}px,${(DP[1]-R0*.45).toFixed(1)}px) scaleY(.45)`;
-      r.style.transformOrigin = '50% 50%'; r.style.opacity = o.toFixed(3);
+      rg.style.width = rg.style.height = (2*R0)+'px';
+      rg.style.transform = `translate(${(DP[0]-R0).toFixed(1)}px,${(DP[1]-R0*.45).toFixed(1)}px) scaleY(.45)`;
+      rg.style.transformOrigin = '50% 50%'; rg.style.opacity = o.toFixed(3);
     });
 
-    // the cue ball that drives the route
-    const MP = proj(at(sv)), ha = proj(at(sv-10)), hb = proj(at(sv+10)); let hdx = hb[0]-ha[0], hdy = hb[1]-ha[1];
-    if (Math.hypot(hdx,hdy) < .5) { const a = proj(at(L-14)), b = proj(at(L)); hdx = b[0]-a[0]; hdy = b[1]-a[1]; }
-    const mIn = eback(clamp((t-3.0)/.45)), mOut = 1-ss(T_TRAVEL+.05,T_TRAVEL+.5,t);
-    place(mk, MP[0], MP[1], clamp(mIn)*mOut, 0, clamp((t-3.0)/.2)*mOut);
-    chev.style.transform = `rotate(${(Math.atan2(hdy,hdx)*180/Math.PI+90).toFixed(1)}deg)`;
-    const hp = reduce ? .3 : (now*1.1)%1; halo.style.transform = `scale(${(1+1.5*hp).toFixed(3)})`; halo.style.opacity = ((1-hp)*.8).toFixed(3);
+    // the balls roll along their routes and drop into the 8-ball pin together
+    R.forEach((r, i) => {
+      const sv = u*r.L, P = proj(at(r, sv)), t0 = 3.0+i*.08;
+      const sink = ss(T_TRAVEL-.12, T_TRAVEL+.35, t);
+      place(r.ball, P[0], P[1], clamp(eback(clamp((t-t0)/.45)))*(1-.6*sink), 0, clamp((t-t0)/.2)*(1-ss(T_TRAVEL+.1,T_TRAVEL+.4,t)));
+      r.num.style.transform = `rotate(${((sv*7)%360).toFixed(1)}deg)`;
+      const hp = reduce ? .3 : (now*1.1+i*.33)%1; r.halo.style.transform = `scale(${(1+1.3*hp).toFixed(3)})`; r.halo.style.opacity = ((1-hp)*.8).toFixed(3);
+    });
 
     // confetti on arrival
     fx.setTransform(DPR,0,0,DPR,0,0); fx.clearRect(0,0,SW,SH);
@@ -2691,33 +2681,27 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
         fx.restore(); }
     }
 
-    // header card
+    // header card + scroll hint
     const hu = eout(clamp((t-.15)/.7)), hOut = 1-ss(T_PULL-.3,T_PULL+.2,t);
     hdr.style.transform = `translateX(${(-30*(1-hu)).toFixed(1)}px)`; hdr.style.opacity = (hu*hOut).toFixed(3);
-    hParts.forEach((el,i) => { const u = eout(clamp((t-.35-i*.12)/.6)); el.style.transform = `translateY(${(12*(1-u)).toFixed(1)}px)`; el.style.opacity = u.toFixed(3); });
+    hParts.forEach((el,i) => { const q = eout(clamp((t-.35-i*.12)/.6)); el.style.transform = `translateY(${(12*(1-q)).toFixed(1)}px)`; el.style.opacity = q.toFixed(3); });
     hint.style.opacity = (1-ss(.2,1.4,t)).toFixed(3);
 
-    // navigation card
-    const nu = eout(clamp((t-2.2)/.6)), nOut = 1-ss(T_PULL-.5,T_PULL,t);
+    // routes card: remaining distance for each start point
     nav.style.transform = `translateY(${(50*(1-nu)+26*(1-nOut)).toFixed(1)}px)`; nav.style.opacity = (nu*nOut).toFixed(3);
-    let cur = 0; for (let i = 0; i < navStates.length; i++) if (t >= navStates[i]) cur = i;
-    stEls.forEach((el,i) => { let o = 0, y = 0;
-      if (i === cur) { const u = eout(clamp((t-navStates[i])/.45)); o = i === 0 ? 1 : u; y = i === 0 ? 0 : 14*(1-u); }
-      else if (i === cur-1) { const u = eout(clamp((t-navStates[cur])/.3)); o = 1-u; y = -14*u; }
-      el.style.opacity = o.toFixed(3); el.style.transform = `translateY(${y.toFixed(1)}px)`; });
-    icEls.forEach((el,i) => { let o = 0, sc = 1;
-      if (i === cur) { const u = clamp((t-navStates[i])/.4); o = i === 0 ? 1 : eout(u); sc = i === 0 ? 1 : .6+.4*eback(u); }
-      else if (i === cur-1) { const u = clamp((t-navStates[cur])/.25); o = 1-u; sc = 1-.3*u; }
-      el.style.opacity = o.toFixed(3); el.style.transform = `scale(${sc.toFixed(3)})`; el.style.transformOrigin = '50% 50%'; });
-    bars.forEach((b,i) => { b.style.width = (clamp((sv-LEG_START[i])/((i < LEG_S.length-1 ? LEG_S[i] : L)-LEG_START[i]))*100).toFixed(2)+'%'; });
+    const st = t < T_FLY ? 0 : t < T_TRAVEL ? 1 : 2;
+    if (st !== lastSt) { lastSt = st; rnState.textContent = ['ЭХЛЭЛ','ЗАМДАА','ИРЛЭЭ'][st]; rnMsg.textContent = st === 2 ? 'Бүгд Metro Pool Club-д ирлээ!' : 'Гурван цэгээс Metro Pool Club руу'; }
+    const unit = root.lang === 'en' ? ' km' : ' км';
+    for (const r of R) { const txt = st === 2 ? '✓' : ((1-u)*r.L*M_PER_UNIT/1000).toFixed(1) + unit; if (r.kmEl.textContent !== txt) r.kmEl.textContent = txt; }
+    rnBar.style.width = (u*100).toFixed(2) + '%';
 
-    // end card: "we're waiting for you"
+    // end card: "see you soon"
     const eu = clamp((t-T_PULL+.1)/.8);
-    dim.style.opacity = (parseFloat(getComputedStyle(stage).getPropertyValue('--r-dimop'))*eio(eu) || 0).toFixed(3);
+    dim.style.opacity = ((parseFloat(getComputedStyle(stage).getPropertyValue('--r-dimop')) || .8)*eio(eu)).toFixed(3);
     end.style.opacity = eout(eu).toFixed(3);
     end.style.transform = `translateY(-50%) scale(${(.96+.04*eout(eu)).toFixed(4)})`;
     end.classList.toggle('live', eu > .6);
-    eParts.forEach((el,i) => { const u = eout(clamp((t-T_PULL-.05-i*.12)/.6)); el.style.opacity = u.toFixed(3); el.style.transform = `translateY(${(16*(1-u)).toFixed(1)}px)`; });
+    eParts.forEach((el,i) => { const q = eout(clamp((t-T_PULL-.05-i*.12)/.6)); el.style.opacity = q.toFixed(3); el.style.transform = `translateY(${(16*(1-q)).toFixed(1)}px)`; });
   }
 
   // ---------- scroll → story time ----------
@@ -2740,7 +2724,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   const blogo = document.querySelector('.blogo');
   if (blogo) { $('rlogoA').src = blogo.src; $('rlogoB').src = blogo.src; }
 
-  let tt = -1, running = false, last = 0, sized = false, dimop = null;
+  let tt = -1, running = false, last = 0, sized = false;
   function frame(now) {
     if (!running) return;
     if (!sized) sized = measure();
