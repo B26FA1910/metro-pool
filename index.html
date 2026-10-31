@@ -144,7 +144,7 @@ html.menu-locked{overflow:hidden}
 .hero-grid{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,13fr);gap:clamp(36px,5vw,72px);align-items:center}
 .hl{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,1rem + 2.9vw,3.6rem);line-height:1.08;letter-spacing:-.025em}
 .hl .ln{display:block;overflow:hidden;padding-bottom:.06em}
-.hl .ln>span{display:block}
+.hl .ln>span{display:block;text-wrap:balance}
 .js .hl .ln>span{animation:rise 1s var(--ease) backwards}
 .js .hl .ln:nth-child(1)>span{animation-delay:.5s}
 .js .hl .ln:nth-child(2)>span{animation-delay:.64s}
@@ -872,7 +872,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   <div class="lamp" aria-hidden="true"></div>
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <h1 class="hl"><span class="ln"><span>Стрессээ март,</span></span><span class="ln"><span>Цохиураа барь.</span></span></h1>
+      <h1 class="hl"><span class="ln"><span>🎱 Стрессээ ардаа үлдээ,</span></span><span class="ln"><span>цохиураа гартаа атга!</span></span></h1>
       <p class="lede">Metropool Billiard Club бол Сансарт байрлах pool биллиардын клуб. Бид өглөө 10-аас шөнийн 4 цаг хүртэл, долоо хоногийн 7 өдөр нээлттэй — өглөө ч, шөнө ч ирээд тоглоорой.</p>
       <div class="ctas">
         <a class="btn btn-primary" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Залгах: 8006 1460</a>
@@ -2252,7 +2252,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     'Нээлттэй': 'Open', 'Хаалттай': 'Closed', 'Өдөр бүр 10:00–04:00, одоо': 'Daily 10:00–04:00, now', 'Өдөр бүр 10:00–04:00': 'Daily 10:00–04:00',
     '. Одоо хаалттай, 10:00-д нээнэ.': ' in Ulaanbaatar right now. We’re closed and open again at 10:00.', 'Залгах: 8006 1460': 'Call 8006 1460',
     'Хэл': 'Language', 'Цайвар горим': 'Light mode', 'Бараан горим': 'Dark mode',
-    'Стрессээ март,': 'Forget the stress,', 'Цохиураа барь.': 'grab your cue.',
+    '🎱 Стрессээ ардаа үлдээ,': '🎱 Leave the stress behind,', 'цохиураа гартаа атга!': 'grab your cue!',
     'Metropool Billiard Club бол Сансарт байрлах pool биллиардын клуб. Бид өглөө 10-аас шөнийн 4 цаг хүртэл, долоо хоногийн 7 өдөр нээлттэй — өглөө ч, шөнө ч ирээд тоглоорой.': 'Metropool Billiard Club is a pool hall in Sansar, Ulaanbaatar. We’re open from 10 in the morning until 4 at night, 7 days a week, so come and play morning or night.',
     'Заавар үзэх': 'Open the guide', 'Дахин өрөх': 'Re-rack', '24 цаг нээлттэй': 'Open 24/7',
     'Сансар, Улаанбаатар': 'Sansar, Ulaanbaatar', 'Найзуудаа дагуулаад ир': 'Bring your friends', '6 ширээ': '6 tables',
