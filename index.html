@@ -490,109 +490,150 @@ html:has(dialog[open]){overflow:hidden}
 /* phones: the name gets its own line, hours · leader · price on the line below */
 @media (max-width:560px){.price-list li{display:grid;grid-template-columns:auto minmax(16px,1fr) auto;column-gap:10px;row-gap:3px;align-items:baseline}.price-list .nm{display:contents}.price-list .nm>span{grid-column:1/-1}}
 
-/* ---------- location: three routes meet at the club as you scroll ---------- */
+/* ---------- location: three routes, one club — plays as you scroll ---------- */
 .route-sec{padding-bottom:clamp(1.5rem,1rem + 2vw,3rem)}
 .route-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 40px}
 .route-head .maplink{margin-top:0}
-.rscroll{position:relative;height:420vh;margin-top:clamp(26px,3.5vw,44px)}
+.rscroll{position:relative;height:440vh;margin-top:clamp(26px,3.5vw,44px)}
 .rsticky{position:sticky;top:calc(var(--stick) + 2px);height:calc(100vh - var(--stick) - 18px);height:calc(100svh - var(--stick) - 18px);display:grid;justify-items:center}
-.rstage{--r-bg:#0E1C33;--r-ink:#F2EEE3;--r-ink2:rgba(242,238,227,.72);--r-ink3:rgba(242,238,227,.48);--r-glass:rgba(17,36,64,.88);--r-line:rgba(242,238,227,.13);--r-label:rgba(236,240,250,.94);--r-area:#F5B700;--r-dim:#050B16;--r-dimop:.76;--r-vig:rgba(4,9,18,.72);--r-tag:rgba(242,238,227,.05);--pin:64px;
-  --rc1:#6E98FF;--rc2:#FF5F6B;--rc3:#3FCB80;
+.rstage{--r-bg:#0E1C33;--r-ink:#F2EEE3;--r-ink2:rgba(242,238,227,.72);--r-ink3:rgba(242,238,227,.48);--r-glass:rgba(17,36,64,.9);--r-line:rgba(242,238,227,.13);--r-label:rgba(236,240,250,.94);--r-area:#F5B700;--r-dim:#050B16;--r-dimop:.76;--r-vig:rgba(4,9,18,.7);--r-tag:rgba(242,238,227,.05);--r-poi:#13284A;--r-poitx:#FFE08A;--pin:64px;
+  --rc1:#F5B700;--rm1:#F5B700;--rh1:#FFF8DE;--rt1:#FFD35A;
+  --rc2:#4F8FF0;--rm2:#4F8FF0;--rh2:#EEF5FF;--rt2:#9CC6FF;
+  --rc3:#E5484D;--rm3:#E5484D;--rh3:#FFF0F0;--rt3:#FF9599;
   position:relative;width:min(1440px,100% - 32px);height:100%;overflow:hidden;border-radius:clamp(20px,2.2vw,30px);background:var(--r-bg);color:var(--r-ink);border:1px solid var(--line);box-shadow:0 40px 80px -44px rgba(0,0,0,.6);isolation:isolate;contain:layout paint;font-family:var(--text)}
-:root[data-theme="light"] .rstage{--r-bg:#D4DDEA;--r-ink:#0E1C33;--r-ink2:#33445F;--r-ink3:#5A6B88;--r-glass:rgba(255,255,255,.92);--r-line:rgba(14,28,51,.1);--r-label:#1B355E;--r-area:#A87800;--r-dim:#F4F6FA;--r-dimop:.88;--r-vig:rgba(14,28,51,.16);--r-tag:rgba(14,28,51,.04);--rc1:#2453C9;--rc2:#D8313F;--rc3:#178246;box-shadow:0 40px 80px -44px rgba(14,28,51,.45)}
-.rt1{--c:var(--rc1)}.rt2{--c:var(--rc2)}.rt3{--c:var(--rc3)}
+:root[data-theme="light"] .rstage{--r-bg:#D4DDEA;--r-ink:#0E1C33;--r-ink2:#33445F;--r-ink3:#5A6B88;--r-glass:rgba(255,255,255,.93);--r-line:rgba(14,28,51,.1);--r-label:#1B355E;--r-area:#A87800;--r-dim:#F4F6FA;--r-dimop:.88;--r-vig:rgba(14,28,51,.16);--r-tag:rgba(14,28,51,.04);--r-poi:#FFFFFF;--r-poitx:#8A6200;
+  --rc1:#F2AE00;--rm1:#9A6A00;--rh1:#FFF6D6;--rt1:#A87800;
+  --rc2:#2E6FE0;--rm2:#173F8F;--rh2:#E6EFFF;--rt2:#2453C9;
+  --rc3:#D8313F;--rm3:#8E1B26;--rh3:#FFE8EA;--rt3:#C0303C;box-shadow:0 40px 80px -44px rgba(14,28,51,.45)}
+.rt1{--c:var(--rc1);--cm:var(--rm1);--ch:var(--rh1);--ct:var(--rt1)}
+.rt2{--c:var(--rc2);--cm:var(--rm2);--ch:var(--rh2);--ct:var(--rt2)}
+.rt3{--c:var(--rc3);--cm:var(--rm3);--ch:var(--rh3);--ct:var(--rt3)}
 .r3d{position:absolute;inset:0;overflow:hidden}
-#rcam{position:absolute;left:0;top:0;width:5120px;height:1840px;transform-origin:0 0;will-change:transform}
-#rcam svg{position:absolute;left:0;top:0;width:5120px;height:1840px;max-width:none;overflow:visible}
-#rcam img{position:absolute;left:-240px;top:-280px;width:5360px;height:2120px;max-width:none}
-#rmap{opacity:0;transition:opacity .6s}
-#rmap.ok{opacity:1}
-#rcam .rgh,#rcam .rcm,#rcam .rgw,#rcam .rcore{stroke:var(--c)}
-#rcam .rcm{stroke:color-mix(in srgb,var(--c) 45%,#fff)}
-.rfog{position:absolute;left:0;right:0;top:0;height:42%;pointer-events:none;background:linear-gradient(to bottom,var(--r-bg) 0%,color-mix(in srgb,var(--r-bg) 82%,transparent) 30%,transparent 100%)}
-.rvig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 55%,transparent 55%,var(--r-vig) 100%)}
+#rcam{position:absolute;left:0;top:0;width:10px;height:10px;transform-origin:0 0;will-change:transform}
+#rcam img{position:absolute;display:block;max-width:none;opacity:0;transition:opacity .6s}
+#rcam img.ok{opacity:1}
+#rbase{left:-1680px;top:-1280px;width:6880px;height:4160px}
+#rdetail{left:0;top:0;width:4400px;height:1840px}
+#rcam svg{position:absolute;left:-1200px;top:-1000px;width:6800px;height:3600px;overflow:visible}
+#rroutes .rgh{stroke:color-mix(in srgb,var(--c) 60%,var(--r-ink) 15%);stroke-opacity:.6}
+#rroutes .rcm{stroke:color-mix(in srgb,var(--c) 45%,#fff)}
+#rroutes .rgw{stroke:var(--c)}
+#rroutes .rmid{stroke:var(--cm);stroke-opacity:.38}
+#rroutes .rcore{stroke:var(--c)}
+#rroutes .rhi{stroke:var(--ch);stroke-opacity:.75}
+.rfog{position:absolute;left:0;right:0;top:0;height:38%;pointer-events:none;background:linear-gradient(to bottom,var(--r-bg) 0%,color-mix(in srgb,var(--r-bg) 75%,transparent) 26%,transparent 100%)}
+.rvig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 55%,transparent 58%,var(--r-vig) 100%)}
 .rov,.rfx{position:absolute;inset:0;pointer-events:none}
 .rfx{width:100%;height:100%}
 .rglass{background:var(--r-glass);border:1px solid var(--r-line);border-radius:20px;box-shadow:0 22px 50px -18px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05)}
+/* billiard balls: 1 yellow, 2 blue, 3 red, 8 black */
+.rstage .ball{position:relative;display:grid;place-items:center;border-radius:50%;flex:none;width:22px;height:22px;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.55) 0 9%,rgba(255,255,255,0) 26%),var(--bc);box-shadow:inset -3px -5px 9px rgba(0,0,0,.35)}
+.rstage .ball::before{content:"";position:absolute;inset:0;margin:auto;width:52%;height:52%;border-radius:50%;background:#F7F4EC;z-index:0}
+.rstage .ball::after{content:none}
+.rstage .ball b{position:relative;z-index:1;font-family:var(--display);font-weight:800;font-size:9px;color:#0A1527;line-height:1}
+.rstage .b1{--bc:#F5B700}.rstage .b2{--bc:#2E6FE0}.rstage .b3{--bc:#D8313F}.rstage .b8{--bc:#121B2C}
 .rlabel{position:absolute;left:0;top:0;white-space:nowrap;font-weight:600;font-size:16px;letter-spacing:.01em;color:var(--r-label);opacity:0;text-shadow:0 0 3px var(--r-bg),0 0 3px var(--r-bg),0 0 8px var(--r-bg)}
 .rlabel.area{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.32em;color:var(--r-area)}
+.rpoi{position:absolute;left:0;top:0;display:flex;align-items:center;gap:7px;white-space:nowrap;transform-origin:0 50%;opacity:0}
+.rpoi .pi{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--r-poi);border:2px solid color-mix(in srgb,var(--yellow) 75%,transparent);box-shadow:0 4px 12px rgba(0,0,0,.35);color:var(--r-poitx)}
+.rpoi .pi svg{width:15px;height:15px}
+.rpoi .pl{font-size:13.5px;font-weight:700;color:var(--r-poitx);text-shadow:0 0 3px var(--r-bg),0 0 3px var(--r-bg),0 0 8px var(--r-bg)}
+.rpoi.sm .pi{width:21px;height:21px;border-width:1.5px}.rpoi.sm .pi svg{width:11px;height:11px}
 .rpin,.rchip,.rring,.rball{position:absolute;left:0;top:0;opacity:0}
 .rstart .rdot{width:24px;height:24px;border-radius:50%;background:#fff;border:6px solid var(--c);box-shadow:0 0 0 6px color-mix(in srgb,var(--c) 25%,transparent),0 6px 16px rgba(0,0,0,.45);transform:translate(-50%,-50%)}
 #rDestPin .drop{position:absolute;left:calc(var(--pin) / -2);top:calc(var(--pin) * -1.22);width:var(--pin);height:calc(var(--pin) * 1.22);overflow:visible}
 #rDestPin .shadow{position:absolute;left:-16px;top:-6px;width:32px;height:12px;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(3px)}
-.rchip{white-space:nowrap;padding:8px 14px 8px 12px;border-radius:14px;background:var(--r-glass);border:1px solid var(--r-line);box-shadow:0 10px 26px -6px rgba(0,0,0,.4);display:flex;align-items:center;gap:9px}
-.rchip .k{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--r-ink3);text-transform:uppercase}
+.rchip{white-space:nowrap;padding:8px 14px 8px 10px;border-radius:14px;background:var(--r-glass);border:1px solid var(--r-line);box-shadow:0 10px 26px -6px rgba(0,0,0,.4);display:flex;align-items:center;gap:9px}
+.rchip .ball{width:24px;height:24px}.rchip .ball b{font-size:10px}
+.rchip .k{font-size:10.5px;font-weight:700;letter-spacing:.13em;color:var(--r-ink3);text-transform:uppercase}
 .rchip .v{font-size:16px;font-weight:600;color:var(--r-ink)}
-.rchip .bullet{width:10px;height:10px;border-radius:50%;flex:none;background:var(--c)}
 .rchip .col{display:flex;flex-direction:column;gap:1px}
 .rring{border-radius:50%;border:3px solid var(--yellow)}
-/* the travelling balls: 2 (blue), 3 (red), 6 (green) roll into the 8-ball pin */
-.rball .halo{position:absolute;left:-22px;top:-22px;width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,var(--c) 40%,transparent)}
-.rball .body{position:absolute;left:-16px;top:-16px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:2px solid #fff;background:radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--bc) 55%,#fff),var(--bc) 55%,color-mix(in srgb,var(--bc) 65%,#000));box-shadow:0 0 18px color-mix(in srgb,var(--c) 70%,transparent),0 6px 14px rgba(0,0,0,.45)}
-.rball .body span{display:grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#F7F4EC;font:800 9px/1 var(--display);color:#16181C}
-.rhead{position:absolute;left:20px;top:20px;display:flex;gap:16px;align-items:center;padding:16px 24px 16px 16px;opacity:0}
+.rball .halo{position:absolute;left:-26px;top:-26px;width:52px;height:52px;border-radius:50%;background:color-mix(in srgb,var(--c) 40%,transparent)}
+.rball .ball.mk{position:absolute;left:-19px;top:-19px;width:38px;height:38px;border:3px solid #fff;box-shadow:inset -3px -5px 9px rgba(0,0,0,.35),0 0 18px color-mix(in srgb,var(--bc) 85%,transparent),0 6px 14px rgba(0,0,0,.45)}
+.rball .ball.mk b{font-size:13px}
+.rhead{position:absolute;left:20px;top:20px;display:flex;gap:16px;align-items:center;padding:16px 22px 16px 16px;opacity:0;max-width:calc(100% - 40px)}
 .rlogo{width:60px;height:60px;border-radius:50%;flex:none;background:#fff;box-shadow:0 0 0 3px rgba(245,183,0,.55),0 10px 24px -6px rgba(0,0,0,.45)}
 .rhead .eyebrow,.rend .eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;color:var(--r-area)}
-.rhead .htitle{font-family:var(--display);font-size:clamp(19px,1rem + .8vw,28px);font-weight:700;letter-spacing:-.01em;margin-top:4px;line-height:1.1}
-.rhead .hmeta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.rstage .tag{font-size:13px;font-weight:600;color:var(--r-ink2);padding:5px 11px;border-radius:999px;border:1px solid var(--r-line);background:var(--r-tag);white-space:nowrap}
-.rnav{position:absolute;left:0;right:0;bottom:26px;margin-inline:auto;width:min(540px,100% - 24px);padding:14px 18px 16px;opacity:0}
-.rn-top{display:flex;gap:10px;align-items:baseline;font-size:13.5px;font-weight:600;color:var(--r-ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rn-top b{color:var(--r-area);letter-spacing:.12em;font-size:12px;font-weight:700}
-.rn-list{list-style:none;padding:0;margin-top:10px;display:grid;gap:7px}
-.rn-list li{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px}
-.rn-ball{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font:800 8.5px/1 var(--display);font-style:normal;color:#16181C;background:radial-gradient(circle,#F7F4EC 0 32%,transparent 35%),radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--bc) 55%,#fff),var(--bc) 55%,color-mix(in srgb,var(--bc) 65%,#000))}
-.rn-list .nm{font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rn-list .km{font-family:var(--display);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--c);white-space:nowrap}
-.rn-bar{height:4px;margin-top:12px;border-radius:4px;background:var(--r-line);overflow:hidden}
-.rn-bar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--yellow),#FFD35A)}
-.rhint{position:absolute;left:0;right:0;bottom:26px;margin-inline:auto;width:max-content;display:flex;align-items:center;gap:8px;padding:11px 18px 11px 14px;border-radius:999px;background:var(--r-glass);border:1px solid var(--r-line);font-weight:600;font-size:.95rem;box-shadow:0 14px 30px -12px rgba(0,0,0,.45)}
+.rhead .htitle{font-family:var(--display);font-size:clamp(19px,1rem + .7vw,27px);font-weight:700;letter-spacing:-.01em;margin-top:4px;line-height:1.1}
+.rhead .hmeta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.rstage .tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--r-ink2);padding:4px 11px;border-radius:999px;border:1px solid var(--r-line);background:var(--r-tag);white-space:nowrap}
+.rhead .tag{padding-left:5px}.rhead .tag .ball{width:18px;height:18px}.rhead .tag .ball b{font-size:8px}
+.rstage .sep{opacity:.6}
+/* navigation card: one compact lane per route */
+.rnav{position:absolute;left:0;right:0;bottom:24px;margin-inline:auto;width:min(760px,100% - 24px);padding:12px 18px 14px 14px;opacity:0}
+.lane{display:flex;gap:14px;align-items:center;height:54px}
+.lbars+.lane{margin-top:9px}
+.licon{position:relative;width:46px;height:46px;border-radius:14px;flex:none;color:#fff;background:linear-gradient(150deg,color-mix(in srgb,var(--c) 75%,#fff),var(--c));box-shadow:0 8px 20px -6px color-mix(in srgb,var(--c) 60%,transparent)}
+.lane.rt1 .licon{color:#0A1527}
+.licon .ic{position:absolute;left:11px;top:11px;width:24px;height:24px;opacity:0}
+.licon .ball{position:absolute;left:-7px;top:-7px;width:20px;height:20px;border:2px solid var(--r-bg)}
+.licon .ball b{font-size:8.5px}
+.ltexts{position:relative;flex:1;min-width:0;height:54px}
+.lane .st{position:absolute;left:0;top:0;right:0;opacity:0}
+.lane .small{display:flex;gap:7px;align-items:center;font-size:13px;font-weight:600;color:var(--r-ink2);margin-top:3px;white-space:nowrap;overflow:hidden}
+.lane .small b{font-weight:700;letter-spacing:.12em;font-size:11.5px;color:var(--ct)}
+.lane .big{font-family:var(--display);font-size:clamp(17px,.9rem + .5vw,23px);font-weight:700;letter-spacing:-.01em;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ldist{font-family:var(--display);font-weight:700;font-size:16px;color:var(--r-ink2);white-space:nowrap;min-width:58px;text-align:right;font-variant-numeric:tabular-nums}
+.lbars{display:flex;gap:5px;margin:5px 0 0 60px}
+.lbar{flex:1;height:4px;border-radius:4px;background:var(--r-line);overflow:hidden}
+.lbar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--c),color-mix(in srgb,var(--c) 45%,#fff))}
+.rhint{position:absolute;left:0;right:0;bottom:24px;margin-inline:auto;width:max-content;display:flex;align-items:center;gap:8px;padding:11px 18px 11px 14px;border-radius:999px;background:var(--r-glass);border:1px solid var(--r-line);font-weight:600;font-size:.95rem;box-shadow:0 14px 30px -12px rgba(0,0,0,.45)}
 .rhint svg{width:18px;height:18px;color:var(--r-area);animation:rhintB 1.6s ease-in-out infinite}
 @keyframes rhintB{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 .rdim{position:absolute;inset:0;background:var(--r-dim);opacity:0;pointer-events:none}
-.rend{position:absolute;left:0;right:0;top:50%;margin-inline:auto;width:min(820px,100% - 32px);text-align:center;opacity:0}
-.rend .rlogo{width:104px;height:104px;margin:0 auto;box-shadow:0 0 0 4px rgba(245,183,0,.6),0 18px 44px -10px rgba(0,0,0,.5)}
-.rend .eyebrow{margin-top:24px}
-.rend .etitle{font-family:var(--display);font-size:clamp(32px,1.2rem + 3.6vw,66px);font-weight:800;letter-spacing:-.02em;margin-top:8px;line-height:1}
+.rend{position:absolute;left:0;right:0;top:50%;margin-inline:auto;width:min(980px,100% - 32px);text-align:center;opacity:0}
+.rend .rlogo{width:96px;height:96px;margin:0 auto;box-shadow:0 0 0 4px rgba(245,183,0,.6),0 18px 44px -10px rgba(0,0,0,.5)}
+.rend .eyebrow{margin-top:20px}
+.rend .etitle{font-family:var(--display);font-size:clamp(30px,1.1rem + 3.4vw,62px);font-weight:800;letter-spacing:-.02em;margin-top:8px;line-height:1}
 .rend .nw{white-space:nowrap}
-.rend .esub{font-size:clamp(15px,.9rem + .4vw,20px);color:var(--r-ink2);margin-top:12px;font-weight:500}
-.rend .eroute{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;margin-top:24px}
-.rend .eroute .tag{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--r-ink);padding:7px 14px}
-.rend .eroute .tag i{width:9px;height:9px;border-radius:50%;background:var(--c)}
-.rend .eroute .sep{color:var(--r-ink3)}
-.rend .eact{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}
+.rend .esub{font-size:clamp(15px,.9rem + .4vw,20px);color:var(--r-ink2);margin-top:10px;font-weight:500}
+.eroutes{display:inline-grid;gap:9px;margin-top:22px;justify-items:start}
+.erow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.erow .ball{width:26px;height:26px}.erow .ball b{font-size:10px}
+.erow .via{display:contents}
+.erow .tag{font-size:14.5px;color:var(--r-ink);padding:6px 13px;background:color-mix(in srgb,var(--c) 10%,transparent);border-color:color-mix(in srgb,var(--c) 35%,transparent)}
+.erow .arr{color:var(--ct);font-weight:700}
+.erow .km{font-family:var(--display);font-size:15px;color:var(--r-ink2);margin-left:4px}
+.rend .eact{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
 .rend .btn{min-height:48px}
 .rbtn2{border:1px solid var(--r-line);background:var(--r-glass);color:var(--r-ink)}
 .rbtn2:hover{border-color:var(--chalk);transform:translateY(-2px)}
 .rend a{pointer-events:none}
 .rend.live a{pointer-events:auto}
-.rattr{position:absolute;right:14px;bottom:7px;font-size:11px;color:var(--r-ink3)}
+.rattr{position:absolute;right:14px;bottom:6px;font-size:11px;color:var(--r-ink3)}
 @media (max-width:900px){
-  .rscroll{height:400vh}
+  .rscroll{height:420vh}
   .rsticky{height:calc(100vh - var(--stick) - 100px - env(safe-area-inset-bottom));height:calc(100svh - var(--stick) - 100px - env(safe-area-inset-bottom))}
 }
 @media (max-width:640px){
-  .rstage{--pin:46px;width:calc(100% - 20px)}
+  .rstage{--pin:44px;width:calc(100% - 20px)}
   .rlabel{font-size:12px}.rlabel.area{font-size:11px;letter-spacing:.26em}
-  .rchip{padding:5px 9px 5px 8px;border-radius:10px;gap:6px}.rchip .k{font-size:9px}.rchip .v{font-size:12px}.rchip .bullet{width:7px;height:7px}
+  .rpoi .pi{width:22px;height:22px;border-width:1.5px}.rpoi .pi svg{width:12px;height:12px}.rpoi .pl{font-size:11px}
+  .rpoi.sm .pi{width:17px;height:17px}.rpoi.sm .pi svg{width:9px;height:9px}
+  .rchip{padding:5px 9px 5px 6px;border-radius:10px;gap:6px}.rchip .ball{width:18px;height:18px}.rchip .ball b{font-size:8px}
+  .rchip .k{font-size:8.5px}.rchip .v{font-size:12px}
   .rstart .rdot{width:18px;height:18px;border-width:4.5px;box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 25%,transparent),0 4px 10px rgba(0,0,0,.45)}
-  .rball .halo{left:-17px;top:-17px;width:34px;height:34px}
-  .rball .body{left:-12px;top:-12px;width:24px;height:24px;border-width:1.5px}.rball .body span{width:11px;height:11px;font-size:7px}
-  .rhead{left:10px;right:10px;top:10px;gap:12px;padding:10px 14px 10px 10px;border-radius:16px}
-  .rhead .rlogo{width:42px;height:42px}
-  .rhead .eyebrow{font-size:10px}.rhead .htitle{font-size:16.5px}
-  .rhead .hmeta{gap:6px;margin-top:6px}.rstage .tag{font-size:11px;padding:3px 9px}
-  .rnav{bottom:22px;width:calc(100% - 20px);padding:11px 13px 13px;border-radius:16px}
-  .rn-top{font-size:11.5px;gap:8px}.rn-top b{font-size:10px}
-  .rn-list{margin-top:8px;gap:5px}.rn-list li{grid-template-columns:20px minmax(0,1fr) auto;gap:8px}
-  .rn-ball{width:19px;height:19px;font-size:7.5px}
-  .rn-list .nm{font-size:13.5px}.rn-list .km{font-size:13px}
-  .rn-bar{margin-top:9px;height:3px}
-  .rhint{bottom:22px;font-size:.88rem}
-  .rend .rlogo{width:76px;height:76px}.rend .eyebrow{margin-top:18px;font-size:10.5px}
-  .rend .eroute{margin-top:16px;gap:6px}.rend .eroute .tag{font-size:12px;padding:5px 10px}
-  .rend .eact{margin-top:18px}
-  .rattr{right:10px;bottom:5px;font-size:9.5px}
+  .rball .halo{left:-18px;top:-18px;width:36px;height:36px}
+  .rball .ball.mk{left:-13px;top:-13px;width:26px;height:26px;border-width:2px}.rball .ball.mk b{font-size:9px}
+  .rhead{left:10px;right:10px;top:10px;gap:11px;padding:9px 13px 9px 9px;border-radius:15px}
+  .rhead .rlogo{width:38px;height:38px}
+  .rhead .eyebrow{font-size:9.5px}.rhead .htitle{font-size:15.5px}
+  .rhead .hmeta{display:none}
+  .rnav{bottom:20px;width:calc(100% - 16px);padding:9px 11px 11px 10px;border-radius:15px}
+  .lane{height:40px;gap:10px}.ltexts{height:40px}.lbars+.lane{margin-top:6px}
+  .licon{width:34px;height:34px;border-radius:10px}.licon .ic{left:8px;top:8px;width:18px;height:18px}
+  .licon .ball{width:15px;height:15px;left:-5px;top:-5px;border-width:1.5px}.licon .ball b{font-size:6.5px}
+  .lane .small{font-size:10.5px;gap:5px;margin-top:1px}.lane .small b{font-size:9.5px}
+  .lane .big{font-size:14.5px;margin-top:2px}
+  .ldist{font-size:12.5px;min-width:44px}
+  .lbars{margin:4px 0 0 44px;gap:4px}.lbar{height:3px}
+  .rhint{bottom:20px;font-size:.88rem}
+  .rend .rlogo{width:70px;height:70px}.rend .eyebrow{margin-top:14px;font-size:10.5px}
+  .eroutes{margin-top:14px;gap:7px}
+  .erow .via{display:none}.erow .tag{font-size:12.5px;padding:5px 10px}.erow .ball{width:22px;height:22px}.erow .km{font-size:13px}
+  .rend .eact{margin-top:16px}
+  .rattr{right:10px;bottom:4px;font-size:9.5px}
 }
 
 /* ---------- visit ---------- */
@@ -923,7 +964,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   <div class="wrap route-head">
     <div>
       <h2 class="h2" id="locTitle" data-reveal><span>Хаяг байршил</span></h2>
-      <p class="intro" data-reveal>Сансар, Их тойруугийн дагуу. Сүхбаатарын талбай, Самбуугийн гудамж, ЧД 9-р хорооноос ирэх замыг доош гүйлгээд хараарай.</p>
+      <p class="intro" data-reveal>Сансар, Их тойруугийн дагуу. 6-р хороолол, МУИС, Сүхбаатарын талбайгаас ирэх замыг доош гүйлгээд хараарай.</p>
     </div>
     <a class="maplink" data-reveal href="https://www.google.com/maps/dir/?api=1&amp;destination=47.923417,106.942444" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-8-8 18-2-8-8-2z"/></svg>Google Maps-аар зам заалгах</a>
   </div>
@@ -932,19 +973,24 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
       <div class="rstage" id="rstage" aria-hidden="true">
         <div class="r3d" id="r3d">
           <div id="rcam">
-            <img id="rmap" alt="" decoding="async">
-            <svg viewBox="0 0 5120 1840" xmlns="http://www.w3.org/2000/svg"><g class="rt1"><path class="rgh" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".55"/><path class="rcm" fill="none" stroke-linecap="round"/><path class="rgw" fill="none" stroke-opacity=".18" stroke-linecap="round" stroke-linejoin="round"/><path class="rcore" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path class="rhi" fill="none" stroke="#fff" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round"/></g><g class="rt2"><path class="rgh" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".55"/><path class="rcm" fill="none" stroke-linecap="round"/><path class="rgw" fill="none" stroke-opacity=".18" stroke-linecap="round" stroke-linejoin="round"/><path class="rcore" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path class="rhi" fill="none" stroke="#fff" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round"/></g><g class="rt3"><path class="rgh" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".55"/><path class="rcm" fill="none" stroke-linecap="round"/><path class="rgw" fill="none" stroke-opacity=".18" stroke-linecap="round" stroke-linejoin="round"/><path class="rcore" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path class="rhi" fill="none" stroke="#fff" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+            <img id="rbase" alt="" decoding="async"><img id="rdetail" alt="" decoding="async">
+            <svg viewBox="-1200 -1000 6800 3600" xmlns="http://www.w3.org/2000/svg"><g id="rroutes" fill="none" stroke-linecap="round" stroke-linejoin="round"></g></svg>
           </div>
         </div>
         <div class="rfog"></div><div class="rvig"></div>
         <div class="rov">
-          <div class="rlabel" id="rlb0">Энх тайвны өргөн чөлөө</div>
-          <div class="rlabel" id="rlb1">Их тойруу</div>
-          <div class="rlabel" id="rlb3">Самбуугийн гудамж</div>
-          <div class="rlabel" id="rlb4">Их тойруу</div>
-          <div class="rlabel area" id="rlb2">САНСАР</div>
-          <div class="rpin rstart rt1"><div class="rdot"></div></div><div class="rchip rschip rt1"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">Сүхбаатарын талбай</span></div></div><div class="rpin rstart rt2"><div class="rdot"></div></div><div class="rchip rschip rt2"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">Самбуугийн гудамж</span></div></div><div class="rpin rstart rt3"><div class="rdot"></div></div><div class="rchip rschip rt3"><span class="bullet"></span><div class="col"><span class="k" data-rkm>0 км</span><span class="v">ЧД 9-р хороо</span></div></div>
-          <div class="rring" id="rring0"></div><div class="rring" id="rring1"></div><div class="rring" id="rring2"></div>
+          <div class="rlabel" id="rlbRing">Их тойруу</div>
+          <div class="rlabel" id="rlbPeace">Энх тайвны өргөн чөлөө</div>
+          <div class="rlabel" id="rlbBeij">Бээжингийн гудамж</div>
+          <div class="rlabel" id="rlbIkh">Их тойруу</div>
+          <div class="rlabel area" id="rlbS">САНСАР</div>
+          <div class="rpoi" id="rpoiAil"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg></span><span class="pl">100 айл</span></div>
+          <div class="rpoi" id="rpoiGas0"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M3 21h13"/><path d="M7 8h5"/><path d="M15 9l3 2v7a1.5 1.5 0 0 0 3 0V9l-3-3"/></svg></span><span class="pl">Шатахуун түгээх станц</span></div>
+          <div class="rpoi sm" id="rpoiGas1"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M3 21h13"/><path d="M7 8h5"/><path d="M15 9l3 2v7a1.5 1.5 0 0 0 3 0V9l-3-3"/></svg></span></div>
+          <div class="rpoi sm" id="rpoiGas2"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M3 21h13"/><path d="M7 8h5"/><path d="M15 9l3 2v7a1.5 1.5 0 0 0 3 0V9l-3-3"/></svg></span></div>
+          <div class="rpoi sm" id="rpoiGas3"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M3 21h13"/><path d="M7 8h5"/><path d="M15 9l3 2v7a1.5 1.5 0 0 0 3 0V9l-3-3"/></svg></span></div>
+          <div class="rpin rstart rt1"><div class="rdot"></div></div><div class="rpin rstart rt2"><div class="rdot"></div></div><div class="rpin rstart rt3"><div class="rdot"></div></div><div class="rchip rschip rt1"><span class="ball b1"><b>1</b></span><div class="col"><span class="k">Эхлэх цэг 1</span><span class="v">6-р хороолол</span></div></div><div class="rchip rschip rt2"><span class="ball b2"><b>2</b></span><div class="col"><span class="k">Эхлэх цэг 2</span><span class="v">МУИС</span></div></div><div class="rchip rschip rt3"><span class="ball b3"><b>3</b></span><div class="col"><span class="k">Эхлэх цэг 3</span><span class="v">Сүхбаатарын талбай</span></div></div>
+          <div class="rring"></div><div class="rring"></div><div class="rring"></div>
           <div class="rpin" id="rDestPin">
             <div class="shadow"></div>
             <svg class="drop" viewBox="0 0 64 78">
@@ -955,8 +1001,8 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
               <ellipse cx="26" cy="21.5" rx="4.2" ry="2.4" fill="#fff" fill-opacity=".35" transform="rotate(-30 26 21.5)"/>
             </svg>
           </div>
-          <div class="rchip" id="rDestChip"><span class="bullet" style="background:var(--yellow)"></span><div class="col"><span class="k">Хүрэх газар</span><span class="v">Metro Pool Club</span></div></div>
-          <div class="rball rt1" style="--bc:#2453C9"><div class="halo"></div><div class="body"><span>2</span></div></div><div class="rball rt2" style="--bc:#D8313F"><div class="halo"></div><div class="body"><span>3</span></div></div><div class="rball rt3" style="--bc:#1E8C4E"><div class="halo"></div><div class="body"><span>6</span></div></div>
+          <div class="rchip" id="rDestChip"><span class="ball b8"><b>8</b></span><div class="col"><span class="k">Хүрэх газар</span><span class="v">Metro Pool Club</span></div></div>
+          <div class="rball rt1"><div class="halo"></div><span class="ball b1 mk"><b>1</b></span></div><div class="rball rt2"><div class="halo"></div><span class="ball b2 mk"><b>2</b></span></div><div class="rball rt3"><div class="halo"></div><span class="ball b3 mk"><b>3</b></span></div>
         </div>
         <canvas class="rfx" id="rfx"></canvas>
 
@@ -964,16 +1010,12 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
           <img class="rlogo" id="rlogoA" alt="">
           <div>
             <div class="eyebrow" id="rh1">METRO POOL CLUB</div>
-            <div class="htitle" id="rh2">Гурван цэгээс хүрэх зам</div>
-            <div class="hmeta" id="rh3"><span class="tag">3 чиглэл</span><span class="tag">Сансар</span><span class="tag">Их тойруу</span></div>
+            <div class="htitle" id="rh2">Гурван цэгээс зэрэг хөдөлнө</div>
+            <div class="hmeta" id="rh3"><span class="tag rt1"><span class="ball b1"><b>1</b></span><span>6-р хороолол</span><span class="sep">·</span><span data-rkm></span></span><span class="tag rt2"><span class="ball b2"><b>2</b></span><span>МУИС</span><span class="sep">·</span><span data-rkm></span></span><span class="tag rt3"><span class="ball b3"><b>3</b></span><span>Сүхбаатарын талбай</span><span class="sep">·</span><span data-rkm></span></span></div>
           </div>
         </div>
 
-        <div class="rnav rglass" id="rnav">
-          <div class="rn-top"><b id="rnState">ЭХЛЭЛ</b><span id="rnMsg">Гурван цэгээс Metro Pool Club руу</span></div>
-          <ul class="rn-list"><li class="rt1"><i class="rn-ball" style="--bc:#2453C9">2</i><span class="nm">Сүхбаатарын талбай</span><b class="km">0 км</b></li><li class="rt2"><i class="rn-ball" style="--bc:#D8313F">3</i><span class="nm">Самбуугийн гудамж</span><b class="km">0 км</b></li><li class="rt3"><i class="rn-ball" style="--bc:#1E8C4E">6</i><span class="nm">ЧД 9-р хороо</span><b class="km">0 км</b></li></ul>
-          <div class="rn-bar"><i id="rnBar"></i></div>
-        </div>
+        <div class="rnav rglass" id="rnav"><div class="lane rt1"><div class="licon"><span class="ball b1"><b>1</b></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3.2"/><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4.5M6 10.5l6-6 6 6"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4.5M6 10.5l6-6 6 6"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21v-8a4 4 0 0 1 4-4h7"/><path d="M14.5 4.5 19 9l-4.5 4.5"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="ltexts"><div class="st"><div class="small"><b>ЭХЛЭЛ</b><span>Чингэлтэйн тойрог</span></div><div class="big">6-р хороолол</div></div><div class="st"><div class="small"><b>АЛХАМ 1/3</b><span>Их тойруугаар зүүн зүг рүү</span><span class="sep">·</span><span data-leg="0-0"></span></div><div class="big">100 айл</div></div><div class="st"><div class="small"><b>АЛХАМ 2/3</b><span>Шатахуун түгээх станцын хажуугаар</span><span class="sep">·</span><span data-leg="0-1"></span></div><div class="big">Сансарын тойрог</div></div><div class="st"><div class="small"><b>АЛХАМ 3/3</b><span>Баруун гар тийш · клуб зүүн гар талд</span><span class="sep">·</span><span data-leg="0-2"></span></div><div class="big">Их тойруу</div></div><div class="st"><div class="small"><b>ИРЛЭЭ</b><span>6-р хорооллоос</span><span class="sep">·</span><span data-rkm></span></div><div class="big">Metro Pool Club</div></div></div><b class="ldist"></b></div><div class="lbars rt1"><span class="lbar"><i></i></span><span class="lbar"><i></i></span><span class="lbar"><i></i></span><span class="lbar"><i></i></span></div><div class="lane rt2"><div class="licon"><span class="ball b2"><b>2</b></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3.2"/><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4.5M6 10.5l6-6 6 6"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21v-8a4 4 0 0 1 4-4h7"/><path d="M14.5 4.5 19 9l-4.5 4.5"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="ltexts"><div class="st"><div class="small"><b>ЭХЛЭЛ</b><span>Эхлэх цэг 2</span></div><div class="big">МУИС</div></div><div class="st"><div class="small"><b>АЛХАМ 1/2</b><span>Зүүн зүг рүү шууд, Сансарын туннелиар</span><span class="sep">·</span><span data-leg="1-0"></span></div><div class="big">Бээжингийн гудамж</div></div><div class="st"><div class="small"><b>АЛХАМ 2/2</b><span>Баруун гар тийш · клуб зүүн гар талд</span><span class="sep">·</span><span data-leg="1-1"></span></div><div class="big">Их тойруу</div></div><div class="st"><div class="small"><b>ИРЛЭЭ</b><span>МУИС-аас</span><span class="sep">·</span><span data-rkm></span></div><div class="big">Metro Pool Club</div></div></div><b class="ldist"></b></div><div class="lbars rt2"><span class="lbar"><i></i></span><span class="lbar"><i></i></span><span class="lbar"><i></i></span></div><div class="lane rt3"><div class="licon"><span class="ball b3"><b>3</b></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3.2"/><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4.5M6 10.5l6-6 6 6"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-8a4 4 0 0 0-4-4H5"/><path d="M9.5 4.5 5 9l4.5 4.5"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="ltexts"><div class="st"><div class="small"><b>ЭХЛЭЛ</b><span>Эхлэх цэг 3</span></div><div class="big">Сүхбаатарын талбай</div></div><div class="st"><div class="small"><b>АЛХАМ 1/2</b><span>Зүүн зүг рүү шууд</span><span class="sep">·</span><span data-leg="2-0"></span></div><div class="big">Энх тайвны өргөн чөлөө</div></div><div class="st"><div class="small"><b>АЛХАМ 2/2</b><span>Зүүн гар тийш · клуб баруун гар талд</span><span class="sep">·</span><span data-leg="2-1"></span></div><div class="big">Их тойруу</div></div><div class="st"><div class="small"><b>ИРЛЭЭ</b><span>Талбайгаас</span><span class="sep">·</span><span data-rkm></span></div><div class="big">Metro Pool Club</div></div></div><b class="ldist"></b></div><div class="lbars rt3"><span class="lbar"><i></i></span><span class="lbar"><i></i></span><span class="lbar"><i></i></span></div></div>
 
         <div class="rhint" id="rhint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg><span>Доош гүйлгээд замаа хар</span></div>
 
@@ -983,7 +1025,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
           <div class="eyebrow" id="re1">ТАНЫГ ХҮЛЭЭЖ БАЙНА</div>
           <div class="etitle" id="re2">Metro Pool Club</div>
           <div class="esub" id="re3"><span>Pool биллиардын клуб, өдөр бүр</span> <span class="nw">10:00–04:00</span></div>
-          <div class="eroute" id="re4"><span class="tag rt1"><i></i><span>Сүхбаатарын талбай</span><span class="sep">·</span><span data-rkm>0 км</span></span><span class="tag rt2"><i></i><span>Самбуугийн гудамж</span><span class="sep">·</span><span data-rkm>0 км</span></span><span class="tag rt3"><i></i><span>ЧД 9-р хороо</span><span class="sep">·</span><span data-rkm>0 км</span></span></div>
+          <div class="eroutes" id="re4"><div class="erow rt1"><span class="ball b1"><b>1</b></span><span class="tag">6-р хороолол</span><span class="via"><span class="arr">→</span><span class="tag">Их тойруу</span><span class="arr">→</span><span class="tag">100 айл</span><span class="arr">→</span><span class="tag">Сансарын тойрог</span></span><b class="km" data-rkm></b></div><div class="erow rt2"><span class="ball b2"><b>2</b></span><span class="tag">МУИС</span><span class="via"><span class="arr">→</span><span class="tag">Бээжингийн гудамж</span><span class="arr">→</span><span class="tag">Сансарын туннель</span><span class="arr">→</span><span class="tag">Их тойруу</span></span><b class="km" data-rkm></b></div><div class="erow rt3"><span class="ball b3"><b>3</b></span><span class="tag">Сүхбаатарын талбай</span><span class="via"><span class="arr">→</span><span class="tag">Энх тайвны өргөн чөлөө</span><span class="arr">→</span><span class="tag">Их тойруу</span></span><b class="km" data-rkm></b></div></div>
           <div class="eact" id="re5">
             <a class="btn btn-primary" tabindex="-1" href="https://www.google.com/maps/dir/?api=1&amp;destination=47.923417,106.942444" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-8-8 18-2-8-8-2z"/></svg><span>Зам заалгах</span></a>
             <a class="btn rbtn2" tabindex="-1" href="tel:+97680061460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>8006 1460</span></a>
@@ -2337,6 +2379,14 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     'Metro Pool Club-ийн тухай': 'About Metro Pool Club',
     '2011 оноос хойш Сансарт үйл ажиллагаа явуулж буй pool биллиардын клуб. 6 ширээтэй, өдөр бүр 10:00–04:00 нээлттэй.': 'A pool club in Sansar, open since 2011. Six tables, open daily 10:00–04:00.',
     'Хаяг байршил': 'Address & directions',
+    'Сансар, Их тойруугийн дагуу. 6-р хороолол, МУИС, Сүхбаатарын талбайгаас ирэх замыг доош гүйлгээд хараарай.': 'In Sansar, on Ikh Toiruu. Scroll down to see the way here from the 6th khoroolol, the National University (NUM) and Sükhbaatar Square.',
+    'Гурван цэгээс зэрэг хөдөлнө': 'Three starts, one club', '6-р хороолол': '6th khoroolol', 'МУИС': 'NUM', 'Эхлэх цэг 1': 'Start 1', 'Эхлэх цэг 2': 'Start 2', 'Эхлэх цэг 3': 'Start 3',
+    'Чингэлтэйн тойрог': 'Chingeltei roundabout', 'Их тойруугаар зүүн зүг рүү': 'East along Ikh Toiruu', '100 айл': '100 Ail',
+    'Шатахуун түгээх станцын хажуугаар': 'Past the petrol station', 'Сансарын тойрог': 'Sansar roundabout', 'Баруун гар тийш · клуб зүүн гар талд': 'Turn right · club on your left',
+    'Зүүн зүг рүү шууд, Сансарын туннелиар': 'Straight east, through the Sansar tunnel', 'Бээжингийн гудамж': 'Beijing Street', 'Зүүн гар тийш · клуб баруун гар талд': 'Turn left · club on your right',
+    'Зүүн зүг рүү шууд': 'Straight east', 'АЛХАМ 1/3': 'STEP 1/3', 'АЛХАМ 2/3': 'STEP 2/3', 'АЛХАМ 3/3': 'STEP 3/3',
+    '6-р хорооллоос': 'From the 6th khoroolol', 'МУИС-аас': 'From NUM', 'Талбайгаас': 'From the square',
+    'Шатахуун түгээх станц': 'Petrol station', 'Сансарын туннель': 'Sansar tunnel',
     'Сансар, Их тойруугийн дагуу. Сүхбаатарын талбай, Самбуугийн гудамж, ЧД 9-р хорооноос ирэх замыг доош гүйлгээд хараарай.': 'In Sansar, on Ikh Toiruu. Scroll down to see the way here from Sükhbaatar Square, Sambuu Street and Chingeltei’s 9th khoroo.',
     'Самбуугийн гудамж': 'Sambuu Street', 'ЧД 9-р хороо': 'Chingeltei, 9th khoroo', 'Гурван цэгээс хүрэх зам': 'Three ways to get here', '3 чиглэл': '3 routes',
     'ЗАМДАА': 'ON THE WAY', 'Гурван цэгээс Metro Pool Club руу': 'From three points to Metro Pool Club', 'Бүгд Metro Pool Club-д ирлээ!': 'Everyone’s at Metro Pool Club!', 'Сансар, Их тойруугийн дагуу. Сүхбаатарын талбайгаас ердөө': 'In Sansar, on Ikh Toiruu. Just', '. Доош гүйлгээд замаа хараарай.': ' from Sükhbaatar Square. Scroll down to follow the route.',
@@ -2345,7 +2395,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     'Эхлэх цэг': 'Start', 'Сүхбаатарын талбай': 'Sükhbaatar Square', 'Хүрэх газар': 'Destination',
     'Сүхбаатарын талбайгаас': 'From Sükhbaatar Square', 'Төв замаар': 'Main roads', '2 алхам': '2 steps',
     'ЭХЛЭЛ': 'START', 'Талбайн урд талын төв зам': 'Main road south of the square', 'АЛХАМ 1/2': 'STEP 1/2', 'АЛХАМ 2/2': 'STEP 2/2',
-    'Зүүн зүг рүү шууд': 'Head east, straight on', 'Зүүн гар тийш эргэнэ': 'Turn left', 'ИРЛЭЭ': 'ARRIVED',
+    'Зүүн гар тийш эргэнэ': 'Turn left', 'ИРЛЭЭ': 'ARRIVED',
     'Баруун гар талд, Сансар': 'On your right, Sansar', 'Metro Pool Club-д ирлээ!': 'You’re at Metro Pool Club!',
     'Доош гүйлгээд замаа хар': 'Scroll down to follow the route', 'ТАНЫГ ХҮЛЭЭЖ БАЙНА': 'SEE YOU SOON',
     'Pool биллиардын клуб, өдөр бүр': 'Pool club, open daily', 'Газрын зураг © OpenStreetMap': 'Map © OpenStreetMap',
@@ -2370,6 +2420,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     [/^Халаасанд: (\d+) \/ 15$/, 'Pocketed: $1 / 15'],
     [/^Ширээ (\d+)$/, 'Table $1'],
     [/^([\d.]+) км$/, '$1 km'], [/^(\d+) м$/, '$1 m'],
+    [/^~([\d.]+) км$/, '~$1 km'], [/^~(\d+) м$/, '~$1 m'],
     [/^Ширээ (\d+), томруулж үзэх$/, 'Table $1, view larger'],
     [/^Ширээ (\d+), (сул|хүнтэй), томруулж үзэх$/, (m, n, s) => `Table ${n}, ${s === 'сул' ? 'free' : 'occupied'}, view larger`]
   ];
@@ -2443,25 +2494,21 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
 })();
 </script>
 <script>
-/* Хаяг байршил: гурван цэгээс (Сүхбаатарын талбай, Самбуугийн гудамж, ЧД 9-р хороо) Metro Pool Club хүрэх зам — гүйлгэхэд гурван бөмбөг нэг дор нийлнэ */
+/* Хаяг байршил: 6-р хороолол, МУИС, Сүхбаатарын талбайгаас Metro Pool Club хүрэх гурван зам — гүйлгэхэд гурван бөмбөг зэрэг хөдөлж нэг дор ирнэ */
 (function(){
   const box = document.getElementById('rscroll'); if (!box) return;
   const $ = id => document.getElementById(id);
   const root = document.documentElement;
-  const stage = $('rstage'), r3d = $('r3d'), cam = $('rcam'), map = $('rmap');
+  const stage = $('rstage'), r3d = $('r3d'), cam = $('rcam');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // story timeline (seconds); the scroll position is mapped onto it
-  const T_INTRO = 2.2, T_FLY = 3.6, T_TRAVEL = 15.4, T_ARRIVE = 17.6, T_PULL = 19.2, DUR = 21.6;
-  // map units = OpenStreetMap zoom-15 pixels (map image 1280×460 units, drawn at 5120×1840); club at 47.923417° N 106.942444° E
-  const SC = 4, M_PER_UNIT = 3.2011, DEST = [831.3, 177];
-  // 1 Sükhbaatar Square → Peace Ave → Ikh Toiruu · 2 Sambuu St → Ikh Toiruu · 3 Chingeltei 9th khoroo → Ikh Toiruu (north, via 47.929416, 106.921950) → Ikh Toiruu (east)
-  // the map image reaches 60 units further west and 70 units further north than the original; the northern Ikh Toiruu is drawn there
-  const PTS = [
-    [[256,408],[317,394],[423,370],[475,362],[851,332],[824,186],[831.3,177]],
-    [[322.3,212.6],[376,207],[422,201],[472,192],[529,186],[584,179],[658,169],[720,162],[771,163],[790,157],[808,156],[818.5,157],[822,172],[831.3,177]],
-    [[-34.4,4.6],[-34.4,-14],[-30,-30.2],[100,-30.9],[353.8,-31.6],[500,-31],[580,-29],[640,-24],[680,-14],[711,0],[727,6],[749,15],[773.5,25],[797,40],[800.5,50],[806,75],[810,100],[813,120],[817,140],[820.5,156],[824.5,171.4],[831.3,177]]
-  ];
+  const T_INTRO = 2.2, T_FLY = 3.6, T_TRAVEL = 17.0, T_ARRIVE = 19.2, T_PULL = 20.8, DUR = 23.6;
+  const SC = 4, M_PER_UNIT = 3.2011;   // world px per map unit (map unit = OSM zoom-15 pixel); metres per unit at 47.92° N
+  // Routes on OpenStreetMap streets: 1) 6-р хороолол (47.928373,106.905285) via Их тойруу, 100 айл, Сансар;
+  // 2) МУИС stop (47.922399,106.920976) via Бээжингийн гудамж and the Sansar tunnel; 3) Sükhbaatar Square (47.916774,106.917757) via Peace Ave.
+  // Club: 47.923417,106.942444.
+  const D = {"routes":[[[-34.6,4.7],[-33.1,4.7],[-30.1,4.9],[-25.6,5.0],[-19.5,5.3],[-14.5,5.6],[-10.6,6.0],[-7.6,6.6],[-5.7,7.2],[-3.9,7.7],[-2.1,8.1],[-0.3,8.3],[1.4,8.5],[3.3,8.5],[5.4,8.4],[7.7,8.2],[10.2,8.0],[13.2,7.6],[16.6,7.2],[20.5,6.8],[24.9,6.3],[28.3,5.9],[30.6,5.6],[32.0,5.5],[32.2,5.4],[36.7,4.9],[45.2,3.8],[57.8,2.2],[74.6,0.1],[87.9,-1.5],[97.5,-2.7],[103.6,-3.5],[106.2,-3.8],[109.6,-4.3],[114.0,-4.8],[119.2,-5.5],[125.3,-6.2],[131.8,-7.1],[138.5,-7.9],[145.5,-8.8],[152.8,-9.8],[158.7,-10.5],[163.2,-11.1],[166.3,-11.5],[168.1,-11.8],[169.6,-12.0],[171.0,-12.2],[172.2,-12.3],[173.2,-12.4],[174.0,-12.3],[174.6,-11.9],[174.9,-11.3],[175.0,-10.4],[175.3,-9.8],[175.8,-9.4],[176.6,-9.2],[177.6,-9.3],[179.3,-9.5],[181.7,-9.8],[184.8,-10.1],[188.6,-10.5],[193.1,-10.9],[198.2,-11.4],[203.9,-12.0],[210.4,-12.7],[216.6,-13.3],[222.8,-13.9],[228.8,-14.6],[234.6,-15.2],[240.7,-15.9],[247.0,-16.6],[253.5,-17.4],[260.3,-18.2],[266.9,-19.0],[273.3,-19.8],[279.7,-20.6],[285.8,-21.3],[291.4,-22.0],[296.4,-22.6],[300.9,-23.1],[304.7,-23.6],[309.0,-24.2],[313.7,-24.7],[318.9,-25.3],[324.5,-25.9],[329.0,-26.5],[332.3,-26.8],[334.6,-27.1],[335.7,-27.2],[337.1,-27.4],[338.7,-27.6],[340.5,-27.8],[342.6,-28.1],[344.5,-28.3],[346.3,-28.6],[347.9,-28.8],[349.4,-29.0],[351.9,-29.3],[355.3,-29.7],[359.8,-30.2],[365.3,-30.8],[372.0,-31.7],[379.9,-32.7],[389.1,-33.9],[399.4,-35.3],[408.4,-36.5],[415.8,-37.5],[421.8,-38.4],[426.4,-39.0],[430.6,-39.7],[434.5,-40.3],[438.2,-40.9],[441.5,-41.5],[444.3,-42.0],[446.6,-42.4],[448.4,-42.7],[449.6,-42.8],[451.2,-43.0],[453.1,-43.3],[455.5,-43.6],[458.2,-43.9],[460.7,-44.2],[463.1,-44.5],[465.4,-44.8],[467.5,-45.1],[470.8,-45.4],[475.3,-45.8],[481.0,-46.1],[487.8,-46.6],[493.8,-46.9],[498.9,-47.1],[503.2,-47.2],[506.5,-47.2],[509.5,-47.1],[512.2,-47.0],[514.6,-46.9],[516.6,-46.6],[518.6,-46.4],[520.8,-46.1],[523.0,-45.9],[525.2,-45.5],[527.6,-45.2],[530.0,-44.9],[532.5,-44.5],[535.0,-44.1],[537.4,-43.7],[539.6,-43.3],[541.6,-42.9],[543.5,-42.5],[546.6,-41.9],[550.9,-41.0],[556.4,-39.9],[563.2,-38.5],[569.5,-37.2],[575.3,-36.1],[580.6,-35.0],[585.5,-34.0],[590.9,-33.0],[596.9,-31.8],[603.4,-30.6],[610.4,-29.2],[616.3,-28.1],[620.8,-27.3],[624.1,-26.6],[626.1,-26.2],[628.9,-25.5],[632.6,-24.5],[637.1,-23.2],[642.5,-21.5],[646.7,-20.2],[650.0,-19.2],[652.2,-18.5],[653.4,-18.1],[655.2,-17.6],[657.6,-16.7],[660.5,-15.7],[664.1,-14.5],[668.0,-13.2],[672.0,-11.8],[676.3,-10.3],[680.9,-8.7],[687.0,-6.4],[694.8,-3.5],[704.2,0.1],[715.2,4.4],[724.6,8.1],[732.5,11.1],[738.7,13.6],[743.4,15.4],[747.9,17.3],[752.5,19.2],[756.9,21.2],[761.4,23.2],[765.0,25.0],[767.8,26.4],[769.9,27.5],[771.1,28.3],[772.3,29.1],[773.3,29.8],[774.2,30.5],[775.1,31.1],[775.9,31.8],[776.7,32.5],[777.5,33.2],[778.3,33.9],[779.1,34.7],[780.0,35.5],[780.8,36.3],[781.7,37.1],[782.5,37.9],[783.3,38.7],[784.1,39.5],[784.8,40.3],[785.6,41.1],[786.3,42.0],[787.1,42.8],[787.8,43.7],[788.7,44.7],[789.7,46.0],[790.8,47.5],[792.1,49.2],[793.3,50.6],[794.4,51.8],[795.4,52.8],[796.3,53.6],[797.1,54.2],[797.7,54.7],[798.1,55.0],[798.4,55.1],[798.6,55.3],[799.0,55.4],[799.3,55.6],[799.7,55.8],[800.0,55.9],[800.4,56.0],[800.8,56.1],[801.1,56.1],[801.5,56.1],[801.9,56.2],[802.3,56.2],[802.7,56.2],[803.1,56.8],[803.6,57.9],[804.2,59.6],[804.7,61.8],[805.2,63.8],[805.6,65.4],[805.8,66.7],[806.0,67.6],[806.2,68.8],[806.5,70.2],[806.8,71.7],[807.1,73.4],[807.6,76.4],[808.4,80.5],[809.3,85.8],[810.5,92.3],[811.4,97.6],[812.2,101.7],[812.7,104.6],[813.0,106.4],[813.4,108.8],[814.0,111.9],[814.6,115.6],[815.4,120.0],[816.2,124.8],[817.1,129.9],[817.9,135.4],[818.8,141.3],[819.7,147.3],[820.7,153.4],[821.6,159.6],[822.6,166.0],[823.7,170.8],[825.1,174.2],[826.7,176.1],[828.5,176.4],[829.9,176.7],[830.8,176.9],[831.3,177.0]],[[331.0,212.4],[331.7,212.3],[333.2,212.0],[335.3,211.6],[338.2,211.0],[340.6,210.5],[342.6,210.2],[344.3,209.9],[345.5,209.8],[347.6,209.5],[350.5,209.2],[354.2,208.8],[358.8,208.3],[362.5,207.9],[365.2,207.6],[367.1,207.4],[368.0,207.2],[369.1,207.1],[370.4,207.0],[371.9,206.8],[373.5,206.6],[374.8,206.5],[375.7,206.5],[376.2,206.6],[376.4,206.8],[376.5,207.0],[376.7,207.2],[376.8,207.4],[377.0,207.5],[377.1,207.7],[377.3,207.8],[377.5,208.0],[377.7,208.2],[377.9,208.3],[378.1,208.5],[378.3,208.6],[378.5,208.8],[378.7,208.9],[379.0,209.0],[379.2,209.1],[379.4,209.2],[379.7,209.3],[379.9,209.4],[380.1,209.4],[380.4,209.5],[380.6,209.5],[380.8,209.6],[381.1,209.6],[381.3,209.7],[381.6,209.7],[381.8,209.7],[382.0,209.7],[382.3,209.7],[384.2,209.5],[387.7,209.1],[392.8,208.5],[399.6,207.6],[405.6,206.9],[410.7,206.3],[415.0,205.7],[418.4,205.2],[422.0,204.8],[425.6,204.3],[429.3,203.9],[433.2,203.4],[437.6,202.9],[442.7,202.3],[448.4,201.5],[454.7,200.8],[460.3,200.1],[465.1,199.4],[469.2,198.9],[472.6,198.5],[475.2,198.1],[477.0,197.9],[478.1,197.8],[478.4,197.8],[479.4,197.7],[480.9,197.5],[483.0,197.2],[485.7,196.9],[487.9,196.6],[489.8,196.4],[491.2,196.2],[492.1,196.1],[493.3,196.0],[494.7,195.8],[496.3,195.6],[498.1,195.3],[500.0,195.1],[501.9,194.9],[503.8,194.6],[505.8,194.4],[508.6,194.0],[512.2,193.6],[516.5,193.0],[521.6,192.4],[526.3,191.8],[530.7,191.2],[534.7,190.7],[538.3,190.2],[541.0,189.8],[543.0,189.6],[544.2,189.4],[544.6,189.4],[546.4,189.1],[549.6,188.5],[554.3,187.7],[560.3,186.7],[565.7,185.7],[570.5,184.8],[574.6,184.0],[578.0,183.3],[581.5,182.6],[584.9,181.8],[588.4,181.0],[591.8,180.1],[594.8,179.4],[597.3,178.9],[599.3,178.6],[600.8,178.4],[602.5,178.3],[604.2,178.1],[606.1,177.9],[608.1,177.7],[609.9,177.6],[611.5,177.4],[613.0,177.3],[614.2,177.1],[615.4,177.0],[616.5,176.9],[617.5,176.7],[618.5,176.6],[621.0,176.3],[624.9,175.8],[630.4,175.1],[637.3,174.2],[642.8,173.4],[646.8,172.9],[649.4,172.6],[650.6,172.4],[651.7,172.2],[652.8,172.0],[654.0,171.7],[655.1,171.3],[661.6,170.3],[673.6,168.6],[691.0,166.3],[713.8,163.3],[733.3,160.8],[749.5,158.7],[762.2,157.1],[771.7,155.9],[780.4,154.9],[788.4,153.9],[795.7,153.0],[802.4,152.2],[807.6,151.6],[811.5,151.2],[814.0,150.9],[815.1,150.8],[816.2,150.7],[817.1,150.5],[818.1,150.4],[818.9,150.3],[819.8,151.8],[820.7,154.9],[821.6,159.6],[822.6,166.0],[823.7,170.8],[825.1,174.2],[826.7,176.1],[828.5,176.4],[829.9,176.7],[830.8,176.9],[831.3,177.0]],[[256.0,408.0],[255.9,408.0],[255.6,408.0],[255.3,408.1],[254.8,408.2],[254.8,408.1],[255.3,408.0],[256.3,407.7],[257.7,407.3],[260.0,406.7],[263.1,405.9],[267.1,404.9],[271.8,403.7],[276.5,402.5],[281.1,401.3],[285.7,400.2],[290.1,399.1],[294.0,398.2],[297.2,397.5],[299.9,396.9],[301.9,396.5],[303.8,396.2],[305.5,395.8],[306.9,395.5],[308.2,395.2],[309.5,394.9],[311.0,394.6],[312.5,394.2],[314.2,393.9],[319.2,392.8],[327.4,391.0],[338.9,388.5],[353.7,385.2],[365.9,382.6],[375.6,380.6],[382.6,379.1],[387.0,378.3],[390.8,377.6],[393.8,377.0],[396.2,376.5],[398.0,376.2],[401.2,375.5],[406.1,374.5],[412.5,373.2],[420.6,371.5],[428.2,369.9],[435.6,368.5],[442.5,367.1],[449.2,365.9],[455.7,364.9],[462.2,364.0],[468.7,363.2],[475.0,362.6],[482.4,362.0],[490.7,361.3],[500.0,360.5],[510.3,359.7],[518.1,359.1],[523.3,358.7],[526.0,358.5],[526.1,358.5],[527.1,358.4],[528.8,358.2],[531.4,358.0],[534.7,357.6],[538.1,357.3],[541.6,357.1],[545.2,356.8],[548.8,356.5],[553.2,356.2],[558.4,355.7],[564.3,355.2],[570.9,354.5],[578.0,353.9],[585.7,353.2],[593.8,352.6],[602.5,351.9],[609.6,351.4],[615.2,350.9],[619.2,350.6],[621.7,350.4],[624.4,350.1],[627.1,349.9],[630.0,349.6],[633.0,349.3],[635.7,349.1],[638.3,349.0],[640.6,349.0],[642.7,349.1],[644.6,349.2],[646.3,349.2],[647.7,349.3],[649.0,349.3],[650.4,349.3],[652.1,349.2],[654.0,349.1],[656.2,348.9],[658.3,348.7],[660.4,348.5],[662.5,348.3],[664.5,348.1],[666.4,348.0],[668.0,347.8],[669.5,347.7],[670.8,347.6],[671.9,347.5],[672.9,347.4],[673.9,347.3],[674.6,347.2],[676.8,347.0],[680.2,346.6],[685.0,346.0],[691.0,345.3],[696.9,344.6],[702.5,344.0],[707.9,343.5],[713.1,343.0],[718.2,342.6],[723.1,342.2],[728.0,341.8],[732.7,341.4],[740.0,340.7],[750.0,339.9],[762.5,338.8],[777.6,337.5],[789.6,336.5],[798.5,335.7],[804.4,335.2],[807.1,335.0],[809.5,334.8],[811.5,334.6],[813.2,334.4],[814.6,334.3],[816.1,334.2],[817.9,334.0],[819.8,333.8],[822.0,333.6],[824.7,333.4],[828.2,333.2],[832.3,333.0],[837.0,332.8],[840.8,332.7],[843.6,332.6],[845.5,332.6],[846.4,332.8],[847.0,332.6],[847.4,332.2],[847.5,331.6],[847.4,330.7],[847.6,330.0],[848.1,329.7],[848.9,329.5],[850.0,329.7],[850.8,329.6],[851.3,329.2],[851.5,328.5],[851.4,327.5],[851.2,326.2],[850.9,324.5],[850.6,322.4],[850.2,320.0],[849.9,318.0],[849.7,316.4],[849.5,315.2],[849.3,314.4],[849.1,313.4],[848.9,312.0],[848.6,310.4],[848.2,308.5],[847.9,306.9],[847.7,305.7],[847.6,304.9],[847.5,304.3],[847.6,303.6],[847.8,302.5],[848.3,301.2],[848.9,299.6],[849.4,298.4],[849.7,297.4],[849.9,296.8],[850.0,296.5],[849.9,295.6],[849.7,294.1],[849.3,292.0],[848.8,289.3],[848.4,287.2],[848.2,285.8],[848.0,285.0],[848.0,284.8],[847.7,283.5],[847.3,281.0],[846.6,277.4],[845.8,272.6],[844.9,267.9],[844.0,263.2],[843.2,258.5],[842.4,253.9],[841.7,250.4],[841.3,248.0],[841.1,246.7],[841.0,246.5],[840.6,243.9],[839.7,238.9],[838.4,231.4],[836.7,221.5],[835.2,212.9],[833.9,205.6],[832.9,199.7],[832.1,195.2],[831.4,190.9],[830.7,186.9],[830.1,183.3],[829.5,179.9],[829.2,177.5],[829.2,176.0],[829.6,175.6],[830.3,176.2],[830.8,176.6],[831.1,176.9],[831.3,177.0]]],"join":[[0,0],[820.2,150.1],[0,0]],"steps":[[[509.45,-44.12],[800.0,45.0]],[[816.8,150.6]],[[851.0,332.0]]],"poi":{"ail100":[509.45,-44.12],"gas":[[818.88,63.55],[812.34,114.7],[694.59,-16.61],[656.28,-7.98]]}};
 
   const clamp = (x,a=0,b=1) => Math.min(b,Math.max(a,x));
   const lerp = (a,b,u) => a+(b-a)*u;
@@ -2472,55 +2519,111 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   const ebounce = u => { const n=7.5625,d=2.75; if(u<1/d) return n*u*u; if(u<2/d) return n*(u-=1.5/d)*u+.75; if(u<2.5/d) return n*(u-=2.25/d)*u+.9375; return n*(u-=2.625/d)*u+.984375; };
   const win = (t,a,b,fi=.4,fo=.4) => Math.min(ss(a,a+fi,t), 1-ss(b-fo,b,t));
 
-  // ---------- route geometry: rounded corners, sampled once per map unit ----------
-  function build(W) {
-    const W4 = W.map(p => [p[0]*SC, p[1]*SC]);
-    let D = `M${W4[0][0]} ${W4[0][1]}`; const poly = [W4[0]];
-    for (let i = 1; i < W4.length-1; i++) {
-      const p = W4[i], a = W4[i-1], b = W4[i+1];
-      const v1 = [p[0]-a[0], p[1]-a[1]], v2 = [b[0]-p[0], b[1]-p[1]];
-      const l1 = Math.hypot(...v1), l2 = Math.hypot(...v2), rr = Math.min(36, l1/2, l2/2);
-      const s1 = [p[0]-v1[0]/l1*rr, p[1]-v1[1]/l1*rr], s2 = [p[0]+v2[0]/l2*rr, p[1]+v2[1]/l2*rr];
-      D += ` L${s1[0].toFixed(1)} ${s1[1].toFixed(1)} Q${p[0]} ${p[1]} ${s2[0].toFixed(1)} ${s2[1].toFixed(1)}`;
-      poly.push(s1);
-      for (let k = 1; k <= 10; k++) { const u = k/10, m = 1-u; poly.push([m*m*s1[0]+2*m*u*p[0]+u*u*s2[0], m*m*s1[1]+2*m*u*p[1]+u*u*s2[1]]); }
-    }
-    const e = W4[W4.length-1]; D += ` L${e[0]} ${e[1]}`; poly.push(e);
-    const CUM = [0]; for (let i = 1; i < poly.length; i++) CUM.push(CUM[i-1] + Math.hypot(poly[i][0]-poly[i-1][0], poly[i][1]-poly[i-1][1]));
-    const L4 = CUM[CUM.length-1], L = L4/SC, N = Math.ceil(L)+1, PX = new Float32Array(N), PY = new Float32Array(N);
-    for (let i = 0, j = 0; i < N; i++) {
-      const d = Math.min(L4, i*SC); while (j < CUM.length-2 && CUM[j+1] < d) j++;
-      const f = (d-CUM[j]) / ((CUM[j+1]-CUM[j]) || 1);
-      PX[i] = lerp(poly[j][0], poly[j+1][0], f)/SC; PY[i] = lerp(poly[j][1], poly[j+1][1], f)/SC;
-    }
-    return {D, L4, L, N, PX, PY};
+  // ---------- geometry: each route resampled once per map unit; route 2 keeps beside route 1 on their shared stretch ----------
+  function build(P, joinPt, sign) {
+    const cum = [0]; for (let i = 1; i < P.length; i++) cum.push(cum[i-1]+Math.hypot(P[i][0]-P[i-1][0], P[i][1]-P[i-1][1]));
+    const L = cum[cum.length-1], N = Math.ceil(L)+1, X = new Float32Array(N), Y = new Float32Array(N);
+    for (let i = 0, j = 0; i < N; i++) { const s = Math.min(L, i); while (j < P.length-2 && cum[j+1] < s) j++;
+      const f = (s-cum[j])/((cum[j+1]-cum[j]) || 1); X[i] = lerp(P[j][0], P[j+1][0], f); Y[i] = lerp(P[j][1], P[j+1][1], f); }
+    const NX = new Float32Array(N), NY = new Float32Array(N);
+    for (let i = 0; i < N; i++) { const a = Math.max(0,i-4), b = Math.min(N-1,i+4), dx = X[b]-X[a], dy = Y[b]-Y[a], l = Math.hypot(dx,dy) || 1; NX[i] = -dy/l; NY[i] = dx/l; }
+    const near = q => { let best = 1e9, bi = 0; for (let i = 0; i < N; i++) { const d = Math.hypot(X[i]-q[0], Y[i]-q[1]); if (d < best) { best = d; bi = i; } } return bi; };
+    const W = new Float32Array(N);
+    if (sign) { const sj = near(joinPt); for (let i = 0; i < N; i++) W[i] = sign*ss(sj, sj+8, i)*ss(0, 6, L-i); }
+    return {X, Y, NX, NY, W, L, N, near};
   }
-  const groups = stage.querySelectorAll('#rcam svg g');
-  const R = PTS.map((W, i) => {
-    const r = build(W), g = groups[i];
-    r.start = W[0]; r.gh = g.querySelector('.rgh'); r.cm = g.querySelector('.rcm');
-    r.trail = [['.rgw',26],['.rcore',7],['.rhi',2]].map(([q,w]) => [g.querySelector(q), w]);
-    [r.gh, r.cm, ...r.trail.map(x => x[0])].forEach(el => el.setAttribute('d', r.D));
-    r.cls = 'rt' + (i+1);
-    r.pin = stage.querySelector('.rstart.' + r.cls); r.chip = stage.querySelector('.rschip.' + r.cls);
-    r.ball = stage.querySelector('.rball.' + r.cls); r.halo = r.ball.querySelector('.halo'); r.num = r.ball.querySelector('.body span');
-    r.kmEl = stage.querySelector('.rn-list .' + r.cls + ' .km');
-    const km = (r.L*M_PER_UNIT/1000).toFixed(1) + ' км';
-    stage.querySelectorAll('.' + r.cls + ' [data-rkm]').forEach(el => { el.textContent = km; });
-    return r;
-  });
-  const at = (r, s) => { s = clamp(s, 0, r.L); const i = Math.floor(s), f = s-i, j = Math.min(r.N-1, i+1); return [lerp(r.PX[i], r.PX[j], f), lerp(r.PY[i], r.PY[j], f)]; };
-  const ALL = [].concat(...PTS, [DEST]);
-  // all three leave together and arrive together: progress 0 → 1, gentle at both ends
-  const prog = t => { const x = clamp((t-T_FLY)/(T_TRAVEL-T_FLY)); return .5-.5*Math.cos(Math.PI*x); };
+  const RT = D.routes.map((P, i) => build(P, D.join[i], i === 1 ? 1 : 0));
+  const DEST = D.routes[0][D.routes[0].length-1];
+  let OFF = 2;
+  const at = (r, s) => { s = clamp(s, 0, r.L); const i = Math.min(r.N-2, Math.floor(s)), f = s-i;
+    const x = lerp(r.X[i], r.X[i+1], f), y = lerp(r.Y[i], r.Y[i+1], f), w = lerp(r.W[i], r.W[i+1], f);
+    return [x+r.NX[i]*w*OFF, y+r.NY[i]*w*OFF]; };
+  function pathD(r, s0, s1) {
+    s0 = clamp(s0, 0, r.L); s1 = clamp(s1, 0, r.L); if (s1-s0 < .5) return '';
+    const p0 = at(r, s0); let d = 'M'+(p0[0]*SC).toFixed(1)+' '+(p0[1]*SC).toFixed(1);
+    for (let i = Math.ceil(s0+.01); i < s1; i += 2) { const p = at(r, i); d += 'L'+(p[0]*SC).toFixed(1)+' '+(p[1]*SC).toFixed(1); }
+    const p1 = at(r, s1); return d+'L'+(p1[0]*SC).toFixed(1)+' '+(p1[1]*SC).toFixed(1);
+  }
+  // svg layers: all dashed previews, then all comets, then glow/casing/core/highlight per route (route 1 on top)
+  const NS = 'http://www.w3.org/2000/svg', G = $('rroutes');
+  const mkp = (cls, i, op) => { const p = document.createElementNS(NS, 'path'); p.setAttribute('class', cls+' rt'+(i+1)); if (op) p.setAttribute('stroke-opacity', op); G.appendChild(p); return p; };
+  const LAY = RT.map(() => ({}));
+  [2,1,0].forEach(i => { LAY[i].ghost = mkp('rgh', i); });
+  [2,1,0].forEach(i => { LAY[i].comet = mkp('rcm', i); });
+  [2,1,0].forEach(i => { const Lr = LAY[i]; Lr.glow = mkp('rgw', i, '.16'); Lr.mid = mkp('rmid', i); Lr.core = mkp('rcore', i); Lr.hi = mkp('rhi', i); });
+
+  // steps, legs and distances
+  const STEPS = RT.map((r, i) => D.steps[i].map(q => r.near(q)));
+  const LEGS = RT.map((r, i) => [0, ...STEPS[i], r.L]);
+  const isEn = () => root.lang === 'en';
+  const km = u => (u*M_PER_UNIT/1000).toFixed(1) + (isEn() ? ' km' : ' км');
+  const mm = u => { const m = u*M_PER_UNIT; return m >= 950 ? (m/1000).toFixed(1) + (isEn() ? ' km' : ' км') : (Math.round(m/50)*50) + (isEn() ? ' m' : ' м'); };
+  const KM0 = RT.map(r => (r.L*M_PER_UNIT/1000).toFixed(1) + ' км');
+  RT.forEach((r, i) => stage.querySelectorAll('.rt'+(i+1)+' [data-rkm], [data-rkm].rt'+(i+1)).forEach(e => { e.textContent = KM0[i]; }));
+  stage.querySelectorAll('.erow').forEach((row, i) => { const k = row.querySelector('[data-rkm]'); if (k) k.textContent = KM0[i]; });
+  stage.querySelectorAll('[data-leg]').forEach(e => { const [ri, li] = e.dataset.leg.split('-').map(Number), Lg = LEGS[ri], m = (Lg[li+1]-Lg[li])*M_PER_UNIT;
+    e.textContent = '~' + (m >= 950 ? (m/1000).toFixed(1) + ' км' : (Math.round(m/50)*50) + ' м'); });
+
+  // ---------- speed: slow into turns, ease at both ends; everyone arrives together ----------
+  function profile(r, turns) {
+    const M = Math.ceil(r.L)+1, TS = new Float32Array(M); let acc = 0;
+    for (let i = 1; i < M; i++) { const s = i-.5; let v = 1;
+      for (const tS of turns) v -= .34*Math.exp(-Math.pow((s-tS)/(r.L*.03+10),2));
+      v *= .14+.86*ss(0, r.L*.09, s); v *= .14+.86*ss(0, r.L*.08, r.L-s);
+      acc += 1/Math.max(.05, v); TS[i] = acc; }
+    const k = (T_TRAVEL-T_FLY)/acc; for (let i = 0; i < M; i++) TS[i] *= k;
+    return { sOfT(t) { const x = t-T_FLY; if (x <= 0) return 0; if (x >= TS[M-1]) return r.L;
+        let lo = 0, hi = M-1; while (hi-lo > 1) { const m = (lo+hi)>>1; if (TS[m] < x) lo = m; else hi = m; }
+        return Math.min(r.L, lo+(x-TS[lo])/((TS[hi]-TS[lo]) || 1)); },
+      tOfS(s) { return T_FLY+TS[Math.min(M-1, Math.max(0, Math.round(s)))]; } };
+  }
+  const PR = RT.map((r, i) => profile(r, STEPS[i].slice(i === 0 ? 1 : 0)));   // route 1 doesn't slow down at 100 айл
 
   // ---------- stage size: wide screens keep north up, tall phones turn the map so east (the club) is up ----------
   let SW = 0, SH = 0, PORT = false, FF = 1, PERSP = 1600, FS = 1, PIN = 64, DPR = 1, B0 = 0;
   const fxc = $('rfx'), fx = fxc.getContext('2d');
   const hdr = $('rhead'), hParts = ['rh1','rh2','rh3'].map($), nav = $('rnav'), hint = $('rhint'), dim = $('rdim'), end = $('rend');
   const eParts = ['rlogoB','re1','re2','re3','re4','re5'].map($);
-  const rnState = $('rnState'), rnMsg = $('rnMsg'), rnBar = $('rnBar'), fog = stage.querySelector('.rfog');
-  const dPin = $('rDestPin'), dChip = $('rDestChip'), rings = [0,1,2].map(i => $('rring'+i));
+  const fog = stage.querySelector('.rfog'), dPin = $('rDestPin'), dChip = $('rDestChip'), rings = [...stage.querySelectorAll('.rring')];
+  const pinsEl = [...stage.querySelectorAll('.rstart')], chipsEl = [...stage.querySelectorAll('.rschip')], ballsEl = [...stage.querySelectorAll('.rball')];
+  const LANES = [...stage.querySelectorAll('.lane')].map((ln, i) => ({st:[...ln.querySelectorAll('.st')], ic:[...ln.querySelectorAll('.ic')], bars:[...stage.querySelectorAll('.lbars.rt'+(i+1)+' i')], left:ln.querySelector('.ldist')}));
+
+  // the free area between the header card and the routes card; nv = how much of the routes card is showing
+  function area(nv) {
+    const px = SW < 640 ? 18 : 44;
+    return {x0:px, x1:SW-px, y0:hdr.offsetTop+hdr.offsetHeight+PIN*1.15+10, y1:lerp(SH-64, nav.offsetTop-14, nv)};
+  }
+  // screen position of a map point for a camera (same maths as the CSS transform below)
+  function scr(c, ux, uy) {
+    const b = c.bearing*Math.PI/180, p = c.pitch*Math.PI/180;
+    const x = (ux-c.cx)*c.zoom, y = (uy-c.cy)*c.zoom;
+    const x1 = x*Math.cos(b)-y*Math.sin(b), y1 = x*Math.sin(b)+y*Math.cos(b);
+    const X = c.ax+x1, Y = c.ay+y1*Math.cos(p), Z = y1*Math.sin(p), w = 1-Z/PERSP;
+    return [SW/2+(X-SW/2)/w, SH/2+(Y-SH/2)/w];
+  }
+  // the largest zoom (≤ zmax) that fits all points into the free area, centred in it
+  function fit(pts, pitch, bearing, zmax, A) {
+    let cx = 0, cy = 0; for (const p of pts) { cx += p[0]; cy += p[1]; } cx /= pts.length; cy /= pts.length;
+    const sx = (A.x0+A.x1)/2, sy = (A.y0+A.y1)/2, ay = SH*.52;
+    let lo = .03, hi = zmax, best = null;
+    for (let it = 0; it < 16; it++) {
+      const z = (lo+hi)/2, c = {cx, cy, zoom:z, pitch, bearing, ax:SW/2, ay};
+      let bx0, by0, bx1, by1;
+      for (let k = 0; k < 4; k++) {
+        bx0 = 1e9; by0 = 1e9; bx1 = -1e9; by1 = -1e9;
+        for (const p of pts) { const q = scr(c, p[0], p[1]); bx0 = Math.min(bx0,q[0]); by0 = Math.min(by0,q[1]); bx1 = Math.max(bx1,q[0]); by1 = Math.max(by1,q[1]); }
+        // move the centre so the box sits in the middle of the free area (screen offset turned back into map units)
+        const ex = (bx0+bx1)/2-sx, ey = ((by0+by1)/2-sy)/Math.cos(pitch*Math.PI/180), br = bearing*Math.PI/180;
+        c.cx += (ex*Math.cos(br)+ey*Math.sin(br))/z; c.cy += (-ex*Math.sin(br)+ey*Math.cos(br))/z;
+      }
+      if ((bx1-bx0) <= A.x1-A.x0 && (by1-by0) <= A.y1-A.y0) { best = {...c}; lo = z; } else hi = z;
+    }
+    return best || {cx, cy, zoom:lo, pitch, bearing, ax:SW/2, ay};
+  }
+  const ALLPTS = D.routes.flat().filter((_, i) => i%6 === 0);
+  const mix = (a,b,u) => ({cx:lerp(a.cx,b.cx,u), cy:lerp(a.cy,b.cy,u), zoom:Math.exp(lerp(Math.log(a.zoom),Math.log(b.zoom),u)), pitch:lerp(a.pitch,b.pitch,u), bearing:lerp(a.bearing,b.bearing,u), ax:lerp(a.ax,b.ax,u), ay:lerp(a.ay,b.ay,u)});
+  let OV, OUT, ARR, FCAM = [];
+  const FDT = .05, FN = Math.ceil((T_TRAVEL-T_FLY)/FDT)+1;
   function measure() {
     SW = stage.clientWidth; SH = stage.clientHeight; if (!SW || !SH) return false;
     PORT = SW < SH*.92; B0 = PORT ? -90 : 0;
@@ -2531,43 +2634,35 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     PIN = parseFloat(getComputedStyle(stage).getPropertyValue('--pin')) || 64;
     DPR = Math.min(2, devicePixelRatio || 1);
     fxc.width = Math.round(SW*DPR); fxc.height = Math.round(SH*DPR);
+    // cameras for this stage size: overview, pull-out, arrival, and the smoothed follow camera
+    const A0 = area(0), A1 = area(1);
+    OV = fit(ALLPTS, PORT ? 26 : 6, B0, 3*FF, A0);
+    OUT = fit(ALLPTS, PORT ? 30 : 24, B0-5, 3*FF, A0);
+    ARR = {cx:DEST[0]-6, cy:DEST[1]+10, zoom:4.2*FF, pitch:40, bearing:B0-8, ax:SW/2, ay:(A1.y0+A1.y1)/2+PIN*.4};
+    const raw = [];
+    for (let i = 0; i < FN; i++) {
+      const t = T_FLY+i*FDT, u = i/(FN-1), pts = [];
+      RT.forEach((r, k) => { const s = PR[k].sOfT(t); pts.push([r.X[Math.round(s)], r.Y[Math.round(s)]], at(r, s+40)); });
+      pts.push(DEST);
+      raw.push(fit(pts, 30+12*ss(.45,1,u), B0-3+5*Math.sin(u*Math.PI), 3.4*FF, A1));
+    }
+    FCAM = raw.map((_, i) => { let cx = 0, cy = 0, lz = 0, pt = 0, br = 0, ay = 0, ws = 0;
+      for (let k = -16; k <= 16; k++) { const j = clamp(i+k, 0, FN-1), w = Math.exp(-k*k/90), c = raw[j]; cx += c.cx*w; cy += c.cy*w; lz += Math.log(c.zoom)*w; pt += c.pitch*w; br += c.bearing*w; ay += c.ay*w; ws += w; }
+      return {cx:cx/ws, cy:cy/ws, zoom:Math.exp(lz/ws), pitch:pt/ws, bearing:br/ws, ax:SW/2, ay:ay/ws}; });
     return true;
   }
-
-  // ---------- camera: fit a set of points into the free area between the two cards ----------
-  let NAVV = 1; // how much of the routes card is on screen (0 → 1): the free area grows while it is hidden
-  function area() {
-    const px = SW < 640 ? 22 : 56;
-    return {x0:px, x1:SW-px, y0:hdr.offsetTop+hdr.offsetHeight+PIN*1.25+14, y1:lerp(SH-24, nav.offsetTop-18, NAVV)};
-  }
-  function fit(pts, pitch, bearing, zMax) {
-    const A = area(), b = bearing*Math.PI/180, cb = Math.cos(b), sb = Math.sin(b);
-    let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
-    for (const p of pts) { const rx = p[0]*cb-p[1]*sb, ry = p[0]*sb+p[1]*cb; if (rx < x0) x0 = rx; if (rx > x1) x1 = rx; if (ry < y0) y0 = ry; if (ry > y1) y1 = ry; }
-    const z = Math.min(zMax, (A.x1-A.x0)/Math.max(30, x1-x0), (A.y1-A.y0)/Math.max(30, (y1-y0)*Math.cos(pitch*Math.PI/180))) * (PORT ? .9 : .94);
-    const rcx = (x0+x1)/2, rcy = (y0+y1)/2;
-    return {cx:rcx*cb+rcy*sb, cy:-rcx*sb+rcy*cb, z, pitch, bearing, ax:(A.x0+A.x1)/2, ay:(A.y0+A.y1)/2};
-  }
-  // phones tilt the overview a little more so the long, narrow map fills the tall screen
-  const overview = (pitch, bd) => fit(ALL, PORT ? pitch+26 : pitch, B0+bd, 99);
-  function travelCam(x) {
-    const u = .5-.5*Math.cos(Math.PI*x), pts = [[DEST[0]-42, DEST[1]-42], [DEST[0]+42, DEST[1]+42]];
-    for (const r of R) { const s = u*r.L; pts.push(at(r, s), at(r, s+.3*(r.L-s))); }
-    return fit(pts, lerp(12, 40, ss(0,1,x)), B0+lerp(-2,-6,x), 3.3*FF);
-  }
-  function arrCam() { const A = area(); return {cx:DEST[0], cy:DEST[1]+(PORT?0:8), z:4.2*FF, pitch:40, bearing:B0+(PORT?-6:-10), ax:SW/2, ay:(A.y0+A.y1)/2+24}; }
-  const mix = (a,b,u) => ({cx:lerp(a.cx,b.cx,u), cy:lerp(a.cy,b.cy,u), z:Math.exp(lerp(Math.log(a.z),Math.log(b.z),u)), pitch:lerp(a.pitch,b.pitch,u), bearing:lerp(a.bearing,b.bearing,u), ax:lerp(a.ax,b.ax,u), ay:lerp(a.ay,b.ay,u)});
+  const followCam = t => { const f = clamp((t-T_FLY)/FDT, 0, FN-1), i = Math.min(FN-2, Math.floor(f)); return mix(FCAM[i], FCAM[i+1], f-i); };
   function camAt(t) {
-    if (t < T_INTRO) { const u = t/T_INTRO, c = overview(6*u, -2*u); c.z *= 1+.04*eio(u); return c; }
-    if (t < T_FLY) { const a = overview(6, -2); a.z *= 1.04; return mix(a, travelCam(0), eio((t-T_INTRO)/(T_FLY-T_INTRO))); }
-    if (t < T_TRAVEL) return travelCam((t-T_FLY)/(T_TRAVEL-T_FLY));
-    if (t < T_ARRIVE) { const v = (t-T_TRAVEL)/(T_ARRIVE-T_TRAVEL); const c = mix(travelCam(1), arrCam(), eio(v)); c.bearing -= 4*v; return c; }
-    if (t < T_PULL) { const a = arrCam(); a.bearing -= 4; return mix(a, overview(24, -6), eio((t-T_ARRIVE)/(T_PULL-T_ARRIVE))); }
-    const u = (t-T_PULL)/(DUR-T_PULL), o = overview(24, -6-3*u); o.z *= 1+.03*u; return o;
+    if (t < T_INTRO) { const u = t/T_INTRO; return {...OV, zoom:OV.zoom*(1+.04*eio(u)), pitch:OV.pitch+3*u, bearing:OV.bearing-2*u}; }
+    if (t < T_FLY) { const u = eio((t-T_INTRO)/(T_FLY-T_INTRO)); return mix({...OV, zoom:OV.zoom*1.04, pitch:OV.pitch+3, bearing:OV.bearing-2}, followCam(T_FLY), u); }
+    if (t < T_TRAVEL) return followCam(t);
+    if (t < T_ARRIVE) { const v = (t-T_TRAVEL)/(T_ARRIVE-T_TRAVEL), c = mix(followCam(T_TRAVEL), ARR, eio(v)); c.bearing -= 6*v; return c; }
+    if (t < T_PULL) return mix({...ARR, bearing:ARR.bearing-6}, OUT, eio((t-T_ARRIVE)/(T_PULL-T_ARRIVE)));
+    const u = (t-T_PULL)/(DUR-T_PULL); return {...OUT, bearing:OUT.bearing-3*u, zoom:OUT.zoom*(1+.03*u)};
   }
   let MAT = new DOMMatrix();
   function applyCam(c) {
-    const s = c.z/SC;
+    const s = c.zoom/SC;
     MAT = new DOMMatrix().translateSelf(c.ax, c.ay, 0).rotateSelf(c.pitch,0,0).rotateSelf(0,0,c.bearing).scaleSelf(s,s,1).translateSelf(-c.cx*SC, -c.cy*SC, 0);
     cam.style.transform = MAT.toString();
     return s;
@@ -2577,102 +2672,137 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
   // ---------- helpers ----------
   const place = (el,x,y,sc=1,rot=0,op=1) => { el.style.transform = `translate(${x.toFixed(2)}px,${y.toFixed(2)}px) rotate(${rot.toFixed(2)}deg) scale(${sc.toFixed(4)})`; el.style.opacity = op.toFixed(3); };
   function rng(seed) { return () => { seed |= 0; seed = seed+0x6D2B79F5|0; let t = Math.imul(seed^seed>>>15, 1|seed); t = t+Math.imul(t^t>>>7, 61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
-  const RN = rng(7), CONF = [], CCOL = ['#F5B700','#2453C9','#D8313F','#ffffff','#1E8C4E','#F07F1D','#7A4FC0'];
-  for (let i = 0; i < 110; i++) { const a = -Math.PI/2+(RN()-.5)*Math.PI*1.25, sp = 380+RN()*620; CONF.push({vx:Math.cos(a)*sp, vy:Math.sin(a)*sp, c:CCOL[i%CCOL.length], w:6+RN()*8, h:4+RN()*6, rot:RN()*6.28, vr:(RN()-.5)*14, delay:RN()*.18, life:1.6+RN()*.8, wob:RN()*6.28, round:i%4===0}); }
-  const tX = x => T_FLY + (T_TRAVEL-T_FLY)*x, OVW = [T_ARRIVE+.1, T_PULL+.2];
+  const RN = rng(7), CONF = [], CCOL = ['#F5B700','#2E6FE0','#D8313F','#ffffff','#2FA36B','#F07F1D','#7A4FC0'];
+  for (let i = 0; i < 130; i++) { const a = -Math.PI/2+(RN()-.5)*Math.PI*1.25, sp = 380+RN()*620; CONF.push({vx:Math.cos(a)*sp, vy:Math.sin(a)*sp, c:CCOL[i%CCOL.length], w:6+RN()*8, h:4+RN()*6, rot:RN()*6.28, vr:(RN()-.5)*14, delay:RN()*.18, life:1.6+RN()*.8, wob:RN()*6.28, round:i%4===0}); }
+  const OVW = [T_ARRIVE+.1, T_PULL+.2], [R0, R1, R2] = RT, [P0, P1, P2] = PR;
+  const seg = (r, s0, s1) => [at(r, s0), at(r, s1)];
   const labels = [
-    {el:$('rlb0'), a:[585,353], b:[705,343], off:24, win:[[.8, tX(.8)], OVW]},
-    {el:$('rlb3'), a:[420,201.2], b:[540,184.8], off:24, win:[[.8, tX(.75)], OVW]},
-    {el:$('rlb4'), a:[200,-31.2], b:[340,-31.6], off:22, win:[[.8, tX(.6)], OVW]},
-    {el:$('rlb1'), a:[846,262], b:[837,205], off:34, win:[[tX(.35), T_TRAVEL+.6], OVW]},
-    {el:$('rlb2'), a:[875,226], b:[935,226], off:0, win:[[tX(.8), T_PULL+.2]]},
+    {el:$('rlbRing'),  ab:() => seg(R0, R0.near([330,-48]), R0.near([440,-52])), off:26,  win:[[T_FLY+.2, P0.tOfS(STEPS[0][0]+60)]]},
+    {el:$('rlbPeace'), ab:() => seg(R2, R2.near([440,370]), R2.near([580,355])), off:-30, win:[[T_FLY+.2, P2.tOfS(STEPS[2][0]-60)], OVW]},
+    {el:$('rlbBeij'),  ab:() => seg(R1, R1.near([450,196]), R1.near([570,183])), off:26,  win:[[T_FLY+.2, P1.tOfS(STEPS[1][0]-80)], OVW]},
+    {el:$('rlbIkh'),   ab:() => [[846,262],[837,205]], off:40, win:[[P2.tOfS(STEPS[2][0]-120), T_TRAVEL+.6], OVW]},
+    {el:$('rlbS'),     ab:() => [[880,228],[940,228]], off:0,  win:[[T_TRAVEL-3, T_PULL+.2]]},
   ];
-  let lastSt = -1;
+  const pois = [
+    {el:$('rpoiAil'),  p:D.poi.ail100, win:[1.3, T_PULL]},
+    {el:$('rpoiGas0'), p:D.poi.gas[0], win:[1.5, T_PULL]},
+    {el:$('rpoiGas1'), p:D.poi.gas[1], win:[1.6, T_PULL]},
+    {el:$('rpoiGas2'), p:D.poi.gas[2], win:[1.6, T_PULL]},
+    {el:$('rpoiGas3'), p:D.poi.gas[3], win:[1.6, T_PULL]},
+  ];
+  const NAV = [
+    [2.35, T_FLY+.15, P0.tOfS(STEPS[0][0]-20), P0.tOfS(STEPS[0][1]-30), T_TRAVEL],
+    [2.35, T_FLY+.15, P1.tOfS(STEPS[1][0]-25), T_TRAVEL],
+    [2.35, T_FLY+.15, P2.tOfS(STEPS[2][0]-25), T_TRAVEL]];
+
+  function setRoute(i, sv, k, t, gp, now) {
+    const r = RT[i], Lr = LAY[i];
+    Lr.ghost.setAttribute('stroke-width', (4*k).toFixed(2));
+    Lr.ghost.setAttribute('stroke-dasharray', `${(10*k).toFixed(2)} ${(11*k).toFixed(2)}`);
+    Lr.ghost.setAttribute('stroke-dashoffset', (-now*24*k).toFixed(2));
+    Lr.ghost.setAttribute('d', pathD(r, 0, gp*r.L));
+    Lr.ghost.style.opacity = (ss(.35,1.9,t)*(1-.35*ss(T_TRAVEL,T_ARRIVE,t))).toFixed(3);
+    Lr.comet.setAttribute('stroke-width', (8*k).toFixed(2));
+    Lr.comet.setAttribute('d', pathD(r, gp*r.L-80, gp*r.L));
+    Lr.comet.style.opacity = win(t,.45,2.0,.15,.35).toFixed(3);
+    const d = pathD(r, 0, sv);
+    for (const [n, w] of [['glow',30],['mid',16],['core',8],['hi',2.4]]) { Lr[n].setAttribute('stroke-width', (w*k).toFixed(2)); Lr[n].setAttribute('d', d); }
+    Lr.glow.setAttribute('stroke-opacity', (.16+.06*Math.sin(now*4+i)+.12*ss(T_TRAVEL,T_ARRIVE,t)).toFixed(3));
+  }
+  function setLane(Ln, states, t, sv, legs, total) {
+    let cur = 0; for (let i = 0; i < states.length; i++) if (t >= states[i]) cur = i;
+    Ln.st.forEach((el, i) => { let o = 0, y = 0;
+      if (i === cur) { const u = eout(clamp((t-states[i])/.45)); o = i === 0 ? 1 : u; y = i === 0 ? 0 : 12*(1-u); }
+      else if (i === cur-1) { const u = eout(clamp((t-states[cur])/.3)); o = 1-u; y = -12*u; }
+      el.style.opacity = o.toFixed(3); el.style.transform = `translateY(${y.toFixed(1)}px)`; });
+    Ln.ic.forEach((el, i) => { let o = 0, sc = 1;
+      if (i === cur) { const u = clamp((t-states[i])/.4); o = i === 0 ? 1 : eout(u); sc = i === 0 ? 1 : .6+.4*eback(u); }
+      else if (i === cur-1) { const u = clamp((t-states[cur])/.25); o = 1-u; sc = 1-.3*u; }
+      el.style.opacity = o.toFixed(3); el.style.transform = `scale(${sc.toFixed(3)})`; });
+    Ln.bars.forEach((b, i) => { b.style.width = (clamp((sv-legs[i])/(legs[i+1]-legs[i]))*100).toFixed(2)+'%'; });
+    const txt = sv >= total-.5 ? '✓' : mm(total-sv); if (Ln.left.textContent !== txt) Ln.left.textContent = txt;
+  }
 
   // ---------- one frame: t = story time from scroll, now = wall clock for the gentle pulses ----------
   function render(t, now) {
     t = clamp(t, 0, DUR);
-    const nu = eout(clamp((t-2.2)/.6)), nOut = 1-ss(T_PULL-.5,T_PULL,t); NAVV = nu*nOut;
-    const c = camAt(t), s = applyCam(c), k = (.7+.3*FS)/s, u = t < T_FLY ? 0 : prog(t), A = area(), topLim = hdr.offsetTop+hdr.offsetHeight+6;
-    fog.style.opacity = (.25 + .75*c.pitch/56).toFixed(3);
-
-    // routes: dashed preview + comet first, then each colour fills in behind its ball
-    R.forEach((r, i) => {
-      const t0 = .45+i*.14, gp = eio(clamp((t-t0)/1.45)), dA = 9*k, dB = 10*k;
-      r.gh.setAttribute('stroke-width', (3.6*k).toFixed(2));
-      if (gp < 1) { const Rv = gp*r.L4, per = dA+dB, n = Math.floor(Rv/per), rem = Rv-n*per, parts = [];
-        for (let q = 0; q < n; q++) parts.push(dA.toFixed(2), dB.toFixed(2));
-        parts.push(Math.min(rem,dA).toFixed(2), (r.L4*2+per).toFixed(1));
-        r.gh.setAttribute('stroke-dasharray', parts.join(' ')); r.gh.setAttribute('stroke-dashoffset', '0');
-      } else { r.gh.setAttribute('stroke-dasharray', `${dA.toFixed(2)} ${dB.toFixed(2)}`); r.gh.setAttribute('stroke-dashoffset', (-now*24*k).toFixed(2)); }
-      r.gh.style.opacity = (ss(t0-.1, t0+1.4, t)*(1-.4*ss(T_TRAVEL,T_ARRIVE,t))).toFixed(3);
-      const cl = 300;
-      r.cm.setAttribute('stroke-width', (7*k).toFixed(2));
-      r.cm.setAttribute('stroke-dasharray', `${cl} ${r.L4+cl}`);
-      r.cm.setAttribute('stroke-dashoffset', (-(gp*r.L4-cl)).toFixed(1));
-      r.cm.style.opacity = win(t, t0, t0+1.55, .15, .35).toFixed(3);
-      const tr = u*r.L4;
-      for (const [el, w] of r.trail) { el.setAttribute('stroke-width', (w*k).toFixed(2)); el.setAttribute('stroke-dasharray', `${r.L4} ${r.L4}`); el.setAttribute('stroke-dashoffset', (r.L4-tr).toFixed(1)); el.style.opacity = tr > 1 ? 1 : 0; }
-      r.trail[0][0].setAttribute('stroke-opacity', (.16 + .06*Math.sin(now*4+i) + .1*ss(T_TRAVEL,T_ARRIVE,t)).toFixed(3));
-    });
+    const c = camAt(t), s = applyCam(c), k = (.7+.3*FS)/s;
+    OFF = 6.2*(.7+.3*FS)/c.zoom;
+    const SV = PR.map(p => t < T_FLY ? 0 : p.sOfT(t)), gp = eio(clamp((t-.45)/1.45));
+    [2,1,0].forEach(i => setRoute(i, SV[i], k, t, gp, now));
+    fog.style.opacity = (.2+.7*c.pitch/56).toFixed(3);
+    const nv = eout(clamp((t-2.2)/.6))*(1-ss(T_PULL-.5,T_PULL,t)), A = area(nv), topLim = hdr.offsetTop+hdr.offsetHeight+6;
 
     // street names follow their streets
     for (const lb of labels) {
       let o = 0; for (const w of lb.win) o = Math.max(o, win(t,w[0],w[1],.5,.5));
-      if (o <= 0) { lb.el.style.opacity = 0; continue; }
-      const A = proj(lb.a), B = proj(lb.b); let dx = B[0]-A[0], dy = B[1]-A[1]; let ang = Math.atan2(dy,dx)*180/Math.PI;
+      if (o <= .001) { lb.el.style.opacity = 0; continue; }
+      const [a, b] = lb.ab(), P = proj(a), Q = proj(b); let dx = Q[0]-P[0], dy = Q[1]-P[1]; let ang = Math.atan2(dy,dx)*180/Math.PI;
       if (ang > 90) { ang -= 180; dx = -dx; dy = -dy; } if (ang < -90) { ang += 180; dx = -dx; dy = -dy; }
-      const l = Math.hypot(dx,dy) || 1, off = lb.off*FS, mx = (A[0]+B[0])/2+dy/l*off, my = (A[1]+B[1])/2-dx/l*off;
-      const w = lb.el.offsetWidth, h = lb.el.offsetHeight, sc = clamp(.85+.18*(A[2]-1)*3, .8, 1.15);
+      const l = Math.hypot(dx,dy) || 1, off = lb.off*FS, mx = (P[0]+Q[0])/2+dy/l*off, my = (P[1]+Q[1])/2-dx/l*off;
+      const w = lb.el.offsetWidth, h = lb.el.offsetHeight, sc = clamp(.85+.18*(P[2]-1)*3, .8, 1.15);
       lb.el.style.transform = `translate(${(mx-w/2).toFixed(1)}px,${(my-h/2).toFixed(1)}px) rotate(${ang.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
       lb.el.style.opacity = o.toFixed(3);
     }
+    // points of interest along route 1
+    for (const pi of pois) {
+      const o = win(t, pi.win[0], pi.win[1], .5, .5); if (o <= .001) { pi.el.style.opacity = 0; continue; }
+      const P = proj(pi.p), h = pi.el.offsetHeight, ic = pi.el.firstElementChild.offsetWidth, sc = clamp(.8+.2*(P[2]-1)*3, .75, 1.1);
+      place(pi.el, P[0]-ic/2*sc, P[1]-h/2, sc, 0, o);
+    }
 
-    // three start pins; their chips sit on the side away from the other two
-    const SPs = R.map(r => proj(r.start)), mx0 = (SPs[0][0]+SPs[1][0]+SPs[2][0])/3, my0 = (SPs[0][1]+SPs[1][1]+SPs[2][1])/3;
-    R.forEach((r, i) => {
-      const SP = SPs[i], t0 = .9+i*.14, drop = t < t0 ? 0 : ebounce(clamp((t-t0)/.7));
-      place(r.pin, SP[0], SP[1]-(1-drop)*60*FS, .3+.7*drop, 0, ss(t0, t0+.5, t));
-      const cin = eout(clamp((t-1.35-i*.12)/.5)), op = Math.max(cin*(1-ss(4.9,5.5,t)), win(t, T_ARRIVE+.2, T_PULL+.3, .4, .5));
-      if (op <= 0) { r.chip.style.opacity = 0; return; }
+    // three start pins; their chips sit on the side away from the other two, clear of the cards
+    const SPs = RT.map(r => proj([r.X[0], r.Y[0]])), mx0 = (SPs[0][0]+SPs[1][0]+SPs[2][0])/3, my0 = (SPs[0][1]+SPs[1][1]+SPs[2][1])/3;
+    const chipOut = 1-ss(T_FLY+1.4, T_FLY+2.0, t), placed = [];
+    RT.forEach((r, i) => {
+      const SP = SPs[i], t0 = .9+i*.1, drop = t < t0 ? 0 : ebounce(clamp((t-t0)/.7));
+      place(pinsEl[i], SP[0], SP[1]-(1-drop)*60*FS, .3+.7*drop, 0, ss(t0, t0+.6, t));
+      const ch = chipsEl[i], cin = eout(clamp((t-1.35-i*.1)/.5)), op = cin*chipOut;
+      if (op <= 0) { ch.style.opacity = 0; return; }
       let dx = SP[0]-mx0, dy = SP[1]-my0; const dl = Math.hypot(dx,dy); if (dl < 1) { dx = 0; dy = 1; } else { dx /= dl; dy /= dl; }
-      const cw = r.chip.offsetWidth, ch = r.chip.offsetHeight;
-      let cx = clamp(SP[0]+dx*(cw/2+16)-cw/2, 8, SW-cw-8), cy = clamp(SP[1]+dy*(ch/2+16)-ch/2, topLim, A.y1-ch);
-      // kept clear of the cards; if that pushed the chip onto its own pin, put it beside the pin instead
-      if (SP[0] > cx-14 && SP[0] < cx+cw+14 && SP[1] > cy-14 && SP[1] < cy+ch+14) { cx = clamp(SP[0]+(SP[0] > SW/2 ? -cw-18 : 18), 8, SW-cw-8); cy = clamp(SP[1]-ch/2, topLim, A.y1-ch); }
-      place(r.chip, cx, cy+(1-cin)*10, 1, 0, op);
+      const cw = ch.offsetWidth, chh = ch.offsetHeight;
+      // candidate spots: away from the other two starts, then right / left / above / below the pin;
+      // the first one that stays clear of the cards, of its own pin and of the chips already placed wins
+      const cands = [[SP[0]+dx*(cw/2+16)-cw/2, SP[1]+dy*(chh/2+16)-chh/2], [SP[0]+18, SP[1]-chh/2], [SP[0]-cw-18, SP[1]-chh/2], [SP[0]-cw/2, SP[1]-chh-18], [SP[0]-cw/2, SP[1]+18]];
+      let best = null;
+      for (const [x0, y0] of cands) {
+        const cx = clamp(x0, 8, SW-cw-8), cy = clamp(y0, topLim, A.y1-chh);
+        const onPin = SP[0] > cx-12 && SP[0] < cx+cw+12 && SP[1] > cy-12 && SP[1] < cy+chh+12;
+        const hit = placed.some(q => cx < q[0]+q[2]+6 && cx+cw+6 > q[0] && cy < q[1]+q[3]+6 && cy+chh+6 > q[1]);
+        if (!onPin && !hit) { best = [cx, cy]; break; }
+        if (!best) best = [cx, cy];
+      }
+      placed.push([best[0], best[1], cw, chh]);
+      place(ch, best[0], best[1]+(1-cin)*10, 1, 0, op);
     });
 
     // destination pin + chip
     const DP = proj(DEST), dpT = 1.15, dDrop = t < dpT ? 0 : ebounce(clamp((t-dpT)/.75));
     const arrB = t > T_TRAVEL ? 1+.18*Math.sin(clamp((t-T_TRAVEL)/.5)*Math.PI)*Math.exp(-(t-T_TRAVEL)*1.5) : 1;
     const dsc = clamp(.85+.25*(DP[2]-1)*3, .85, 1.25)*arrB;
-    place(dPin, DP[0], DP[1]-(1-dDrop)*90*FS, dsc*(t < dpT ? 0 : 1), 0, ss(dpT,dpT+.25,t));
+    place(dPin, DP[0], DP[1]-(1-dDrop)*90*FS, dsc*(t < dpT ? 0 : 1), 0, ss(dpT, dpT+.25, t));
     const dw = dChip.offsetWidth, dh = dChip.offsetHeight, dIn = eout(clamp((t-1.65)/.5));
-    let dcx = clamp(DP[0]-dw/2, 10, SW-dw-10), dcy = DP[1]-PIN*1.22*dsc-dh-10;
-    // under the header there is no room above the pin: put the chip beside it
-    if (dcy < topLim) { dcy = clamp(DP[1]-PIN*.7*dsc-dh/2, topLim, SH-dh-8); dcx = DP[0] > SW/2 ? DP[0]-PIN*.5-dw-10 : DP[0]+PIN*.5+10; dcx = clamp(dcx, 10, SW-dw-10); }
+    let dcx = DP[0]+PIN*.4, dcy = DP[1]-PIN*1.22*dsc-dh*.55;
+    if (dcx+dw > SW-8) dcx = DP[0]-PIN*.4-dw;
+    dcx = clamp(dcx, 8, SW-dw-8); dcy = clamp(dcy, topLim, SH-dh-8);
     const dEdge = clamp((SW+40-DP[0])/60)*clamp((DP[0]+40)/60)*clamp((DP[1]+20)/40);
     place(dChip, dcx, dcy+(1-dIn)*14, 1, 0, dIn*dEdge);
 
     // ripples around the club
     rings.forEach((rg, i) => {
-      let o = 0, R0 = 0; const t0 = T_TRAVEL+.05+i*.32;
-      if (t > t0 && t < t0+1.6) { const q = (t-t0)/1.6; R0 = (20+150*eout(q))*FS; o = (1-q)*.85; }
-      else if (t > 1.9 && t < T_TRAVEL && !reduce) { const per = 2.2, ph = ((now-i*.73)%per+per)%per/per; R0 = (14+52*eout(ph))*FS; o = (1-ph)*.45*ss(1.9,2.6,t); }
-      rg.style.width = rg.style.height = (2*R0)+'px';
-      rg.style.transform = `translate(${(DP[0]-R0).toFixed(1)}px,${(DP[1]-R0*.45).toFixed(1)}px) scaleY(.45)`;
+      let o = 0, R0_ = 0; const t0 = T_TRAVEL+.05+i*.32;
+      if (t > t0 && t < t0+1.6) { const q = (t-t0)/1.6; R0_ = (20+150*eout(q))*FS; o = (1-q)*.85; }
+      else if (t > 1.9 && t < T_TRAVEL && !reduce) { const per = 2.2, ph = ((now-i*.73)%per+per)%per/per; R0_ = (14+52*eout(ph))*FS; o = (1-ph)*.45*ss(1.9,2.6,t); }
+      rg.style.width = rg.style.height = (2*R0_)+'px';
+      rg.style.transform = `translate(${(DP[0]-R0_).toFixed(1)}px,${(DP[1]-R0_*.45).toFixed(1)}px) scaleY(.45)`;
       rg.style.transformOrigin = '50% 50%'; rg.style.opacity = o.toFixed(3);
     });
 
     // the balls roll along their routes and drop into the 8-ball pin together
-    R.forEach((r, i) => {
-      const sv = u*r.L, P = proj(at(r, sv)), t0 = 3.0+i*.08;
-      const sink = ss(T_TRAVEL-.12, T_TRAVEL+.35, t);
-      place(r.ball, P[0], P[1], clamp(eback(clamp((t-t0)/.45)))*(1-.6*sink), 0, clamp((t-t0)/.2)*(1-ss(T_TRAVEL+.1,T_TRAVEL+.4,t)));
-      r.num.style.transform = `rotate(${((sv*7)%360).toFixed(1)}deg)`;
-      const hp = reduce ? .3 : (now*1.1+i*.33)%1; r.halo.style.transform = `scale(${(1+1.3*hp).toFixed(3)})`; r.halo.style.opacity = ((1-hp)*.8).toFixed(3);
-    });
+    const mIn = eback(clamp((t-3.0)/.45)), sink = ss(T_TRAVEL-.12, T_TRAVEL+.35, t), mOut = 1-ss(T_TRAVEL+.1, T_TRAVEL+.45, t);
+    RT.forEach((r, i) => { const MP = proj(at(r, SV[i])), m = ballsEl[i];
+      place(m, MP[0], MP[1], clamp(mIn)*(1-.55*sink), 0, clamp((t-3.0)/.2)*mOut);
+      const hp = reduce ? .3 : (now*1.1+i*.33)%1, halo = m.firstElementChild; halo.style.transform = `scale(${(1+1.4*hp).toFixed(3)})`; halo.style.opacity = ((1-hp)*.8).toFixed(3); });
 
     // confetti on arrival
     fx.setTransform(DPR,0,0,DPR,0,0); fx.clearRect(0,0,SW,SH);
@@ -2691,13 +2821,10 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     hParts.forEach((el,i) => { const q = eout(clamp((t-.35-i*.12)/.6)); el.style.transform = `translateY(${(12*(1-q)).toFixed(1)}px)`; el.style.opacity = q.toFixed(3); });
     hint.style.opacity = (1-ss(.2,1.4,t)).toFixed(3);
 
-    // routes card: remaining distance for each start point
+    // navigation card: a lane per route
+    const nu = eout(clamp((t-2.2)/.6)), nOut = 1-ss(T_PULL-.5,T_PULL,t);
     nav.style.transform = `translateY(${(50*(1-nu)+26*(1-nOut)).toFixed(1)}px)`; nav.style.opacity = (nu*nOut).toFixed(3);
-    const st = t < T_FLY ? 0 : t < T_TRAVEL ? 1 : 2;
-    if (st !== lastSt) { lastSt = st; rnState.textContent = ['ЭХЛЭЛ','ЗАМДАА','ИРЛЭЭ'][st]; rnMsg.textContent = st === 2 ? 'Бүгд Metro Pool Club-д ирлээ!' : 'Гурван цэгээс Metro Pool Club руу'; }
-    const unit = root.lang === 'en' ? ' km' : ' км';
-    for (const r of R) { const txt = st === 2 ? '✓' : ((1-u)*r.L*M_PER_UNIT/1000).toFixed(1) + unit; if (r.kmEl.textContent !== txt) r.kmEl.textContent = txt; }
-    rnBar.style.width = (u*100).toFixed(2) + '%';
+    LANES.forEach((Ln, i) => setLane(Ln, NAV[i], t, SV[i], LEGS[i], RT[i].L));
 
     // end card: "see you soon"
     const eu = clamp((t-T_PULL+.1)/.8);
@@ -2716,13 +2843,16 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     return clamp((stTop-r.top+lead)/(total+lead)/.93)*DUR;
   }
 
-  // map image: matches the light/dark theme, smaller file on phones, loaded only when the section is near
+  // map images: match the light/dark theme, smaller files on phones, loaded only when the section is near
   let mapOn = false;
+  const imgs = [[$('rbase'), 'base'], [$('rdetail'), 'detail']];
   function setMap() {
     if (!mapOn) return;
     const dark = root.getAttribute('data-theme') === 'dark', small = Math.min(innerWidth, screen.width || innerWidth) < 760;
-    const src = `img/route-map-${dark ? 'dark' : 'light'}${small ? '-s' : ''}.webp`;
-    if (map.getAttribute('src') !== src) { map.classList.remove('ok'); map.onload = () => map.classList.add('ok'); map.src = src; }
+    for (const [im, n] of imgs) {
+      const src = `img/route-${n}-${dark ? 'dark' : 'light'}${small ? '-s' : ''}.webp`;
+      if (im.getAttribute('src') !== src) { im.classList.remove('ok'); im.onload = () => im.classList.add('ok'); im.src = src; }
+    }
   }
   new MutationObserver(setMap).observe(root, {attributes:true, attributeFilter:['data-theme']});
   const blogo = document.querySelector('.blogo');
@@ -2747,7 +2877,7 @@ html[data-vt="lang"]::view-transition-old(root),html[data-vt="lang"]::view-trans
     if (on && !running) { running = true; sized = false; last = performance.now(); requestAnimationFrame(frame); }
     else if (!on) running = false;
   }, {rootMargin:'120% 0px 120% 0px'}).observe(box);
-  addEventListener('resize', () => { sized = false; setMap(); });
+  let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { sized = false; setMap(); }, 120); });
 })();
 </script>
 </body>
